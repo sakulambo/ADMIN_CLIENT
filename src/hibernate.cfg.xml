@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+
+
+<hibernate-configuration> 
+    <session-factory> 
+        <!-- Database connection settings -->
+        <property name="connection.driver_class">com.microsoft.sqlserver.jdbc.SQLServerDriver</property>         
+        <!--<property name="connection.url">jdbc:sqlserver://tpvparatodos.database.windows.net;databaseName=TPVParaTodos</property>-->     
+        <property name="connection.url">jdbc:sqlserver://localhost:5432/TPVParaTodos</property>
+        <property name="connection.username">Eduardo</property>       
+        <property name="connection.password">Contrasenya123</property> 
+    
+        <!-- Configuracion del pool interno -->
+        <property name="connection.pool_size">1</property>
+        
+        <!-- Dialecto de la base de datos -->
+        <property name="dialect">org.hibernate.dialect.SQLServerDialect</property>   
+
+        <!-- Enable Hibernate's automatic session context management -->
+        <property name="current_session_context_class">thread</property> 
+        
+        <!-- Disable the second-level cache -->
+        <property name="cache.provider_class">org.hibernate.cache.NoCacheProvider</property> 
+
+        <!-- Echo all executed SQL to stdout -->
+        <property name="show_sql">true</property>        
+       
+        <!-- MAPPING CLASSES -->
+                 
+        <mapping class="model.pojo.Drinks"/>  
+        <mapping class="model.pojo.Foods"/>
+        <mapping class="model.pojo.Menus"/>
+        <mapping class="model.pojo.Orders"/>
+        <mapping class="model.pojo.Tables"/>
+        <mapping class="model.pojo.Waiters"/>
+        <mapping class="model.pojo.Zones"/>
+        <mapping class="model.pojo.AspNetRoles"/>
+        <mapping class="model.pojo.AspNetUserClaims"/>
+        <mapping class="model.pojo.AspNetUserLogins"/>
+        <mapping class="model.pojo.AspNetUserLoginsPK"/>
+        <mapping class="model.pojo.AspNetUsers"/>
+        <mapping class="model.pojo.MigrationHistory"/>
+        <mapping class="model.pojo.MigrationHistoryPK"/>              
+        <mapping class="model.pojo.Sysdiagrams"/>                          
+                 
+    </session-factory> 
+</hibernate-configuration>
