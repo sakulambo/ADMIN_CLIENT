@@ -6,29 +6,21 @@
 package view;
 
 import com.google.gson.Gson;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
+import controller.AddProductController;
+import controller.DeleteProductController;
+import controller.GeneralAPanelController;
+import controller.LoginController;
+import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
-import javax.swing.JScrollPane;
-import javax.swing.event.MouseInputListener;
 
 /**
  *
@@ -36,190 +28,303 @@ import javax.swing.event.MouseInputListener;
  */
 public class General_APanel extends JFrame {
 
-    private Login lg;
-    private JMenu jMenu1;
-    private JMenu jmExit;
-    private JMenu jMenu4;
-    private JMenu jMenu5;
-    private JMenu jMenu7;
-    private JMenu jMenu8;
-    private JMenuBar jmbMainBar;
-    private JMenuItem showTablesMenuItem;
-    private JMenuItem jMenuItem3;
-    private JMenuItem jMenuItem4;
-    private JMenuItem jMenuItem5;
-    private JMenuItem aboutUsOption;
-    private JMenuItem exitOption;
-    private JMenuItem jMenuItem15;
-    private JMenuItem jMenuItem16;
-    private JMenuItem jMenuItem17;
-    private JMenuItem jMenuItem9;
-    private JMenuItem jMenuItem8;
-    private JMenuItem jMenuItem10;
-    private JMenuItem addFood;
-    private JMenuItem jMenuItem12;
-    private JMenuItem jMenuItem13;
-    private JMenuItem jMenuItem14;
-    private JOptionPane alertPane;
-  
-
-    public General_APanel() throws NoSuchAlgorithmException {
+   public General_APanel() throws NoSuchAlgorithmException {
         initComponents();
+        apc = new GeneralAPanelController();
+        aprc = new AddProductController();
+        dpc = new DeleteProductController();
+        lc = new LoginController();
+
     }
 
-    private void initComponents() throws NoSuchAlgorithmException {
-        jmbMainBar = new javax.swing.JMenuBar();
-        jMenu4 = new javax.swing.JMenu();
-        jMenuItem3 = new javax.swing.JMenuItem();
-        jMenuItem8 = new javax.swing.JMenuItem();
-        showTablesMenuItem = new javax.swing.JMenuItem();
-        jMenu8 = new javax.swing.JMenu();
-        jMenuItem16 = new javax.swing.JMenuItem();
-        jMenuItem15 = new javax.swing.JMenuItem();
-        jMenuItem17 = new javax.swing.JMenuItem();
-        jMenu5 = new javax.swing.JMenu();
-        jMenuItem4 = new javax.swing.JMenuItem();
-        jMenu1 = new javax.swing.JMenu();
-        jMenuItem9 = new javax.swing.JMenuItem();
-        jMenuItem10 = new javax.swing.JMenuItem();
-        jMenu7 = new javax.swing.JMenu();
-        addFood = new javax.swing.JMenuItem();
-        jMenuItem13 = new javax.swing.JMenuItem();
-        jMenuItem12 = new javax.swing.JMenuItem();
-        jMenuItem14 = new javax.swing.JMenuItem();
-        jmExit = new javax.swing.JMenu();
-        jMenuItem5 = new javax.swing.JMenuItem();
-        aboutUsOption = new javax.swing.JMenuItem();
-        exitOption = new javax.swing.JMenuItem();
-        alertPane = new JOptionPane();
-        lg = new Login(this);
+    public GeneralAPanelController getApc() {
+        return apc;
+    }
+
+    public void setApc(GeneralAPanelController apc) {
+        this.apc = apc;
+    }
+
+   
+
+    @SuppressWarnings("unchecked")
+    
+    private void initComponents() {
+
+        jMenuItem1 = new javax.swing.JMenuItem();
+        jMenu3 = new javax.swing.JMenu();
+        jMenu6 = new javax.swing.JMenu();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jmFacturacion = new javax.swing.JMenu();
+        jmiFacturarMes = new javax.swing.JMenuItem();
+        jmiFacturarAno = new javax.swing.JMenuItem();
+        jmPersonal = new javax.swing.JMenu();
+        jmiAltaPersonal = new javax.swing.JMenuItem();
+        jmiVerPersonal = new javax.swing.JMenuItem();
+        jmiBajaPersonal = new javax.swing.JMenuItem();
+        jmMesas = new javax.swing.JMenu();
+        jmiCrearMesa = new javax.swing.JMenuItem();
+        jmiMostrarMesas = new javax.swing.JMenuItem();
+        jmiEliminarMesa = new javax.swing.JMenuItem();
+        jmMenus = new javax.swing.JMenu();
+        jmiMostrarMenu = new javax.swing.JMenuItem();
+        jmiAnadirProductoMenu = new javax.swing.JMenuItem();
+        jmProductos = new javax.swing.JMenu();
+        jmiAnadirProducto = new javax.swing.JMenuItem();
+        jmiEliminarProducto = new javax.swing.JMenuItem();
+        jmOpciones = new javax.swing.JMenu();
+        jmiAyuda = new javax.swing.JMenuItem();
+        jmiAboutUs = new javax.swing.JMenuItem();
+        jmiExit = new javax.swing.JMenuItem();
+
+        jMenuItem1.setText("jMenuItem1");
+
+        jMenu3.setText("jMenu3");
+
+        jMenu6.setText("jMenu6");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jMenu4.setText("Facturación");
+        jmFacturacion.setText("Facturación");
 
-        jMenuItem3.setText("Facturar mes...");
-        jMenu4.add(jMenuItem3);
+        jmiFacturarMes.setText("Facturar mes");
+        jmiFacturarMes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiFacturarMesActionPerformed(evt);
+            }
+        });
+        jmFacturacion.add(jmiFacturarMes);
 
-        jMenuItem8.setText("Facturar año");
-        jMenu4.add(jMenuItem8);
+        jmiFacturarAno.setText("Facturar año");
+        jmFacturacion.add(jmiFacturarAno);
 
-        jmbMainBar.add(jMenu4);
+        jMenuBar1.add(jmFacturacion);
 
-        jMenu8.setText("Personal");
+        jmPersonal.setText("Personal");
 
-        jMenuItem16.setText("Alta personal");
-        jMenu8.add(jMenuItem16);
+        jmiAltaPersonal.setText("Alta personal");
+        jmPersonal.add(jmiAltaPersonal);
 
-        jMenuItem15.setText("Ver personal");
-        jMenu8.add(jMenuItem15);
+        jmiVerPersonal.setText("Ver personal");
+        jmPersonal.add(jmiVerPersonal);
 
-        jMenuItem17.setText("Baja Personal");
-        jMenu8.add(jMenuItem17);
+        jmiBajaPersonal.setText("Baja Personal");
+        jmPersonal.add(jmiBajaPersonal);
 
-        jmbMainBar.add(jMenu8);
+        jMenuBar1.add(jmPersonal);
 
-        jMenu5.setText("Mesas");
+        jmMesas.setText("Mesas");
 
-        jMenuItem4.setText("Asignar mesa");
-        jMenu5.add(jMenuItem4);
+        jmiCrearMesa.setText("Crear mesa");
+        jmMesas.add(jmiCrearMesa);
 
-        showTablesMenuItem.setText("Mostrar mesas");
-        showTablesMenuItem.addMouseListener(new java.awt.event.MouseAdapter() {
+        jmiMostrarMesas.setText("Mostrar mesas");
+        jmiMostrarMesas.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-
+                jmiMostrarMesasMouseClicked(evt);
             }
         });
-        jMenu5.add(showTablesMenuItem);
+        jmMesas.add(jmiMostrarMesas);
 
-        jmbMainBar.add(jMenu5);
+        jmiEliminarMesa.setText("Eliminar mesa");
+        jmMesas.add(jmiEliminarMesa);
 
-        jMenu1.setText("Menu");
+        jMenuBar1.add(jmMesas);
 
-        jMenuItem9.setText("Mostrar menus");
-        jMenu1.add(jMenuItem9);
+        jmMenus.setText("Menu");
 
-        jMenuItem10.setText("Añadir producto a menu");
-        jMenu1.add(jMenuItem10);
+        jmiMostrarMenu.setText("Mostrar menus");
+        jmMenus.add(jmiMostrarMenu);
 
-        jmbMainBar.add(jMenu1);
+        jmiAnadirProductoMenu.setText("Añadir producto a menu");
+        jmMenus.add(jmiAnadirProductoMenu);
 
-        jMenu7.setText("Alimentos");
+        jMenuBar1.add(jmMenus);
 
-        addFood.setText("Añadir comida");
-        addFood.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                Add_Food af = new Add_Food();
-                af.setVisible(true);
+        jmProductos.setText("Productos");
+
+        jmiAnadirProducto.setText("Añadir producto");
+        jmiAnadirProducto.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jmiAnadirProductoMouseClicked(evt);
             }
         });
-        jMenu7.add(addFood);
+        jmProductos.add(jmiAnadirProducto);
 
-        jMenuItem13.setText("Eliminar comida");
-        jMenu7.add(jMenuItem13);
-
-        jMenuItem12.setText("Añadir bebida");
-        jMenu7.add(jMenuItem12);
-
-        jMenuItem14.setText("Eliminar bebida");
-        jMenu7.add(jMenuItem14);
-
-        jmbMainBar.add(jMenu7);
-
-        jmExit.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        jmExit.setLabel("Opciones");
-        jmExit.setRolloverEnabled(false);
-        jmExit.setVerifyInputWhenFocusTarget(false);
-
-        jMenuItem5.setText("Ayuda");
-        jmExit.add(jMenuItem5);
-
-        aboutUsOption.setText("Sobre TPV...");
-        jmExit.add(aboutUsOption);
-        aboutUsOption.addActionListener((ActionEvent e) -> {
-            JOptionPane.showMessageDialog(alertPane, "Un producto de TPVParaTodos ®\n"
-                    + "Creado por: \n"
-                    + "Joshua Orellana, Gerson Ramirez,\n"
-                    + "Roberto Navarro y Kevin Garcia",
-                    "Login Error", JOptionPane.INFORMATION_MESSAGE);
-        });
-
-        exitOption.setText("Salir");
-        jmExit.add(exitOption);
-        exitOption.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                exitClicked(evt);
+        jmiEliminarProducto.setText("Eliminar producto");
+        jmiEliminarProducto.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jmiEliminarProductoMouseClicked(evt);
             }
         });
+        jmProductos.add(jmiEliminarProducto);
 
-        jmbMainBar.add(jmExit);
+        jMenuBar1.add(jmProductos);
 
-        setJMenuBar(jmbMainBar);
+        jmOpciones.setText("Opciones");
+        jmOpciones.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jmOpciones.setRolloverEnabled(false);
+        jmOpciones.setVerifyInputWhenFocusTarget(false);
+
+        jmiAyuda.setText("Ayuda");
+        jmOpciones.add(jmiAyuda);
+
+        jmiAboutUs.setText("Sobre TPV...");
+        jmiAboutUs.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jmiAboutUsMouseClicked(evt);
+            }
+        });
+        jmiAboutUs.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiAboutUsActionPerformed(evt);
+            }
+        });
+        jmOpciones.add(jmiAboutUs);
+
+        jmiExit.setText("Salir");
+        jmiExit.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jmiExitMouseClicked(evt);
+            }
+        });
+        jmOpciones.add(jmiExit);
+
+        jMenuBar1.add(jmOpciones);
+
+        setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
-                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGap(0, 472, Short.MAX_VALUE)
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 472, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
-                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGap(0, 284, Short.MAX_VALUE)
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 284, Short.MAX_VALUE)
         );
 
         pack();
+    }// </editor-fold>                        
+
+
+    private void jmiMostrarMesasMouseClicked(java.awt.event.MouseEvent evt) {                                             
+    }                                            
+
+    private void jmiFacturarMesActionPerformed(java.awt.event.ActionEvent evt) {                                               
+        // TODO add your handling code here:
+    }                                              
+
+    private void jmiExitMouseClicked(java.awt.event.MouseEvent evt) {                                     
+        exitClicked(evt);
+    }                                    
+
+    private void jmiEliminarProductoMouseClicked(java.awt.event.MouseEvent evt) {                                                 
+        dpc.getDeleteProduct();
+    }                                                
+
+    private void jmiAboutUsActionPerformed(java.awt.event.ActionEvent evt) {                                           
+        // TODO add your handling code here:
+    }                                          
+
+    private void jmiAnadirProductoMouseClicked(java.awt.event.MouseEvent evt) {                                               
+        aprc.getAddProduct();
+
+    }                                              
+
+    private void jmiAboutUsMouseClicked(java.awt.event.MouseEvent evt) {                                        
+        JOptionPane.showMessageDialog(genericpane, "Un producto de TPVParaTodos ®\n"
+                + "Creado por: \n"
+                + "Joshua Orellana, Gerson Ramirez,\n"
+                + "Roberto Navarro y Kevin Garcia",
+                "Login Error", JOptionPane.INFORMATION_MESSAGE);
+    }                                       
+
+    public static void connection() throws SQLException, ClassNotFoundException, IOException {
+        Gson gson = new Gson();
+        Connection con = null;
+        String URL = "jdbc:sqlserver://tpvparatodos.database.windows.net;databaseName=TPVParaTodos";
+        String user = "Eduardo";
+        String pwd = "Contrasenya123";
+        String query = "SELECT * FROM Tables";
+        Statement stmt = null;
+        ResultSet rs = null;
+
+        Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+        con = DriverManager.getConnection(URL, user, pwd);
+        stmt = con.createStatement();
+        rs = stmt.executeQuery(query);
+
+//
+//        String aux = " ";
+//        String output;
+//        System.out.println("Output from Server .... \n");
+//        while ((output = rs.readLine()) != null) {
+//            aux += output;
+//
+//        }
+//        ArrayList<Table> tables = TableDAO2.getTableList();
+//
+//        tables = gson.fromJson(" ", new TypeToken<ArrayList<Contacte>>() {
+//        }.getType());
+//        DefaultTableModel model = (DefaultTableModel) jtContacte.getModel();
+//        Object[] row = new Object[4];
+//        for (int i = 0; i < tables.size(); i++) {
+//            row[0] = tables.get(i).getId();
+//            row[1] = tables.get(i).getMaxPeople();
+//            row[2] = tables.get(i).getZone_Id();
+//            if (tables.isEmpty()) {
+//                row[3] = "1";
+//            } else {
+//                row[3] = "0";
+//            }
+//            model.addRow(row);
+//        }
+        con.close();
+
     }
 
     private void exitClicked(java.awt.event.MouseEvent evt) {
         try {
             this.setVisible(false);
-            lg.setVisible(true);
+            lc.getLogin().setVisible(true);
 
         } catch (Throwable ex) {
             Logger.getLogger(General_APanel.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
+
+    // Variables declaration - do not modify                     
+    private javax.swing.JMenu jMenu3;
+    private javax.swing.JMenu jMenu6;
+    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenu jmFacturacion;
+    private javax.swing.JMenu jmMenus;
+    private javax.swing.JMenu jmMesas;
+    private javax.swing.JMenu jmOpciones;
+    private javax.swing.JMenu jmPersonal;
+    private javax.swing.JMenu jmProductos;
+    private javax.swing.JMenuItem jmiAboutUs;
+    private javax.swing.JMenuItem jmiAltaPersonal;
+    private javax.swing.JMenuItem jmiAnadirProducto;
+    private javax.swing.JMenuItem jmiAnadirProductoMenu;
+    private javax.swing.JMenuItem jmiAyuda;
+    private javax.swing.JMenuItem jmiBajaPersonal;
+    private javax.swing.JMenuItem jmiCrearMesa;
+    private javax.swing.JMenuItem jmiEliminarMesa;
+    private javax.swing.JMenuItem jmiEliminarProducto;
+    private javax.swing.JMenuItem jmiExit;
+    private javax.swing.JMenuItem jmiFacturarAno;
+    private javax.swing.JMenuItem jmiFacturarMes;
+    private javax.swing.JMenuItem jmiMostrarMenu;
+    private javax.swing.JMenuItem jmiMostrarMesas;
+    private javax.swing.JMenuItem jmiVerPersonal;                     
+    private javax.swing.JOptionPane genericpane;
+    private LoginController lc;
+    private GeneralAPanelController apc;
+    private DeleteProductController dpc;
+    private AddProductController aprc;
 }

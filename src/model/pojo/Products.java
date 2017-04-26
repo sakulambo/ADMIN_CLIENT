@@ -12,14 +12,13 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -27,17 +26,9 @@ import javax.xml.bind.annotation.XmlTransient;
  */
 @Entity
 @Table(name = "Products")
-@XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Products.findAll", query = "SELECT p FROM Products p")
-    , @NamedQuery(name = "Products.findById", query = "SELECT p FROM Products p WHERE p.id = :id")
-    , @NamedQuery(name = "Products.findByName", query = "SELECT p FROM Products p WHERE p.name = :name")
-    , @NamedQuery(name = "Products.findByPrice", query = "SELECT p FROM Products p WHERE p.price = :price")
-    , @NamedQuery(name = "Products.findByDescription", query = "SELECT p FROM Products p WHERE p.description = :description")})
+    @NamedQuery(name = "Products.findAll", query = "SELECT p FROM Products p")})
 public class Products implements Serializable {
-
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "products")
-    private Collection<Fragments> fragmentsCollection;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -52,11 +43,13 @@ public class Products implements Serializable {
     private BigDecimal price;
     @Column(name = "Description")
     private String description;
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "products")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "products", fetch = FetchType.LAZY)
+    private Collection<Fragments> fragmentsCollection;
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "products", fetch = FetchType.LAZY)
     private Menus menus;
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "products")
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "products", fetch = FetchType.LAZY)
     private Drinks drinks;
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "products")
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "products", fetch = FetchType.LAZY)
     private Foods foods;
 
     public Products() {
@@ -101,6 +94,14 @@ public class Products implements Serializable {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Collection<Fragments> getFragmentsCollection() {
+        return fragmentsCollection;
+    }
+
+    public void setFragmentsCollection(Collection<Fragments> fragmentsCollection) {
+        this.fragmentsCollection = fragmentsCollection;
     }
 
     public Menus getMenus() {
@@ -150,15 +151,6 @@ public class Products implements Serializable {
     @Override
     public String toString() {
         return "model.pojo.Products[ id=" + id + " ]";
-    }
-
-    @XmlTransient
-    public Collection<Fragments> getFragmentsCollection() {
-        return fragmentsCollection;
-    }
-
-    public void setFragmentsCollection(Collection<Fragments> fragmentsCollection) {
-        this.fragmentsCollection = fragmentsCollection;
     }
     
 }

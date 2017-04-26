@@ -7,9 +7,6 @@ package main;
 
 import controller.Controller;
 import java.security.NoSuchAlgorithmException;
-import java.util.List;
-import model.dao.DrinksDAO;
-import model.pojo.Drinks;
 
 /**
  *
@@ -17,18 +14,22 @@ import model.pojo.Drinks;
  */
 public class Admin_Panel {
 
-    /**
-     * @param args the command line arguments
-     */
+    private static Controller controller;
+
     public static void main(String[] args) throws NoSuchAlgorithmException {
+        controller = new Controller();
+        controller.getLc();
 
 //        DrinksDAO drinksDAO = new DrinksDAO();
 //        List<Drinks> result = drinksDAO.getAllDrinks();
 //
+//        for(Drinks d: result){
+//            System.out.println(d.toString());
+//        }
 //        System.out.println("PRUEBA" + result.size());
-//        
-       controller.Controller controller = new Controller();//       
-       controller.getMainPanel();
+        
+    
+
     }
 
 }

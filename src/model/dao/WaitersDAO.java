@@ -20,7 +20,7 @@ public class WaitersDAO {
 
     private Session sesion;
     private Transaction tx;
-    private SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+    //private SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
     
     
     private void startOperation() throws HibernateException {
@@ -104,10 +104,10 @@ public class WaitersDAO {
     
     public List<Waiters> getAllWaiters() {
         try {
-            if (!this.sessionFactory.getCurrentSession().getTransaction().isActive()) {
-                this.sessionFactory.getCurrentSession().getTransaction().begin();
+            if (!HibernateUtil.getSessionFactory().getCurrentSession().getTransaction().isActive()) {
+                HibernateUtil.getSessionFactory().getCurrentSession().getTransaction().begin();
             }
-            return sessionFactory.getCurrentSession()
+            return HibernateUtil.getSessionFactory().getCurrentSession()
                     .createCriteria(Waiters.class)
                     .list();
 

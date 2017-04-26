@@ -90,7 +90,7 @@ public class AspNetUserLoginsPK implements Serializable {
 
     @Override
     public String toString() {
-        return "model.AspNetUserLoginsPK[ loginProvider=" + loginProvider + ", providerKey=" + providerKey + ", userId=" + userId + " ]";
+        return "model.pojo.AspNetUserLoginsPK[ loginProvider=" + loginProvider + ", providerKey=" + providerKey + ", userId=" + userId + " ]";
     }
     
 }

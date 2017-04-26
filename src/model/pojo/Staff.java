@@ -11,6 +11,7 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.NamedQueries;
@@ -19,7 +20,6 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
@@ -27,15 +27,8 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @Entity
 @Table(name = "Staff")
-@XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Staff.findAll", query = "SELECT s FROM Staff s")
-    , @NamedQuery(name = "Staff.findById", query = "SELECT s FROM Staff s WHERE s.id = :id")
-    , @NamedQuery(name = "Staff.findByFirstName", query = "SELECT s FROM Staff s WHERE s.firstName = :firstName")
-    , @NamedQuery(name = "Staff.findByLastName", query = "SELECT s FROM Staff s WHERE s.lastName = :lastName")
-    , @NamedQuery(name = "Staff.findByAddress", query = "SELECT s FROM Staff s WHERE s.address = :address")
-    , @NamedQuery(name = "Staff.findByPhone", query = "SELECT s FROM Staff s WHERE s.phone = :phone")
-    , @NamedQuery(name = "Staff.findByLastConnection", query = "SELECT s FROM Staff s WHERE s.lastConnection = :lastConnection")})
+    @NamedQuery(name = "Staff.findAll", query = "SELECT s FROM Staff s")})
 public class Staff implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -56,9 +49,9 @@ public class Staff implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date lastConnection;
     @JoinColumn(name = "Id", referencedColumnName = "Id", insertable = false, updatable = false)
-    @OneToOne(optional = false)
+    @OneToOne(optional = false, fetch = FetchType.LAZY)
     private AspNetUsers aspNetUsers;
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "staff")
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "staff", fetch = FetchType.LAZY)
     private Waiters waiters;
 
     public Staff() {

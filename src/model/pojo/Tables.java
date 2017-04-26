@@ -8,8 +8,10 @@ package model.pojo;
 import java.io.Serializable;
 import java.util.Collection;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -17,8 +19,6 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -26,12 +26,8 @@ import javax.xml.bind.annotation.XmlTransient;
  */
 @Entity
 @Table(name = "Tables")
-@XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Tables.findAll", query = "SELECT t FROM Tables t")
-    , @NamedQuery(name = "Tables.findById", query = "SELECT t FROM Tables t WHERE t.id = :id")
-    , @NamedQuery(name = "Tables.findByMaxPeople", query = "SELECT t FROM Tables t WHERE t.maxPeople = :maxPeople")
-    , @NamedQuery(name = "Tables.findByEmpty", query = "SELECT t FROM Tables t WHERE t.empty = :empty")})
+    @NamedQuery(name = "Tables.findAll", query = "SELECT t FROM Tables t")})
 public class Tables implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -45,10 +41,10 @@ public class Tables implements Serializable {
     @Basic(optional = false)
     @Column(name = "Empty")
     private boolean empty;
-    @OneToMany(mappedBy = "tableId")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "tableId", fetch = FetchType.LAZY)
     private Collection<Orders> ordersCollection;
     @JoinColumn(name = "Zone_Id", referencedColumnName = "Id")
-    @ManyToOne(optional = false)
+    @ManyToOne(fetch = FetchType.LAZY)
     private Zones zoneId;
 
     public Tables() {
@@ -88,7 +84,6 @@ public class Tables implements Serializable {
         this.empty = empty;
     }
 
-    @XmlTransient
     public Collection<Orders> getOrdersCollection() {
         return ordersCollection;
     }
@@ -127,7 +122,7 @@ public class Tables implements Serializable {
 
     @Override
     public String toString() {
-        return "model.Tables[ id=" + id + " ]";
+        return "model.pojo.Tables[ id=" + id + " ]";
     }
     
 }

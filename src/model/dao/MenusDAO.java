@@ -7,7 +7,6 @@ package model.dao;
 
 import java.util.List;
 import model.pojo.Menus;
-import model.pojo.Orders;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -22,7 +21,7 @@ public class MenusDAO {
     private Session sesion;
     private Transaction tx;
 
-    private final SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+   // private final SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
 
     private void startOperation() throws HibernateException {
         sesion = HibernateUtil.getSessionFactory().openSession();
@@ -104,10 +103,10 @@ public class MenusDAO {
     
     public List<Menus> getAllMenus() {
         try {
-            if (!this.sessionFactory.getCurrentSession().getTransaction().isActive()) {
-                this.sessionFactory.getCurrentSession().getTransaction().begin();
+            if (!HibernateUtil.getSessionFactory().getCurrentSession().getTransaction().isActive()) {
+                HibernateUtil.getSessionFactory().getCurrentSession().getTransaction().begin();
             }
-            return sessionFactory.getCurrentSession()
+            return HibernateUtil.getSessionFactory().getCurrentSession()
                     .createCriteria(Menus.class)
                     .list();
 

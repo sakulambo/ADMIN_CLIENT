@@ -6,13 +6,13 @@
 package view;
 
 import controller.Controller;
+import controller.GeneralAPanelController;
+import controller.LoginController;
 import java.awt.Button;
 import java.awt.event.ActionEvent;
 import java.awt.event.ItemEvent;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -33,21 +33,18 @@ public final class Login extends JFrame {
     private Scanner teclat = new Scanner(System.in);
 
     private JFrame parent;
-
     private JPanel container;
     private JOptionPane errorContainer;
-
     private JLabel lbl_Username;
     private JLabel lbl_Password;
-
     protected JTextField tf_Username;
     protected JPasswordField pf_Password;
-
     protected JCheckBox cb_HidePassword;
-
     protected Button bt_Login;
     protected Button bt_Cancel;
     protected String generatedPassword = null;
+    private LoginController loginController;
+    private GeneralAPanelController gapc;
 
     public static String user = "Eduardo";
     public static String password = "Contrasenya123";
@@ -59,31 +56,34 @@ public final class Login extends JFrame {
     }
 
     public Login() throws NoSuchAlgorithmException {
-
         initComponent();
         createItems();
+        
+        gapc = new GeneralAPanelController();
     }
 
-    void initComponent() {
+    public LoginController getLoginController() {
+        return loginController;
+    }
 
+    public void setLoginController(LoginController loginController) throws NoSuchAlgorithmException {
+        this.loginController = loginController;
+
+    }
+
+    void initComponent() throws NoSuchAlgorithmException {
         container = new JPanel();
         errorContainer = new JOptionPane();
-
         lbl_Username = new JLabel("Nombre de Usuario:");
         lbl_Password = new JLabel("Contraseña:");
-
         tf_Username = new JTextField(15);
         pf_Password = new JPasswordField(15);
-
         cb_HidePassword = new JCheckBox("Mostrar contraseña");
-
         bt_Login = new Button("Ingresar");
         bt_Cancel = new Button("Cancelar");
-
     }
 
     void createItems() throws NoSuchAlgorithmException {
-
         setVisible(true);
         setBounds(100, 100, 425, 300);
         setTitle("Acceso a la Zona de administración");
@@ -149,16 +149,14 @@ public final class Login extends JFrame {
         });
 
         bt_Login.addActionListener((ActionEvent e) -> {
-            ResultSet rs = Controller.getData(tf_Username.getText());
             boolean permit = false;
-
             try {
                 //PRUEBA DE HASH
                 String pass = "";
                 System.out.println("Introduce password:");
                 pass = teclat.next();
-                
-                if (comparePass(pass)) {
+
+                if (comparePass(pass,gapc)) {
                     System.out.println("LOGIN!");
                     this.setVisible(false);
                 } else {
@@ -179,7 +177,6 @@ public final class Login extends JFrame {
             }
         });
 
-        
     }
 
     void createItems2() throws NoSuchAlgorithmException {
@@ -247,11 +244,11 @@ public final class Login extends JFrame {
         });
 
         bt_Login.addActionListener((ActionEvent e) -> {
-            ResultSet rs = Controller.getData(tf_Username.getText());
+            //ResultSet rs = Controller.getData(tf_Username.getText());
             boolean permit = false;
 
             try {
-                if (comparePass(pf_Password.getText())) {
+                if (comparePass(pf_Password.getText(), gapc)) {
                     System.out.println("LOGIN!");
                 } else {
                     JOptionPane.showMessageDialog(errorContainer, "Usuario o contraseña erroneos!\nVuelva a intentarlo!",
@@ -273,9 +270,9 @@ public final class Login extends JFrame {
 
     }
 
-    private boolean comparePass(String pass) throws NoSuchAlgorithmException {
+    private boolean comparePass(String pass, GeneralAPanelController gapc) throws NoSuchAlgorithmException {
         boolean permit = false;
-        ResultSet rs = Controller.getData(tf_Username.getText());
+
         // Create MessageDigest instance for MD5
         MessageDigest md2 = MessageDigest.getInstance("MD5");
         //Add password bytes to digest
@@ -291,58 +288,34 @@ public final class Login extends JFrame {
 
         String passHash = sb2.toString();
 
-        try {
-            while (rs.next()) {
+        String usrTF = tf_Username.getText();
+        String pwdTF = pf_Password.getText();
 
-                String usrDB = rs.getString(2).trim();
-                String pwdDB = rs.getString(3).trim();
-
-                String usrTF = tf_Username.getText();
-                String pwdTF = pf_Password.getText();
-
-                /*String connectionUrl = "jdbc:sqlserver:tpvparatodos.database.windows.net;"
-                            + "database=TPVParaTodos;"
-                            + "user=" + user + ";"
-                            + "password=" + password;
-
-                    URL myURL = new URL(connectionUrl);
-                    URLConnection myURLConnection = myURL.openConnection();
-                    myURLConnection.connect();*/
-                // Create MessageDigest instance for MD5
-                MessageDigest md = MessageDigest.getInstance("MD5");
-                //Add password bytes to digest
-                md.update(pwdTF.getBytes());
-                //Get the hash's bytes 
-                byte[] bytes = md.digest();
-                //This bytes[] has bytes in decimal format;
-                //Convert it to hexadecimal format
-                StringBuilder sb = new StringBuilder();
-                for (int i = 0; i < bytes.length; i++) {
-                    sb.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));
-                }
-                //Get complete hashed password in hex format
-                generatedPassword = sb.toString();
-
-                System.out.println(generatedPassword);
-                System.out.println(passHash);
-
-                if (generatedPassword.equals(passHash)) {
-                    permit = true;
-                    this.setVisible(false);
-                    General_APanel gap = new General_APanel();
-                    gap.setVisible(true);
-                }
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (NoSuchAlgorithmException ex) {
-            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
-            /*} catch (MalformedURLException ex) {
-                Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (IOException ex) {
-                Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);*/
+        // Create MessageDigest instance for MD5
+        MessageDigest md = MessageDigest.getInstance("MD5");
+        //Add password bytes to digest
+        md.update(pwdTF.getBytes());
+        //Get the hash's bytes 
+        byte[] bytes = md.digest();
+        //This bytes[] has bytes in decimal format;
+        //Convert it to hexadecimal format
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < bytes.length; i++) {
+            sb.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));
         }
+        //Get complete hashed password in hex format
+        generatedPassword = sb.toString();
 
+        System.out.println(generatedPassword);
+        System.out.println(passHash);
+
+        if (generatedPassword.equals(passHash)) {
+            System.out.println(permit);
+            this.setVisible(false);
+            gapc.getGeneralAdmin_Panel().setVisible(true);
+            permit = true;
+
+        }
         return permit;
     }
 

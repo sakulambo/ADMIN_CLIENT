@@ -9,13 +9,13 @@ import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
-import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
@@ -23,12 +23,8 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @Entity
 @Table(name = "AspNetUserClaims")
-@XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "AspNetUserClaims.findAll", query = "SELECT a FROM AspNetUserClaims a")
-    , @NamedQuery(name = "AspNetUserClaims.findById", query = "SELECT a FROM AspNetUserClaims a WHERE a.id = :id")
-    , @NamedQuery(name = "AspNetUserClaims.findByClaimType", query = "SELECT a FROM AspNetUserClaims a WHERE a.claimType = :claimType")
-    , @NamedQuery(name = "AspNetUserClaims.findByClaimValue", query = "SELECT a FROM AspNetUserClaims a WHERE a.claimValue = :claimValue")})
+    @NamedQuery(name = "AspNetUserClaims.findAll", query = "SELECT a FROM AspNetUserClaims a")})
 public class AspNetUserClaims implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -41,7 +37,7 @@ public class AspNetUserClaims implements Serializable {
     @Column(name = "ClaimValue")
     private String claimValue;
     @JoinColumn(name = "UserId", referencedColumnName = "Id")
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private AspNetUsers userId;
 
     public AspNetUserClaims() {
@@ -105,7 +101,7 @@ public class AspNetUserClaims implements Serializable {
 
     @Override
     public String toString() {
-        return "model.AspNetUserClaims[ id=" + id + " ]";
+        return "model.pojo.AspNetUserClaims[ id=" + id + " ]";
     }
     
 }

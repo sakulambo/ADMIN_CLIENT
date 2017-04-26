@@ -6,11 +6,11 @@
 package model.pojo;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
@@ -19,8 +19,6 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -28,22 +26,20 @@ import javax.xml.bind.annotation.XmlTransient;
  */
 @Entity
 @Table(name = "Drinks")
-@XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Drinks.findAll", query = "SELECT d FROM Drinks d")
-    , @NamedQuery(name = "Drinks.findById", query = "SELECT d FROM Drinks d WHERE d.id = :id")
-    , @NamedQuery(name = "Drinks.findByName", query = "SELECT d FROM Drinks d WHERE d.name = :name")
-    , @NamedQuery(name = "Drinks.findByPrice", query = "SELECT d FROM Drinks d WHERE d.price = :price")
-    , @NamedQuery(name = "Drinks.findByCommentary", query = "SELECT d FROM Drinks d WHERE d.commentary = :commentary")
-    , @NamedQuery(name = "Drinks.findByCapacity", query = "SELECT d FROM Drinks d WHERE d.capacity = :capacity")
-    , @NamedQuery(name = "Drinks.findByTypeBottle", query = "SELECT d FROM Drinks d WHERE d.typeBottle = :typeBottle")
-    , @NamedQuery(name = "Drinks.findBySoda", query = "SELECT d FROM Drinks d WHERE d.soda = :soda")
-    , @NamedQuery(name = "Drinks.findByAlcohol", query = "SELECT d FROM Drinks d WHERE d.alcohol = :alcohol")})
+    @NamedQuery(name = "Drinks.findAll", query = "SELECT d FROM Drinks d")})
 public class Drinks implements Serializable {
 
+    private static final long serialVersionUID = 1L;
+    @Id
+    @Basic(optional = false)
+    @Column(name = "Id")
+    private Integer id;
     @Basic(optional = false)
     @Column(name = "Capacity")
     private int capacity;
+    @Column(name = "TypeBottle")
+    private String typeBottle;
     @Basic(optional = false)
     @Column(name = "Soda")
     private boolean soda;
@@ -53,34 +49,11 @@ public class Drinks implements Serializable {
     @JoinTable(name = "MenuDrinks", joinColumns = {
         @JoinColumn(name = "Drink_Id", referencedColumnName = "Id")}, inverseJoinColumns = {
         @JoinColumn(name = "Menu_Id", referencedColumnName = "Id")})
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY)
     private Collection<Menus> menusCollection;
-    @JoinColumn(name = "Id", referencedColumnName = "Id")
-    @OneToOne(optional = false)
+    @JoinColumn(name = "Id", referencedColumnName = "Id", insertable = false, updatable = false)
+    @OneToOne(optional = false, fetch = FetchType.LAZY)
     private Products products;
-
-    @JoinTable(name = "Orders_has_Drinks", joinColumns = {
-        @JoinColumn(name = "Drink_Id", referencedColumnName = "Id")}, inverseJoinColumns = {
-        @JoinColumn(name = "Order_Id", referencedColumnName = "Id")})
-    @ManyToMany
-    private Collection<Orders> ordersCollection;
-
-    private static final long serialVersionUID = 1L;
-    @Id
-    @Basic(optional = false)
-    @Column(name = "Id")
-    private Integer id;
-    @Basic(optional = false)
-    @Column(name = "Name")
-    private String name;
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
-    @Basic(optional = false)
-    @Column(name = "Price")
-    private BigDecimal price;
-    @Column(name = "Commentary")
-    private String commentary;
-    @Column(name = "TypeBottle")
-    private String typeBottle;
 
     public Drinks() {
     }
@@ -89,10 +62,11 @@ public class Drinks implements Serializable {
         this.id = id;
     }
 
-    public Drinks(Integer id, String name, BigDecimal price) {
+    public Drinks(Integer id, int capacity, boolean soda, boolean alcohol) {
         this.id = id;
-        this.name = name;
-        this.price = price;
+        this.capacity = capacity;
+        this.soda = soda;
+        this.alcohol = alcohol;
     }
 
     public Integer getId() {
@@ -103,30 +77,13 @@ public class Drinks implements Serializable {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public int getCapacity() {
+        return capacity;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setCapacity(int capacity) {
+        this.capacity = capacity;
     }
-
-    public BigDecimal getPrice() {
-        return price;
-    }
-
-    public void setPrice(BigDecimal price) {
-        this.price = price;
-    }
-
-    public String getCommentary() {
-        return commentary;
-    }
-
-    public void setCommentary(String commentary) {
-        this.commentary = commentary;
-    }
-
 
     public String getTypeBottle() {
         return typeBottle;
@@ -136,6 +93,37 @@ public class Drinks implements Serializable {
         this.typeBottle = typeBottle;
     }
 
+    public boolean getSoda() {
+        return soda;
+    }
+
+    public void setSoda(boolean soda) {
+        this.soda = soda;
+    }
+
+    public boolean getAlcohol() {
+        return alcohol;
+    }
+
+    public void setAlcohol(boolean alcohol) {
+        this.alcohol = alcohol;
+    }
+
+    public Collection<Menus> getMenusCollection() {
+        return menusCollection;
+    }
+
+    public void setMenusCollection(Collection<Menus> menusCollection) {
+        this.menusCollection = menusCollection;
+    }
+
+    public Products getProducts() {
+        return products;
+    }
+
+    public void setProducts(Products products) {
+        this.products = products;
+    }
 
     @Override
     public int hashCode() {
@@ -159,57 +147,7 @@ public class Drinks implements Serializable {
 
     @Override
     public String toString() {
-        return "model.Drinks[ id=" + id + " ]";
+        return "Drinks{" + "id=" + id + ", capacity=" + capacity + ", typeBottle=" + typeBottle + ", soda=" + soda + ", alcohol=" + alcohol + ", menusCollection=" + menusCollection + ", products=" + products + '}';
     }
 
-    @XmlTransient
-    public Collection<Menus> getMenusCollection() {
-        return menusCollection;
-    }
-
-    public void setMenusCollection(Collection<Menus> menusCollection) {
-        this.menusCollection = menusCollection;
-    }
-
-    @XmlTransient
-    public Collection<Orders> getOrdersCollection() {
-        return ordersCollection;
-    }
-
-    public void setOrdersCollection(Collection<Orders> ordersCollection) {
-        this.ordersCollection = ordersCollection;
-    }
-
-    public int getCapacity() {
-        return capacity;
-    }
-
-    public void setCapacity(int capacity) {
-        this.capacity = capacity;
-    }
-
-    public boolean getSoda() {
-        return soda;
-    }
-
-    public void setSoda(boolean soda) {
-        this.soda = soda;
-    }
-
-    public boolean getAlcohol() {
-        return alcohol;
-    }
-
-    public void setAlcohol(boolean alcohol) {
-        this.alcohol = alcohol;
-    }
-
-    public Products getProducts() {
-        return products;
-    }
-
-    public void setProducts(Products products) {
-        this.products = products;
-    }
-    
 }

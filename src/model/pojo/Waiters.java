@@ -10,16 +10,14 @@ import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -27,26 +25,20 @@ import javax.xml.bind.annotation.XmlTransient;
  */
 @Entity
 @Table(name = "Waiters")
-@XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Waiters.findAll", query = "SELECT w FROM Waiters w")
-    , @NamedQuery(name = "Waiters.findById", query = "SELECT w FROM Waiters w WHERE w.id = :id")})
+    @NamedQuery(name = "Waiters.findAll", query = "SELECT w FROM Waiters w")})
 public class Waiters implements Serializable {
-
-    @OneToMany(mappedBy = "waiterId")
-    private Collection<Zones> zonesCollection;
 
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
     @Column(name = "Id")
     private String id;
+    @OneToMany(mappedBy = "waiterId", fetch = FetchType.LAZY)
+    private Collection<Zones> zonesCollection;
     @JoinColumn(name = "Id", referencedColumnName = "Id", insertable = false, updatable = false)
-    @OneToOne(optional = false)
-    private AspNetUsers aspNetUsers;
-    @JoinColumn(name = "Zone_Id", referencedColumnName = "Id")
-    @ManyToOne
-    private Zones zoneId;
+    @OneToOne(optional = false, fetch = FetchType.LAZY)
+    private Staff staff;
 
     public Waiters() {
     }
@@ -63,20 +55,20 @@ public class Waiters implements Serializable {
         this.id = id;
     }
 
-    public AspNetUsers getAspNetUsers() {
-        return aspNetUsers;
+    public Collection<Zones> getZonesCollection() {
+        return zonesCollection;
     }
 
-    public void setAspNetUsers(AspNetUsers aspNetUsers) {
-        this.aspNetUsers = aspNetUsers;
+    public void setZonesCollection(Collection<Zones> zonesCollection) {
+        this.zonesCollection = zonesCollection;
     }
 
-    public Zones getZoneId() {
-        return zoneId;
+    public Staff getStaff() {
+        return staff;
     }
 
-    public void setZoneId(Zones zoneId) {
-        this.zoneId = zoneId;
+    public void setStaff(Staff staff) {
+        this.staff = staff;
     }
 
     @Override
@@ -101,16 +93,7 @@ public class Waiters implements Serializable {
 
     @Override
     public String toString() {
-        return "model.Waiters[ id=" + id + " ]";
+        return "model.pojo.Waiters[ id=" + id + " ]";
     }
-
-    @XmlTransient
-    public Collection<Zones> getZonesCollection() {
-        return zonesCollection;
-    }
-
-    public void setZonesCollection(Collection<Zones> zonesCollection) {
-        this.zonesCollection = zonesCollection;
-    }
-
+    
 }

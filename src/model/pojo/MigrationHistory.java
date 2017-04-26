@@ -14,7 +14,6 @@ import javax.persistence.Lob;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
-import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
@@ -22,22 +21,17 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @Entity
 @Table(name = "__MigrationHistory")
-@XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "MigrationHistory.findAll", query = "SELECT m FROM MigrationHistory m")
-    , @NamedQuery(name = "MigrationHistory.findByMigrationId", query = "SELECT m FROM MigrationHistory m WHERE m.migrationHistoryPK.migrationId = :migrationId")
-    , @NamedQuery(name = "MigrationHistory.findByContextKey", query = "SELECT m FROM MigrationHistory m WHERE m.migrationHistoryPK.contextKey = :contextKey")
-    , @NamedQuery(name = "MigrationHistory.findByProductVersion", query = "SELECT m FROM MigrationHistory m WHERE m.productVersion = :productVersion")})
+    @NamedQuery(name = "MigrationHistory.findAll", query = "SELECT m FROM MigrationHistory m")})
 public class MigrationHistory implements Serializable {
-
-    @Basic(optional = false)
-    @Lob
-    @Column(name = "Model")
-    private byte[] model;
 
     private static final long serialVersionUID = 1L;
     @EmbeddedId
     protected MigrationHistoryPK migrationHistoryPK;
+    @Basic(optional = false)
+    @Lob
+    @Column(name = "Model")
+    private byte[] model;
     @Basic(optional = false)
     @Column(name = "ProductVersion")
     private String productVersion;
@@ -67,6 +61,13 @@ public class MigrationHistory implements Serializable {
         this.migrationHistoryPK = migrationHistoryPK;
     }
 
+    public byte[] getModel() {
+        return model;
+    }
+
+    public void setModel(byte[] model) {
+        this.model = model;
+    }
 
     public String getProductVersion() {
         return productVersion;
@@ -98,15 +99,7 @@ public class MigrationHistory implements Serializable {
 
     @Override
     public String toString() {
-        return "model.MigrationHistory[ migrationHistoryPK=" + migrationHistoryPK + " ]";
-    }
-
-    public byte[] getModel() {
-        return model;
-    }
-
-    public void setModel(byte[] model) {
-        this.model = model;
+        return "model.pojo.MigrationHistory[ migrationHistoryPK=" + migrationHistoryPK + " ]";
     }
     
 }

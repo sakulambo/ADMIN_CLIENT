@@ -6,20 +6,20 @@
 package model.dao;
 
 import java.util.List;
-import model.pojo.Foods;
+import model.pojo.Products;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
 /**
  *
  * @author sakulambo
  */
-public class FoodsDAO {
-
+public class ProductsDAO {
+    
     private Session sesion;
     private Transaction tx;
+    //private SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
 
     private void startOperation() throws HibernateException {
         sesion = HibernateUtil.getSessionFactory().openSession();
@@ -31,12 +31,12 @@ public class FoodsDAO {
         throw new HibernateException("Something's Wrong...\n", he);
     }
 
-    public long saveFood(Foods food) throws HibernateException {
+    public long saveProduct(Products product) throws HibernateException {
         long id = 0;
 
         try {
             startOperation();
-            id = (Long) sesion.save(food);
+            id = (Long) sesion.save(product);
             tx.commit();
         } catch (HibernateException he) {
             manejaExcepcion(he);
@@ -48,10 +48,10 @@ public class FoodsDAO {
         return id;
     }
 
-    public void updateFood(Foods food) throws HibernateException {
+    public void updateProduct(Products product) throws HibernateException {
         try {
             startOperation();
-            sesion.update(food);
+            sesion.update(product);
             tx.commit();
         } catch (HibernateException he) {
             manejaExcepcion(he);
@@ -61,10 +61,10 @@ public class FoodsDAO {
         }
     }
 
-    public void deleteFood(Foods food) throws HibernateException {
+    public void deleteProduct(Products product) throws HibernateException {
         try {
             startOperation();
-            sesion.delete(food);
+            sesion.delete(product);
             tx.commit();
         } catch (HibernateException he) {
             manejaExcepcion(he);
@@ -74,11 +74,11 @@ public class FoodsDAO {
         }
     }
 
-    public Foods getFood(long idFood) throws HibernateException {
-        Foods drink = null;
+    public Products getProduct(long idDrink) throws HibernateException {
+        Products drink = null;
         try {
             startOperation();
-            drink = (Foods) sesion.get(Foods.class, idFood);
+            drink = (Products) sesion.get(Products.class, idDrink);
         } finally {
             sesion.close();
         }
@@ -86,31 +86,31 @@ public class FoodsDAO {
         return drink;
     }
 
-    public List<Foods> getFoodList() throws HibernateException {
-        List<Foods> FoodList = null;
+    public List<Products> getProductList() throws HibernateException {
+        List<Products> ProductList = null;
 
         try {
             startOperation();
-            FoodList = sesion.createQuery("from Food").list();
+            ProductList = sesion.createQuery("from Drink").list();
         } finally {
             sesion.close();
         }
 
-        return FoodList;
+        return ProductList;
     }
 
-    public List<Foods> getAllFoods() {
+    public List<Products> getAllProducts() {
         try {
             if (!HibernateUtil.getSessionFactory().getCurrentSession().getTransaction().isActive()) {
                 HibernateUtil.getSessionFactory().getCurrentSession().getTransaction().begin();
             }
             return HibernateUtil.getSessionFactory().getCurrentSession()
-                    .createCriteria(Foods.class)
+                    .createCriteria(Products.class)
                     .list();
 
         } catch (Exception e) {
             return null;
         }
     }
-
+    
 }

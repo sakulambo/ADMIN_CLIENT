@@ -74,7 +74,7 @@ public class MigrationHistoryPK implements Serializable {
 
     @Override
     public String toString() {
-        return "model.MigrationHistoryPK[ migrationId=" + migrationId + ", contextKey=" + contextKey + " ]";
+        return "model.pojo.MigrationHistoryPK[ migrationId=" + migrationId + ", contextKey=" + contextKey + " ]";
     }
     
 }

@@ -11,12 +11,12 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
-import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
@@ -24,13 +24,8 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @Entity
 @Table(name = "Fragments")
-@XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Fragments.findAll", query = "SELECT f FROM Fragments f")
-    , @NamedQuery(name = "Fragments.findByProductId", query = "SELECT f FROM Fragments f WHERE f.fragmentsPK.productId = :productId")
-    , @NamedQuery(name = "Fragments.findByOrderId", query = "SELECT f FROM Fragments f WHERE f.fragmentsPK.orderId = :orderId")
-    , @NamedQuery(name = "Fragments.findByPrice", query = "SELECT f FROM Fragments f WHERE f.price = :price")
-    , @NamedQuery(name = "Fragments.findByQuantity", query = "SELECT f FROM Fragments f WHERE f.quantity = :quantity")})
+    @NamedQuery(name = "Fragments.findAll", query = "SELECT f FROM Fragments f")})
 public class Fragments implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -44,10 +39,10 @@ public class Fragments implements Serializable {
     @Column(name = "Quantity")
     private int quantity;
     @JoinColumn(name = "Order_Id", referencedColumnName = "Id", insertable = false, updatable = false)
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Orders orders;
     @JoinColumn(name = "Product_Id", referencedColumnName = "Id", insertable = false, updatable = false)
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Products products;
 
     public Fragments() {

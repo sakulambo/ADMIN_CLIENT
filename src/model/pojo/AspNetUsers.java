@@ -12,6 +12,7 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
@@ -21,8 +22,6 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -30,25 +29,9 @@ import javax.xml.bind.annotation.XmlTransient;
  */
 @Entity
 @Table(name = "AspNetUsers")
-@XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "AspNetUsers.findAll", query = "SELECT a FROM AspNetUsers a")
-    , @NamedQuery(name = "AspNetUsers.findById", query = "SELECT a FROM AspNetUsers a WHERE a.id = :id")
-    , @NamedQuery(name = "AspNetUsers.findByEmail", query = "SELECT a FROM AspNetUsers a WHERE a.email = :email")
-    , @NamedQuery(name = "AspNetUsers.findByEmailConfirmed", query = "SELECT a FROM AspNetUsers a WHERE a.emailConfirmed = :emailConfirmed")
-    , @NamedQuery(name = "AspNetUsers.findByPasswordHash", query = "SELECT a FROM AspNetUsers a WHERE a.passwordHash = :passwordHash")
-    , @NamedQuery(name = "AspNetUsers.findBySecurityStamp", query = "SELECT a FROM AspNetUsers a WHERE a.securityStamp = :securityStamp")
-    , @NamedQuery(name = "AspNetUsers.findByPhoneNumber", query = "SELECT a FROM AspNetUsers a WHERE a.phoneNumber = :phoneNumber")
-    , @NamedQuery(name = "AspNetUsers.findByPhoneNumberConfirmed", query = "SELECT a FROM AspNetUsers a WHERE a.phoneNumberConfirmed = :phoneNumberConfirmed")
-    , @NamedQuery(name = "AspNetUsers.findByTwoFactorEnabled", query = "SELECT a FROM AspNetUsers a WHERE a.twoFactorEnabled = :twoFactorEnabled")
-    , @NamedQuery(name = "AspNetUsers.findByLockoutEndDateUtc", query = "SELECT a FROM AspNetUsers a WHERE a.lockoutEndDateUtc = :lockoutEndDateUtc")
-    , @NamedQuery(name = "AspNetUsers.findByLockoutEnabled", query = "SELECT a FROM AspNetUsers a WHERE a.lockoutEnabled = :lockoutEnabled")
-    , @NamedQuery(name = "AspNetUsers.findByAccessFailedCount", query = "SELECT a FROM AspNetUsers a WHERE a.accessFailedCount = :accessFailedCount")
-    , @NamedQuery(name = "AspNetUsers.findByUserName", query = "SELECT a FROM AspNetUsers a WHERE a.userName = :userName")})
+    @NamedQuery(name = "AspNetUsers.findAll", query = "SELECT a FROM AspNetUsers a")})
 public class AspNetUsers implements Serializable {
-
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "aspNetUsers")
-    private Staff staff;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -84,13 +67,13 @@ public class AspNetUsers implements Serializable {
     @Basic(optional = false)
     @Column(name = "UserName")
     private String userName;
-    @ManyToMany(mappedBy = "aspNetUsersCollection")
+    @ManyToMany(mappedBy = "aspNetUsersCollection", fetch = FetchType.LAZY)
     private Collection<AspNetRoles> aspNetRolesCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "aspNetUsers")
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "aspNetUsers", fetch = FetchType.LAZY)
+    private Staff staff;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "aspNetUsers", fetch = FetchType.LAZY)
     private Collection<AspNetUserLogins> aspNetUserLoginsCollection;
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "aspNetUsers")
-    private Waiters waiters;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "userId")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "userId", fetch = FetchType.LAZY)
     private Collection<AspNetUserClaims> aspNetUserClaimsCollection;
 
     public AspNetUsers() {
@@ -206,7 +189,6 @@ public class AspNetUsers implements Serializable {
         this.userName = userName;
     }
 
-    @XmlTransient
     public Collection<AspNetRoles> getAspNetRolesCollection() {
         return aspNetRolesCollection;
     }
@@ -215,7 +197,14 @@ public class AspNetUsers implements Serializable {
         this.aspNetRolesCollection = aspNetRolesCollection;
     }
 
-    @XmlTransient
+    public Staff getStaff() {
+        return staff;
+    }
+
+    public void setStaff(Staff staff) {
+        this.staff = staff;
+    }
+
     public Collection<AspNetUserLogins> getAspNetUserLoginsCollection() {
         return aspNetUserLoginsCollection;
     }
@@ -224,15 +213,6 @@ public class AspNetUsers implements Serializable {
         this.aspNetUserLoginsCollection = aspNetUserLoginsCollection;
     }
 
-    public Waiters getWaiters() {
-        return waiters;
-    }
-
-    public void setWaiters(Waiters waiters) {
-        this.waiters = waiters;
-    }
-
-    @XmlTransient
     public Collection<AspNetUserClaims> getAspNetUserClaimsCollection() {
         return aspNetUserClaimsCollection;
     }
@@ -263,15 +243,7 @@ public class AspNetUsers implements Serializable {
 
     @Override
     public String toString() {
-        return "model.AspNetUsers[ id=" + id + " ]";
+        return "model.pojo.AspNetUsers[ id=" + id + " ]";
     }
-
-    public Staff getStaff() {
-        return staff;
-    }
-
-    public void setStaff(Staff staff) {
-        this.staff = staff;
-    }
-
+    
 }

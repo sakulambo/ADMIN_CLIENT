@@ -10,6 +10,7 @@ import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
@@ -17,8 +18,6 @@ import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -26,11 +25,8 @@ import javax.xml.bind.annotation.XmlTransient;
  */
 @Entity
 @Table(name = "AspNetRoles")
-@XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "AspNetRoles.findAll", query = "SELECT a FROM AspNetRoles a")
-    , @NamedQuery(name = "AspNetRoles.findById", query = "SELECT a FROM AspNetRoles a WHERE a.id = :id")
-    , @NamedQuery(name = "AspNetRoles.findByName", query = "SELECT a FROM AspNetRoles a WHERE a.name = :name")})
+    @NamedQuery(name = "AspNetRoles.findAll", query = "SELECT a FROM AspNetRoles a")})
 public class AspNetRoles implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -44,7 +40,7 @@ public class AspNetRoles implements Serializable {
     @JoinTable(name = "AspNetUserRoles", joinColumns = {
         @JoinColumn(name = "RoleId", referencedColumnName = "Id")}, inverseJoinColumns = {
         @JoinColumn(name = "UserId", referencedColumnName = "Id")})
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY)
     private Collection<AspNetUsers> aspNetUsersCollection;
 
     public AspNetRoles() {
@@ -75,7 +71,6 @@ public class AspNetRoles implements Serializable {
         this.name = name;
     }
 
-    @XmlTransient
     public Collection<AspNetUsers> getAspNetUsersCollection() {
         return aspNetUsersCollection;
     }
@@ -106,7 +101,7 @@ public class AspNetRoles implements Serializable {
 
     @Override
     public String toString() {
-        return "model.AspNetRoles[ id=" + id + " ]";
+        return "model.pojo.AspNetRoles[ id=" + id + " ]";
     }
     
 }

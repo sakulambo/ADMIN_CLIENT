@@ -5,6 +5,18 @@
     <class>model.pojo.Staff</class>
     <class>model.pojo.Products</class>
     <class>model.pojo.Fragments</class>
+    <class>model.pojo.AspNetUsers</class>
+    <class>model.pojo.AspNetUserClaims</class>
+    <class>model.pojo.Waiters</class>
+    <class>model.pojo.MigrationHistory</class>
+    <class>model.pojo.Drinks</class>
+    <class>model.pojo.Zones</class>
+    <class>model.pojo.AspNetUserLogins</class>
+    <class>model.pojo.Foods</class>
+    <class>model.pojo.Tables</class>
+    <class>model.pojo.Orders</class>
+    <class>model.pojo.AspNetRoles</class>
+    <class>model.pojo.Menus</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:sqlserver://tpvparatodos.database.windows.net;databaseName=TPVParaTodos"/>
       <property name="javax.persistence.jdbc.user" value="Eduardo"/>

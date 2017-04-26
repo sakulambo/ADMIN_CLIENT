@@ -5,11 +5,18 @@
  */
 package view;
 
+import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 import java.math.BigDecimal;
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
@@ -17,6 +24,8 @@ import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import model.pojo.Foods;
 import model.service.Service;
+import org.apache.commons.net.ftp.FTP;
+import org.apache.commons.net.ftp.FTPClient;
 
 /**
  *
@@ -62,6 +71,7 @@ public class Add_Food extends JFrame {
         jbCancel = new javax.swing.JButton();
         jbDeleteImage = new javax.swing.JButton();
         genericPane = new JOptionPane();
+        service = new Service();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.HIDE_ON_CLOSE);
 
@@ -76,7 +86,7 @@ public class Add_Food extends JFrame {
 
         jcbFoodType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[]{"Entrante", "Carne", "Pescado", "Verdura", "Pasta", "Postre"}));
 
-        jlFoodId.setText("IDComida");
+        jlFoodId.setText("IDProducto");
 
         jlFoodName.setText("Nombre");
 
@@ -114,6 +124,7 @@ public class Add_Food extends JFrame {
 
         jbAccept.setText("Aceptar");
         jbAccept.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jbAcceptMouseClicked(evt);
             }
@@ -239,17 +250,12 @@ public class Add_Food extends JFrame {
     private void jbAcceptMouseClicked(java.awt.event.MouseEvent evt) {
         boolean request = jtfFoodName.getText().isEmpty() || jtfFoodPrice.getText().isEmpty();
         try {
-            if (!request) {
-                try {
-                    Foods food = new Foods(null, jtfFoodName.getText(), BigDecimal.valueOf(Double.parseDouble(jtfFoodPrice.getText())));
-                    food.setCommentary(jtaFoodComment.getText());
-                    food.setFamilyDish(jcbFoodType.getSelectedItem().toString());
-                    food.setPartOfMenu(jcbPartOfMenu.getSelectedItem().toString());
-                    
-                    service.getFoodsDAO().saveFood(food);
-                } catch (Exception e) {
-                    System.out.println("Error al guardar comida! " + e);
-                }
+//            saveImage();
+//            uploadImage();
+
+            if (!request) {              
+               
+                
             } else {
                 JOptionPane.showMessageDialog(genericPane, "Campos Vacíos!\n"
                         + "Por favor, rellene los siguientes campos:\n"
@@ -269,6 +275,70 @@ public class Add_Food extends JFrame {
         Image newImg = img.getScaledInstance(jlFoodImage.getWidth(), jlFoodImage.getHeight(), Image.SCALE_SMOOTH);
         ImageIcon image = new ImageIcon(newImg);
         return image;
+    }
+
+    public void saveImage() throws IOException {
+        File file = new File("src/model/images/" + jtfFoodId.getText());
+        ImageIcon imageI = (ImageIcon) jlFoodImage.getIcon();
+        Image image = imageI.getImage();
+        BufferedImage img = new BufferedImage(image.getWidth(null), image.getWidth(null), BufferedImage.TYPE_INT_RGB);
+        try {
+            if (!file.exists()) {
+                file.createNewFile();
+            }
+            if (!file.canRead()) {
+                file.setReadable(true);
+                file.setExecutable(true);
+                file.setWritable(true);
+            }
+            ImageIO.write(img, "bmp", file);
+
+        } catch (FileNotFoundException e) {
+        }
+
+    }
+
+    public void uploadImage() throws IOException {
+        String server = "127.0.0.1";
+        int port = 21;
+        String user = "ANONYMOUS_LOGON";
+        String pass = "admin";
+
+        FTPClient ftpClient = new FTPClient();
+        try {
+
+            ftpClient.connect(server, port);
+            ftpClient.login(user, pass);
+            ftpClient.enterLocalPassiveMode();
+
+            ftpClient.setFileType(FTP.BINARY_FILE_TYPE);
+
+            // APPROACH #1: uploads first file using an InputStream
+            File firstLocalFile = new File("src/model/images" + jtfFoodId.getText());
+
+            String firstRemoteFile = jtfFoodId.getText();
+            boolean done;
+            try (InputStream inputStream = new FileInputStream(firstLocalFile)) {
+                System.out.println("Start uploading first file");
+                done = ftpClient.storeFile(firstRemoteFile, inputStream);
+            }
+            if (done) {
+                System.out.println("The first file is uploaded successfully.");
+            }
+        } catch (IOException ex) {
+            System.out.println("Error: " + ex.getMessage());
+            ex.printStackTrace();
+        } finally {
+            try {
+                if (ftpClient.isConnected()) {
+                    ftpClient.logout();
+                    ftpClient.disconnect();
+                }
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        }
+
     }
 
     // Variables declaration - do not modify                     

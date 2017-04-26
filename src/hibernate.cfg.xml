@@ -9,8 +9,8 @@
     <session-factory> 
         <!-- Database connection settings -->
         <property name="connection.driver_class">com.microsoft.sqlserver.jdbc.SQLServerDriver</property>         
-        <!--<property name="connection.url">jdbc:sqlserver://tpvparatodos.database.windows.net;databaseName=TPVParaTodos</property>-->     
-        <property name="connection.url">jdbc:sqlserver://localhost:5432/TPVParaTodos</property>
+        <property name="connection.url">jdbc:sqlserver://tpvparatodos.database.windows.net;databaseName=TPVParaTodos</property>     
+        <!--<property name="connection.url">jdbc:sqlserver://localhost:5744/TPVParaTodos</property>-->
         <property name="connection.username">Eduardo</property>       
         <property name="connection.password">Contrasenya123</property> 
     
@@ -29,8 +29,7 @@
         <!-- Echo all executed SQL to stdout -->
         <property name="show_sql">true</property>        
        
-        <!-- MAPPING CLASSES -->
-                 
+        <!-- MAPPING CLASSES -->                 
         <mapping class="model.pojo.Drinks"/>  
         <mapping class="model.pojo.Foods"/>
         <mapping class="model.pojo.Menus"/>
@@ -38,14 +37,17 @@
         <mapping class="model.pojo.Tables"/>
         <mapping class="model.pojo.Waiters"/>
         <mapping class="model.pojo.Zones"/>
+        <mapping class="model.pojo.Fragments"/>
+        <mapping class="model.pojo.FragmentsPK"/>
+        <mapping class="model.pojo.Products"/>
+        <mapping class="model.pojo.Staff"/>
         <mapping class="model.pojo.AspNetRoles"/>
         <mapping class="model.pojo.AspNetUserClaims"/>
         <mapping class="model.pojo.AspNetUserLogins"/>
         <mapping class="model.pojo.AspNetUserLoginsPK"/>
         <mapping class="model.pojo.AspNetUsers"/>
         <mapping class="model.pojo.MigrationHistory"/>
-        <mapping class="model.pojo.MigrationHistoryPK"/>              
-        <mapping class="model.pojo.Sysdiagrams"/>                          
+        <mapping class="model.pojo.MigrationHistoryPK"/>                       
                  
     </session-factory> 
 </hibernate-configuration>

@@ -21,7 +21,7 @@ public class OrdersDAO {
     private Session sesion;
     private Transaction tx;
 
-    private final SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+   // private final SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
 
     private void startOperation() throws HibernateException {
         sesion = HibernateUtil.getSessionFactory().openSession();
@@ -103,10 +103,10 @@ public class OrdersDAO {
 
     public List<Orders> getAllOrders() {
         try {
-            if (!this.sessionFactory.getCurrentSession().getTransaction().isActive()) {
-                this.sessionFactory.getCurrentSession().getTransaction().begin();
+            if (!HibernateUtil.getSessionFactory().getCurrentSession().getTransaction().isActive()) {
+                HibernateUtil.getSessionFactory().getCurrentSession().getTransaction().begin();
             }
-            return sessionFactory.getCurrentSession()
+            return HibernateUtil.getSessionFactory().getCurrentSession()
                     .createCriteria(Orders.class)
                     .list();
 

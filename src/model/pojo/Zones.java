@@ -8,9 +8,9 @@ package model.pojo;
 import java.io.Serializable;
 import java.util.Collection;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -18,8 +18,6 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -27,16 +25,9 @@ import javax.xml.bind.annotation.XmlTransient;
  */
 @Entity
 @Table(name = "Zones")
-@XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Zones.findAll", query = "SELECT z FROM Zones z")
-    , @NamedQuery(name = "Zones.findById", query = "SELECT z FROM Zones z WHERE z.id = :id")
-    , @NamedQuery(name = "Zones.findByLocation", query = "SELECT z FROM Zones z WHERE z.location = :location")})
+    @NamedQuery(name = "Zones.findAll", query = "SELECT z FROM Zones z")})
 public class Zones implements Serializable {
-
-    @JoinColumn(name = "Waiter_Id", referencedColumnName = "Id")
-    @ManyToOne
-    private Waiters waiterId;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -45,9 +36,10 @@ public class Zones implements Serializable {
     private Integer id;
     @Column(name = "Location")
     private String location;
-    @OneToMany(mappedBy = "zoneId")
-    private Collection<Waiters> waitersCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "zoneId")
+    @JoinColumn(name = "Waiter_Id", referencedColumnName = "Id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Waiters waiterId;
+    @OneToMany(mappedBy = "zoneId", fetch = FetchType.LAZY)
     private Collection<Tables> tablesCollection;
 
     public Zones() {
@@ -73,16 +65,14 @@ public class Zones implements Serializable {
         this.location = location;
     }
 
-    @XmlTransient
-    public Collection<Waiters> getWaitersCollection() {
-        return waitersCollection;
+    public Waiters getWaiterId() {
+        return waiterId;
     }
 
-    public void setWaitersCollection(Collection<Waiters> waitersCollection) {
-        this.waitersCollection = waitersCollection;
+    public void setWaiterId(Waiters waiterId) {
+        this.waiterId = waiterId;
     }
 
-    @XmlTransient
     public Collection<Tables> getTablesCollection() {
         return tablesCollection;
     }
@@ -113,15 +103,7 @@ public class Zones implements Serializable {
 
     @Override
     public String toString() {
-        return "model.Zones[ id=" + id + " ]";
-    }
-
-    public Waiters getWaiterId() {
-        return waiterId;
-    }
-
-    public void setWaiterId(Waiters waiterId) {
-        this.waiterId = waiterId;
+        return "model.pojo.Zones[ id=" + id + " ]";
     }
     
 }
