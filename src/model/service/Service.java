@@ -21,7 +21,7 @@ public class Service {
     private TablesDAO tablesDAO;
     private WaitersDAO waitersDAO;
     private ZonesDAO zonesDAO;
-    private ProductsDAO productsDAO;
+    private ProductsDAO productsDAO;    
 
     public Service() {
         this.drinksDAO = new DrinksDAO();

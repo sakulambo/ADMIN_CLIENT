@@ -91,7 +91,7 @@ public class ProductsDAO {
 
         try {
             startOperation();
-            ProductList = sesion.createQuery("from Drink").list();
+            ProductList = sesion.createQuery("from Products").list();
         } finally {
             sesion.close();
         }
