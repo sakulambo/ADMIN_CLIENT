@@ -65,7 +65,7 @@ public class Add_Product extends javax.swing.JFrame {
         jrbBebida = new javax.swing.JRadioButton();
         jlCategoria = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel6.setText("Comentarios");
 
@@ -111,6 +111,11 @@ public class Add_Product extends javax.swing.JFrame {
         });
 
         jbCancel.setText("Cancelar");
+        jbCancel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbCancelActionPerformed(evt);
+            }
+        });
 
         jbEliminar.setText("Eliminar");
 
@@ -260,6 +265,10 @@ public class Add_Product extends javax.swing.JFrame {
     private void jtfProductIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfProductIDActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jtfProductIDActionPerformed
+
+    private void jbCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbCancelActionPerformed
+      this.dispose();
+    }//GEN-LAST:event_jbCancelActionPerformed
     
      public ImageIcon ResizeImage(String ImagePath) {
         ImageIcon MyImage = new ImageIcon(ImagePath);

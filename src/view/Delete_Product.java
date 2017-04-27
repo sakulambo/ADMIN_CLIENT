@@ -52,13 +52,18 @@ public class Delete_Product extends javax.swing.JFrame {
         jbAceptar = new javax.swing.JButton();
         jbCancelar = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel1.setText("Selecciona un producto...");
 
         jbAceptar.setText("Aceptar");
 
         jbCancelar.setText("Cancelar");
+        jbCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbCancelarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -90,6 +95,10 @@ public class Delete_Product extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jbCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbCancelarActionPerformed
+       this.dispose();
+    }//GEN-LAST:event_jbCancelarActionPerformed
 
     private void startOperation() {
         SessionFactory sessionFactory = new AnnotationConfiguration().configure().buildSessionFactory();

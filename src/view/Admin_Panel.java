@@ -221,12 +221,11 @@ public class Admin_Panel extends javax.swing.JFrame {
     }//GEN-LAST:event_jmiEliminarProductoMouseClicked
 
     private void jmiAboutUsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiAboutUsActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_jmiAboutUsActionPerformed
 
     private void jmiAnadirProductoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jmiAnadirProductoMouseClicked
         aprc.getAddProduct();
-
     }//GEN-LAST:event_jmiAnadirProductoMouseClicked
 
     private void jmiAboutUsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jmiAboutUsMouseClicked

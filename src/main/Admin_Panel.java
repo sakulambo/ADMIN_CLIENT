@@ -18,7 +18,9 @@ public class Admin_Panel {
 
     public static void main(String[] args) throws NoSuchAlgorithmException {
         controller = new Controller();
-        controller.getLc();
+        controller.getLc().getLogin().setVisible(true);
+        
+//        controller.getGapc();
 
 //        DrinksDAO drinksDAO = new DrinksDAO();
 //        List<Drinks> result = drinksDAO.getAllDrinks();

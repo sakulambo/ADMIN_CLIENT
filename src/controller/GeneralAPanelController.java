@@ -17,6 +17,11 @@ public class GeneralAPanelController {
     private General_APanel generalAdmin_Panel;
     private Controller controller;
 
+    public GeneralAPanelController() throws NoSuchAlgorithmException {
+        this.generalAdmin_Panel = new General_APanel();
+        this.generalAdmin_Panel.setApc(this);
+    }
+
     public General_APanel getGeneralAdmin_Panel() {
         return generalAdmin_Panel;
     }
@@ -33,9 +38,4 @@ public class GeneralAPanelController {
         this.controller = controller;
     }
 
-    public GeneralAPanelController() throws NoSuchAlgorithmException {
-        this.generalAdmin_Panel = new General_APanel();
-        this.generalAdmin_Panel.setApc(this);
-    }
-    
 }

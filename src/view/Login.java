@@ -44,7 +44,7 @@ public final class Login extends JFrame {
     protected Button bt_Cancel;
     protected String generatedPassword = null;
     private LoginController loginController;
-    private GeneralAPanelController gapc;
+    private Controller controller;
 
     public static String user = "Eduardo";
     public static String password = "Contrasenya123";
@@ -58,8 +58,6 @@ public final class Login extends JFrame {
     public Login() throws NoSuchAlgorithmException {
         initComponent();
         createItems();
-        
-        gapc = new GeneralAPanelController();
     }
 
     public LoginController getLoginController() {
@@ -155,10 +153,11 @@ public final class Login extends JFrame {
                 String pass = "";
                 System.out.println("Introduce password:");
                 pass = teclat.next();
-
-                if (comparePass(pass,gapc)) {
+                if (comparePass(pass)) {
                     System.out.println("LOGIN!");
-                    this.setVisible(false);
+                    this.dispose();
+                    this.loginController.getController().getGapc().getGeneralAdmin_Panel().setVisible(true);
+
                 } else {
                     JOptionPane.showMessageDialog(errorContainer, "Usuario o contraseña erroneos!\nVuelva a intentarlo!",
                             "Login Error", JOptionPane.ERROR_MESSAGE);
@@ -248,7 +247,7 @@ public final class Login extends JFrame {
             boolean permit = false;
 
             try {
-                if (comparePass(pf_Password.getText(), gapc)) {
+                if (comparePass(pf_Password.getText())) {
                     System.out.println("LOGIN!");
                 } else {
                     JOptionPane.showMessageDialog(errorContainer, "Usuario o contraseña erroneos!\nVuelva a intentarlo!",
@@ -270,7 +269,7 @@ public final class Login extends JFrame {
 
     }
 
-    private boolean comparePass(String pass, GeneralAPanelController gapc) throws NoSuchAlgorithmException {
+    private boolean comparePass(String pass) throws NoSuchAlgorithmException {
         boolean permit = false;
 
         // Create MessageDigest instance for MD5
@@ -310,11 +309,9 @@ public final class Login extends JFrame {
         System.out.println(passHash);
 
         if (generatedPassword.equals(passHash)) {
-            System.out.println(permit);
-            this.setVisible(false);
-            gapc.getGeneralAdmin_Panel().setVisible(true);
             permit = true;
-
+            System.out.println(permit);            
+            this.setVisible(false);
         }
         return permit;
     }

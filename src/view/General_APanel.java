@@ -10,6 +10,7 @@ import controller.AddProductController;
 import controller.DeleteProductController;
 import controller.GeneralAPanelController;
 import controller.LoginController;
+import java.awt.event.ActionEvent;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
@@ -28,12 +29,38 @@ import javax.swing.JOptionPane;
  */
 public class General_APanel extends JFrame {
 
-   public General_APanel() throws NoSuchAlgorithmException {
+    // Variables declaration - do not modify                     
+    private javax.swing.JMenu jMenu3;
+    private javax.swing.JMenu jMenu6;
+    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenu jmFacturacion;
+    private javax.swing.JMenu jmMenus;
+    private javax.swing.JMenu jmMesas;
+    private javax.swing.JMenu jmOpciones;
+    private javax.swing.JMenu jmPersonal;
+    private javax.swing.JMenu jmProductos;
+    private javax.swing.JMenuItem jmiAboutUs;
+    private javax.swing.JMenuItem jmiAltaPersonal;
+    private javax.swing.JMenuItem jmiAnadirProducto;
+    private javax.swing.JMenuItem jmiAnadirProductoMenu;
+    private javax.swing.JMenuItem jmiAyuda;
+    private javax.swing.JMenuItem jmiBajaPersonal;
+    private javax.swing.JMenuItem jmiCrearMesa;
+    private javax.swing.JMenuItem jmiEliminarMesa;
+    private javax.swing.JMenuItem jmiEliminarProducto;
+    private javax.swing.JMenuItem jmiExit;
+    private javax.swing.JMenuItem jmiFacturarAno;
+    private javax.swing.JMenuItem jmiFacturarMes;
+    private javax.swing.JMenuItem jmiMostrarMenu;
+    private javax.swing.JMenuItem jmiMostrarMesas;
+    private javax.swing.JMenuItem jmiVerPersonal;
+    private javax.swing.JOptionPane genericpane;
+    private LoginController lc;
+    private GeneralAPanelController apc;
+
+    public General_APanel() throws NoSuchAlgorithmException {
         initComponents();
-        apc = new GeneralAPanelController();
-        aprc = new AddProductController();
-        dpc = new DeleteProductController();
-        lc = new LoginController();
 
     }
 
@@ -45,10 +72,7 @@ public class General_APanel extends JFrame {
         this.apc = apc;
     }
 
-   
-
     @SuppressWarnings("unchecked")
-    
     private void initComponents() {
 
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -88,11 +112,7 @@ public class General_APanel extends JFrame {
         jmFacturacion.setText("Facturación");
 
         jmiFacturarMes.setText("Facturar mes");
-        jmiFacturarMes.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jmiFacturarMesActionPerformed(evt);
-            }
-        });
+        jmiFacturarMes.addActionListener(this::jmiFacturarMesActionPerformed);
         jmFacturacion.add(jmiFacturarMes);
 
         jmiFacturarAno.setText("Facturar año");
@@ -120,6 +140,7 @@ public class General_APanel extends JFrame {
 
         jmiMostrarMesas.setText("Mostrar mesas");
         jmiMostrarMesas.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jmiMostrarMesasMouseClicked(evt);
             }
@@ -144,18 +165,14 @@ public class General_APanel extends JFrame {
         jmProductos.setText("Productos");
 
         jmiAnadirProducto.setText("Añadir producto");
-        jmiAnadirProducto.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jmiAnadirProductoMouseClicked(evt);
-            }
+        jmiAnadirProducto.addActionListener((ActionEvent e) -> {
+           this.apc.getController().getApc().getAddProduct().setVisible(true);
         });
         jmProductos.add(jmiAnadirProducto);
 
         jmiEliminarProducto.setText("Eliminar producto");
-        jmiEliminarProducto.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jmiEliminarProductoMouseClicked(evt);
-            }
+        jmiEliminarProducto.addActionListener((ActionEvent e) -> {
+           this.apc.getController().getDpc().getDeleteProduct().setVisible(true);
         });
         jmProductos.add(jmiEliminarProducto);
 
@@ -170,23 +187,18 @@ public class General_APanel extends JFrame {
         jmOpciones.add(jmiAyuda);
 
         jmiAboutUs.setText("Sobre TPV...");
-        jmiAboutUs.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jmiAboutUsMouseClicked(evt);
-            }
-        });
-        jmiAboutUs.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jmiAboutUsActionPerformed(evt);
-            }
-        });
+        jmiAboutUs.addActionListener((ActionEvent e) -> {
+            JOptionPane.showMessageDialog(genericpane, "Un producto de TPVParaTodos ®\n"
+                    + "Creado por: \n"
+                    + "Joshua Orellana, Gerson Ramirez,\n"
+                    + "Roberto Navarro y Kevin Garcia",
+                    "Login Error", JOptionPane.INFORMATION_MESSAGE);
+        });        
         jmOpciones.add(jmiAboutUs);
 
         jmiExit.setText("Salir");
-        jmiExit.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jmiExitMouseClicked(evt);
-            }
+        jmiExit.addActionListener((ActionEvent e) -> {
+           this.exitClicked(e);
         });
         jmOpciones.add(jmiExit);
 
@@ -197,49 +209,23 @@ public class General_APanel extends JFrame {
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 472, Short.MAX_VALUE)
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGap(0, 472, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 284, Short.MAX_VALUE)
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGap(0, 284, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>                        
 
+    private void jmiMostrarMesasMouseClicked(java.awt.event.MouseEvent evt) {
+    }
 
-    private void jmiMostrarMesasMouseClicked(java.awt.event.MouseEvent evt) {                                             
-    }                                            
-
-    private void jmiFacturarMesActionPerformed(java.awt.event.ActionEvent evt) {                                               
+    private void jmiFacturarMesActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
-    }                                              
-
-    private void jmiExitMouseClicked(java.awt.event.MouseEvent evt) {                                     
-        exitClicked(evt);
-    }                                    
-
-    private void jmiEliminarProductoMouseClicked(java.awt.event.MouseEvent evt) {                                                 
-        dpc.getDeleteProduct();
-    }                                                
-
-    private void jmiAboutUsActionPerformed(java.awt.event.ActionEvent evt) {                                           
-        // TODO add your handling code here:
-    }                                          
-
-    private void jmiAnadirProductoMouseClicked(java.awt.event.MouseEvent evt) {                                               
-        aprc.getAddProduct();
-
-    }                                              
-
-    private void jmiAboutUsMouseClicked(java.awt.event.MouseEvent evt) {                                        
-        JOptionPane.showMessageDialog(genericpane, "Un producto de TPVParaTodos ®\n"
-                + "Creado por: \n"
-                + "Joshua Orellana, Gerson Ramirez,\n"
-                + "Roberto Navarro y Kevin Garcia",
-                "Login Error", JOptionPane.INFORMATION_MESSAGE);
-    }                                       
+    }   
 
     public static void connection() throws SQLException, ClassNotFoundException, IOException {
         Gson gson = new Gson();
@@ -285,46 +271,14 @@ public class General_APanel extends JFrame {
 
     }
 
-    private void exitClicked(java.awt.event.MouseEvent evt) {
+    private void exitClicked(ActionEvent e) {
         try {
-            this.setVisible(false);
-            lc.getLogin().setVisible(true);
+            this.dispose();
+            this.apc.getController().getLc().getLogin().setVisible(true);
 
         } catch (Throwable ex) {
             Logger.getLogger(General_APanel.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
-
-    // Variables declaration - do not modify                     
-    private javax.swing.JMenu jMenu3;
-    private javax.swing.JMenu jMenu6;
-    private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenu jmFacturacion;
-    private javax.swing.JMenu jmMenus;
-    private javax.swing.JMenu jmMesas;
-    private javax.swing.JMenu jmOpciones;
-    private javax.swing.JMenu jmPersonal;
-    private javax.swing.JMenu jmProductos;
-    private javax.swing.JMenuItem jmiAboutUs;
-    private javax.swing.JMenuItem jmiAltaPersonal;
-    private javax.swing.JMenuItem jmiAnadirProducto;
-    private javax.swing.JMenuItem jmiAnadirProductoMenu;
-    private javax.swing.JMenuItem jmiAyuda;
-    private javax.swing.JMenuItem jmiBajaPersonal;
-    private javax.swing.JMenuItem jmiCrearMesa;
-    private javax.swing.JMenuItem jmiEliminarMesa;
-    private javax.swing.JMenuItem jmiEliminarProducto;
-    private javax.swing.JMenuItem jmiExit;
-    private javax.swing.JMenuItem jmiFacturarAno;
-    private javax.swing.JMenuItem jmiFacturarMes;
-    private javax.swing.JMenuItem jmiMostrarMenu;
-    private javax.swing.JMenuItem jmiMostrarMesas;
-    private javax.swing.JMenuItem jmiVerPersonal;                     
-    private javax.swing.JOptionPane genericpane;
-    private LoginController lc;
-    private GeneralAPanelController apc;
-    private DeleteProductController dpc;
-    private AddProductController aprc;
 }
