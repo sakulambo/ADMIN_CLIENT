@@ -21,7 +21,8 @@ public class Service {
     private TablesDAO tablesDAO;
     private WaitersDAO waitersDAO;
     private ZonesDAO zonesDAO;
-    private ProductsDAO productsDAO;    
+    private ProductsDAO productsDAO;  
+    private StaffDAO staffDAO;
 
     public Service() {
         this.drinksDAO = new DrinksDAO();
@@ -32,6 +33,7 @@ public class Service {
         this.waitersDAO = new WaitersDAO();
         this.zonesDAO = new ZonesDAO();
         this.productsDAO = new ProductsDAO();
+        this.staffDAO = new StaffDAO();
     }
 
     public DrinksDAO getDrinksDAO() {
@@ -100,6 +102,14 @@ public class Service {
 
     public void setProductsDAO(ProductsDAO productsDAO) {
         this.productsDAO = productsDAO;
+    }
+
+    public StaffDAO getStaffDAO() {
+        return staffDAO;
+    }
+
+    public void setStaffDAO(StaffDAO staffDAO) {
+        this.staffDAO = staffDAO;
     }
     
     

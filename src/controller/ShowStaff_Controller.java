@@ -5,27 +5,29 @@
  */
 package controller;
 
-import java.security.NoSuchAlgorithmException;
-import view.Login;
+import view.Show_Staff;
 
-public class LoginController {
-
+/**
+ *
+ * @author sakulambo
+ */
+public class ShowStaff_Controller {
     
-    private Login login;
+    private Show_Staff showStaff;
     private Controller controller;
 
-    public LoginController() throws NoSuchAlgorithmException {
-     
-        this.login = new Login();
-        this.login.setLoginController(this);
+    public ShowStaff_Controller() {
+        this.showStaff = new Show_Staff();
+        this.showStaff.setSsc(this);
+    }
+    
+
+    public Show_Staff getShowStaff() {
+        return showStaff;
     }
 
-    public Login getLogin() {
-        return login;
-    }
-
-    public void setLogin(Login login) {
-        this.login = login;
+    public void setShowStaff(Show_Staff showStaff) {
+        this.showStaff = showStaff;
     }
 
     public Controller getController() {
@@ -36,5 +38,7 @@ public class LoginController {
         this.controller = controller;
     }
     
-
+    
+    
+    
 }

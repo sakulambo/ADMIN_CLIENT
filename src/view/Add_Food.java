@@ -15,17 +15,13 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
-import java.math.BigDecimal;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
-import model.pojo.Foods;
 import model.service.Service;
-import org.apache.commons.net.ftp.FTP;
-import org.apache.commons.net.ftp.FTPClient;
 
 /**
  *
@@ -298,7 +294,7 @@ public class Add_Food extends JFrame {
 
     }
 
-    public void uploadImage() throws IOException {
+   /* public void uploadImage() throws IOException {
         String server = "127.0.0.1";
         int port = 21;
         String user = "ANONYMOUS_LOGON";
@@ -329,17 +325,13 @@ public class Add_Food extends JFrame {
             System.out.println("Error: " + ex.getMessage());
             ex.printStackTrace();
         } finally {
-            try {
-                if (ftpClient.isConnected()) {
-                    ftpClient.logout();
-                    ftpClient.disconnect();
-                }
-            } catch (IOException ex) {
-                ex.printStackTrace();
+            if (ftpClient.isConnected()) {
+                ftpClient.logout();
+                ftpClient.disconnect();
             }
         }
 
-    }
+    }*/
 
     // Variables declaration - do not modify                     
     private javax.swing.JComboBox<String> jcbFoodType;

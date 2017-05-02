@@ -93,7 +93,7 @@ public class MenusDAO {
 
         try {
             startOperation();
-            MenuList = sesion.createQuery("from Drink").list();
+            MenuList = sesion.createQuery("from Menus").list();
         } finally {
             sesion.close();
         }

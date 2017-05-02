@@ -45,12 +45,12 @@ public class Products implements Serializable {
     private String description;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "products", fetch = FetchType.LAZY)
     private Collection<Fragments> fragmentsCollection;
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "products", fetch = FetchType.LAZY)
-    private Menus menus;
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "products", fetch = FetchType.LAZY)
-    private Drinks drinks;
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "products", fetch = FetchType.LAZY)
-    private Foods foods;
+//    @OneToOne(cascade = CascadeType.ALL, mappedBy = "products", fetch = FetchType.LAZY)
+//    private Menus menus;
+//    @OneToOne(cascade = CascadeType.ALL, mappedBy = "products", fetch = FetchType.LAZY)
+//    private Drinks drinks;
+//    @OneToOne(cascade = CascadeType.ALL, mappedBy = "products", fetch = FetchType.LAZY)
+//    private Foods foods;
 
     public Products() {
     }
@@ -103,30 +103,30 @@ public class Products implements Serializable {
     public void setFragmentsCollection(Collection<Fragments> fragmentsCollection) {
         this.fragmentsCollection = fragmentsCollection;
     }
-
-    public Menus getMenus() {
-        return menus;
-    }
-
-    public void setMenus(Menus menus) {
-        this.menus = menus;
-    }
-
-    public Drinks getDrinks() {
-        return drinks;
-    }
-
-    public void setDrinks(Drinks drinks) {
-        this.drinks = drinks;
-    }
-
-    public Foods getFoods() {
-        return foods;
-    }
-
-    public void setFoods(Foods foods) {
-        this.foods = foods;
-    }
+//
+//    public Menus getMenus() {
+//        return menus;
+//    }
+//
+//    public void setMenus(Menus menus) {
+//        this.menus = menus;
+//    }
+//
+//    public Drinks getDrinks() {
+//        return drinks;
+//    }
+//
+//    public void setDrinks(Drinks drinks) {
+//        this.drinks = drinks;
+//    }
+//
+//    public Foods getFoods() {
+//        return foods;
+//    }
+//
+//    public void setFoods(Foods foods) {
+//        this.foods = foods;
+//    }
 
     @Override
     public int hashCode() {

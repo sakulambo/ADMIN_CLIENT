@@ -54,8 +54,7 @@ public class Tables implements Serializable {
         this.id = id;
     }
 
-    public Tables(Integer id, int maxPeople, boolean empty) {
-        this.id = id;
+    public Tables(int maxPeople, boolean empty) {
         this.maxPeople = maxPeople;
         this.empty = empty;
     }

@@ -6,29 +6,31 @@
 package controller;
 
 import java.security.NoSuchAlgorithmException;
-import view.General_APanel;
+import view.Modify_Product;
 
 /**
  *
  * @author sakulambo
  */
-public class GeneralAPanelController {
+public class ModifyProduct_Controller {
 
-    private General_APanel generalAdmin_Panel;
+    private Modify_Product modifyProduct;
     private Controller controller;
-
-    public GeneralAPanelController() throws NoSuchAlgorithmException {
-        this.generalAdmin_Panel = new General_APanel();
-        this.generalAdmin_Panel.setApc(this);
+    
+    public ModifyProduct_Controller() throws NoSuchAlgorithmException{
+        this.modifyProduct = new Modify_Product();
+        this.modifyProduct.setDpc(this);
     }
 
-    public General_APanel getGeneralAdmin_Panel() {
-        return generalAdmin_Panel;
+    public Modify_Product getDeleteProduct() {
+        return modifyProduct;
     }
 
-    public void setGeneralAdmin_Panel(General_APanel generalAdmin_Panel) {
-        this.generalAdmin_Panel = generalAdmin_Panel;
+    public void setDeleteProduct(Modify_Product deleteProduct) {
+        this.modifyProduct = deleteProduct;
     }
+
+    
 
     public Controller getController() {
         return controller;
@@ -38,4 +40,8 @@ public class GeneralAPanelController {
         this.controller = controller;
     }
 
+    
+
+
+    
 }

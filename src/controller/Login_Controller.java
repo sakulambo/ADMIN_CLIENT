@@ -6,28 +6,26 @@
 package controller;
 
 import java.security.NoSuchAlgorithmException;
-import view.Add_Product;
+import view.Login;
 
-/**
- *
- * @author sakulambo
- */
-public class AddProductController {
+public class Login_Controller {
 
-    private Add_Product addProduct;
+    
+    private Login login;
     private Controller controller;
 
-    public AddProductController() throws NoSuchAlgorithmException{
-        this.addProduct = new Add_Product();
-        this.addProduct.setAddProductController(this);
+    public Login_Controller() throws NoSuchAlgorithmException {
+     
+        this.login = new Login();
+        this.login.setLoginController(this);
     }
 
-    public Add_Product getAddProduct() {
-        return addProduct;
+    public Login getLogin() {
+        return login;
     }
 
-    public void setAddProduct(Add_Product addProduct) {
-        this.addProduct = addProduct;
+    public void setLogin(Login login) {
+        this.login = login;
     }
 
     public Controller getController() {
@@ -37,7 +35,6 @@ public class AddProductController {
     public void setController(Controller controller) {
         this.controller = controller;
     }
-
-
     
+
 }

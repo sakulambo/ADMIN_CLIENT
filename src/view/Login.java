@@ -6,8 +6,8 @@
 package view;
 
 import controller.Controller;
-import controller.GeneralAPanelController;
-import controller.LoginController;
+import controller.GeneralAPanel_Controller;
+import controller.Login_Controller;
 import java.awt.Button;
 import java.awt.event.ActionEvent;
 import java.awt.event.ItemEvent;
@@ -43,7 +43,7 @@ public final class Login extends JFrame {
     protected Button bt_Login;
     protected Button bt_Cancel;
     protected String generatedPassword = null;
-    private LoginController loginController;
+    private Login_Controller loginController;
     private Controller controller;
 
     public static String user = "Eduardo";
@@ -60,11 +60,11 @@ public final class Login extends JFrame {
         createItems();
     }
 
-    public LoginController getLoginController() {
+    public Login_Controller getLoginController() {
         return loginController;
     }
 
-    public void setLoginController(LoginController loginController) throws NoSuchAlgorithmException {
+    public void setLoginController(Login_Controller loginController) throws NoSuchAlgorithmException {
         this.loginController = loginController;
 
     }

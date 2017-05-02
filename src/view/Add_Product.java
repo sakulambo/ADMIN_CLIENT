@@ -5,7 +5,7 @@
  */
 package view;
 
-import controller.AddProductController;
+import controller.AddProduct_Controller;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -22,11 +22,11 @@ import javax.swing.filechooser.FileNameExtensionFilter;
  */
 public class Add_Product extends javax.swing.JFrame {
 
-    public AddProductController getAddProductController() {
+    public AddProduct_Controller getAddProductController() {
         return addProductController;
     }
 
-    public void setAddProductController(AddProductController addProductController) {
+    public void setAddProductController(AddProduct_Controller addProductController) {
         this.addProductController = addProductController;
     }
    
@@ -323,5 +323,5 @@ public class Add_Product extends javax.swing.JFrame {
     private javax.swing.JTextField jtfProductName;
     private javax.swing.JTextField jtfProductPrice;
     // End of variables declaration//GEN-END:variables
-    private AddProductController addProductController;
+    private AddProduct_Controller addProductController;
 }

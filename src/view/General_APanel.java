@@ -6,10 +6,10 @@
 package view;
 
 import com.google.gson.Gson;
-import controller.AddProductController;
-import controller.DeleteProductController;
-import controller.GeneralAPanelController;
-import controller.LoginController;
+import controller.AddProduct_Controller;
+import controller.ModifyProduct_Controller;
+import controller.GeneralAPanel_Controller;
+import controller.Login_Controller;
 import java.awt.event.ActionEvent;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
@@ -32,7 +32,7 @@ public class General_APanel extends JFrame {
     // Variables declaration - do not modify                     
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu6;
-    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuBar jmMainBar;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenu jmFacturacion;
     private javax.swing.JMenu jmMenus;
@@ -47,7 +47,6 @@ public class General_APanel extends JFrame {
     private javax.swing.JMenuItem jmiAyuda;
     private javax.swing.JMenuItem jmiBajaPersonal;
     private javax.swing.JMenuItem jmiCrearMesa;
-    private javax.swing.JMenuItem jmiEliminarMesa;
     private javax.swing.JMenuItem jmiEliminarProducto;
     private javax.swing.JMenuItem jmiExit;
     private javax.swing.JMenuItem jmiFacturarAno;
@@ -56,19 +55,19 @@ public class General_APanel extends JFrame {
     private javax.swing.JMenuItem jmiMostrarMesas;
     private javax.swing.JMenuItem jmiVerPersonal;
     private javax.swing.JOptionPane genericpane;
-    private LoginController lc;
-    private GeneralAPanelController apc;
+    private Login_Controller lc;
+    private GeneralAPanel_Controller apc;
 
     public General_APanel() throws NoSuchAlgorithmException {
         initComponents();
 
     }
 
-    public GeneralAPanelController getApc() {
+    public GeneralAPanel_Controller getApc() {
         return apc;
     }
 
-    public void setApc(GeneralAPanelController apc) {
+    public void setApc(GeneralAPanel_Controller apc) {
         this.apc = apc;
     }
 
@@ -78,7 +77,7 @@ public class General_APanel extends JFrame {
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         jMenu6 = new javax.swing.JMenu();
-        jMenuBar1 = new javax.swing.JMenuBar();
+        jmMainBar = new javax.swing.JMenuBar();
         jmFacturacion = new javax.swing.JMenu();
         jmiFacturarMes = new javax.swing.JMenuItem();
         jmiFacturarAno = new javax.swing.JMenuItem();
@@ -89,7 +88,6 @@ public class General_APanel extends JFrame {
         jmMesas = new javax.swing.JMenu();
         jmiCrearMesa = new javax.swing.JMenuItem();
         jmiMostrarMesas = new javax.swing.JMenuItem();
-        jmiEliminarMesa = new javax.swing.JMenuItem();
         jmMenus = new javax.swing.JMenu();
         jmiMostrarMenu = new javax.swing.JMenuItem();
         jmiAnadirProductoMenu = new javax.swing.JMenuItem();
@@ -118,7 +116,7 @@ public class General_APanel extends JFrame {
         jmiFacturarAno.setText("Facturar año");
         jmFacturacion.add(jmiFacturarAno);
 
-        jMenuBar1.add(jmFacturacion);
+        jmMainBar.add(jmFacturacion);
 
         jmPersonal.setText("Personal");
 
@@ -131,52 +129,53 @@ public class General_APanel extends JFrame {
         jmiBajaPersonal.setText("Baja Personal");
         jmPersonal.add(jmiBajaPersonal);
 
-        jMenuBar1.add(jmPersonal);
+        jmMainBar.add(jmPersonal);
 
         jmMesas.setText("Mesas");
 
         jmiCrearMesa.setText("Crear mesa");
         jmMesas.add(jmiCrearMesa);
 
+        
+        //CREAR JFRAME
         jmiMostrarMesas.setText("Mostrar mesas");
-        jmiMostrarMesas.addMouseListener(new java.awt.event.MouseAdapter() {
-            @Override
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jmiMostrarMesasMouseClicked(evt);
-            }
+        jmiMostrarMesas.addActionListener((ActionEvent mm) -> {
+            this.apc.getController().getStc().getShowTables().jframeVisible();
         });
+        
+        
         jmMesas.add(jmiMostrarMesas);
 
-        jmiEliminarMesa.setText("Eliminar mesa");
-        jmMesas.add(jmiEliminarMesa);
-
-        jMenuBar1.add(jmMesas);
+        jmMainBar.add(jmMesas);
 
         jmMenus.setText("Menu");
 
         jmiMostrarMenu.setText("Mostrar menus");
+        jmiMostrarMenu.addActionListener((ActionEvent ap) -> {
+            this.apc.getController().getSmc().getShowMenus().jframVisible();
+        });
         jmMenus.add(jmiMostrarMenu);
 
         jmiAnadirProductoMenu.setText("Añadir producto a menu");
         jmMenus.add(jmiAnadirProductoMenu);
 
-        jMenuBar1.add(jmMenus);
+        jmMainBar.add(jmMenus);
 
         jmProductos.setText("Productos");
 
         jmiAnadirProducto.setText("Añadir producto");
-        jmiAnadirProducto.addActionListener((ActionEvent e) -> {
-           this.apc.getController().getApc().getAddProduct().setVisible(true);
+        jmiAnadirProducto.addActionListener((ActionEvent ap) -> {
+            this.apc.getController().getApc().getAddProduct().setVisible(true);
         });
         jmProductos.add(jmiAnadirProducto);
 
         jmiEliminarProducto.setText("Eliminar producto");
-        jmiEliminarProducto.addActionListener((ActionEvent e) -> {
-           this.apc.getController().getDpc().getDeleteProduct().setVisible(true);
+        jmiEliminarProducto.addActionListener((ActionEvent ep) -> {
+            this.apc.getController().getDpc().getDeleteProduct().jframeVisible();
         });
         jmProductos.add(jmiEliminarProducto);
 
-        jMenuBar1.add(jmProductos);
+        jmMainBar.add(jmProductos);
 
         jmOpciones.setText("Opciones");
         jmOpciones.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -193,18 +192,18 @@ public class General_APanel extends JFrame {
                     + "Joshua Orellana, Gerson Ramirez,\n"
                     + "Roberto Navarro y Kevin Garcia",
                     "Login Error", JOptionPane.INFORMATION_MESSAGE);
-        });        
+        });
         jmOpciones.add(jmiAboutUs);
 
         jmiExit.setText("Salir");
         jmiExit.addActionListener((ActionEvent e) -> {
-           this.exitClicked(e);
+            this.exitClicked(e);
         });
         jmOpciones.add(jmiExit);
 
-        jMenuBar1.add(jmOpciones);
+        jmMainBar.add(jmOpciones);
 
-        setJMenuBar(jMenuBar1);
+        setJMenuBar(jmMainBar);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -218,14 +217,15 @@ public class General_APanel extends JFrame {
         );
 
         pack();
-    }// </editor-fold>                        
-
-    private void jmiMostrarMesasMouseClicked(java.awt.event.MouseEvent evt) {
-    }
+    }// </editor-fold>                       
 
     private void jmiFacturarMesActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
-    }   
+    }
+
+    private void jmiMostrarMesasActionPerformed(java.awt.event.ActionEvent evt) {
+        // TODO add your handling code here:
+    }
 
     public static void connection() throws SQLException, ClassNotFoundException, IOException {
         Gson gson = new Gson();

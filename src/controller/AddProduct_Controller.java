@@ -6,28 +6,28 @@
 package controller;
 
 import java.security.NoSuchAlgorithmException;
-import view.Delete_Product;
+import view.Add_Product;
 
 /**
  *
  * @author sakulambo
  */
-public class DeleteProductController {
+public class AddProduct_Controller {
 
-    private Delete_Product deleteProduct;
+    private Add_Product addProduct;
     private Controller controller;
-    
-    public DeleteProductController() throws NoSuchAlgorithmException{
-        this.deleteProduct = new Delete_Product();
-        this.deleteProduct.setDeleteProductController(this);
+
+    public AddProduct_Controller() throws NoSuchAlgorithmException{
+        this.addProduct = new Add_Product();
+        this.addProduct.setAddProductController(this);
     }
 
-    public Delete_Product getDeleteProduct() {
-        return deleteProduct;
+    public Add_Product getAddProduct() {
+        return addProduct;
     }
 
-    public void setDeleteProduct(Delete_Product deleteProduct) {
-        this.deleteProduct = deleteProduct;
+    public void setAddProduct(Add_Product addProduct) {
+        this.addProduct = addProduct;
     }
 
     public Controller getController() {
@@ -37,8 +37,6 @@ public class DeleteProductController {
     public void setController(Controller controller) {
         this.controller = controller;
     }
-
-    
 
 
     

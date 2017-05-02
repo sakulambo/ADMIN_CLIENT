@@ -92,6 +92,7 @@ public class ProductsDAO {
         try {
             startOperation();
             ProductList = sesion.createQuery("from Products").list();
+            System.out.println(ProductList);
         } finally {
             sesion.close();
         }

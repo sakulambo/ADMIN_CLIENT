@@ -52,8 +52,7 @@ public class Menus implements Serializable {
         this.id = id;
     }
 
-    public Menus(Integer id, short peopleNumber) {
-        this.id = id;
+    public Menus(short peopleNumber) {
         this.peopleNumber = peopleNumber;
     }
 

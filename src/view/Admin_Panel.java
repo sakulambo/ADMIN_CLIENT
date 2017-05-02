@@ -6,9 +6,9 @@
 package view;
 
 import com.google.gson.Gson;
-import controller.AddProductController;
-import controller.DeleteProductController;
-import controller.LoginController;
+import controller.AddProduct_Controller;
+import controller.ModifyProduct_Controller;
+import controller.Login_Controller;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
@@ -34,9 +34,9 @@ public class Admin_Panel extends javax.swing.JFrame {
      */
     public Admin_Panel() throws NoSuchAlgorithmException {
         initComponents();
-        aprc = new AddProductController();
-        dpc = new DeleteProductController();
-        lc = new LoginController();
+        aprc = new AddProduct_Controller();
+        dpc = new ModifyProduct_Controller();
+        lc = new Login_Controller();
 
     }
 
@@ -114,9 +114,9 @@ public class Admin_Panel extends javax.swing.JFrame {
         jmMesas.add(jmiCrearMesa);
 
         jmiMostrarMesas.setText("Mostrar mesas");
-        jmiMostrarMesas.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jmiMostrarMesasMouseClicked(evt);
+        jmiMostrarMesas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiMostrarMesasActionPerformed(evt);
             }
         });
         jmMesas.add(jmiMostrarMesas);
@@ -204,10 +204,6 @@ public class Admin_Panel extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
 
-    private void jmiMostrarMesasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jmiMostrarMesasMouseClicked
-
-    }//GEN-LAST:event_jmiMostrarMesasMouseClicked
-
     private void jmiFacturarMesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiFacturarMesActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jmiFacturarMesActionPerformed
@@ -235,6 +231,10 @@ public class Admin_Panel extends javax.swing.JFrame {
                 + "Roberto Navarro y Kevin Garcia",
                 "Login Error", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_jmiAboutUsMouseClicked
+
+    private void jmiMostrarMesasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiMostrarMesasActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jmiMostrarMesasActionPerformed
 
     public static void connection() throws SQLException, ClassNotFoundException, IOException {
         Gson gson = new Gson();
@@ -319,7 +319,7 @@ public class Admin_Panel extends javax.swing.JFrame {
     private javax.swing.JMenuItem jmiVerPersonal;
     // End of variables declaration//GEN-END:variables
     private javax.swing.JOptionPane genericpane;
-    private LoginController lc;
-    private DeleteProductController dpc;
-    private AddProductController aprc;
+    private Login_Controller lc;
+    private ModifyProduct_Controller dpc;
+    private AddProduct_Controller aprc;
 }
