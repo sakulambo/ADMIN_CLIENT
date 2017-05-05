@@ -56,11 +56,9 @@ public class Admin_Panel extends javax.swing.JFrame {
         jmPersonal = new javax.swing.JMenu();
         jmiAltaPersonal = new javax.swing.JMenuItem();
         jmiVerPersonal = new javax.swing.JMenuItem();
-        jmiBajaPersonal = new javax.swing.JMenuItem();
         jmMesas = new javax.swing.JMenu();
         jmiCrearMesa = new javax.swing.JMenuItem();
         jmiMostrarMesas = new javax.swing.JMenuItem();
-        jmiEliminarMesa = new javax.swing.JMenuItem();
         jmMenus = new javax.swing.JMenu();
         jmiMostrarMenu = new javax.swing.JMenuItem();
         jmiAnadirProductoMenu = new javax.swing.JMenuItem();
@@ -103,9 +101,6 @@ public class Admin_Panel extends javax.swing.JFrame {
         jmiVerPersonal.setText("Ver personal");
         jmPersonal.add(jmiVerPersonal);
 
-        jmiBajaPersonal.setText("Baja Personal");
-        jmPersonal.add(jmiBajaPersonal);
-
         jMenuBar1.add(jmPersonal);
 
         jmMesas.setText("Mesas");
@@ -120,9 +115,6 @@ public class Admin_Panel extends javax.swing.JFrame {
             }
         });
         jmMesas.add(jmiMostrarMesas);
-
-        jmiEliminarMesa.setText("Eliminar mesa");
-        jmMesas.add(jmiEliminarMesa);
 
         jMenuBar1.add(jmMesas);
 
@@ -146,7 +138,7 @@ public class Admin_Panel extends javax.swing.JFrame {
         });
         jmProductos.add(jmiAnadirProducto);
 
-        jmiEliminarProducto.setText("Eliminar producto");
+        jmiEliminarProducto.setText("Mostrar productos");
         jmiEliminarProducto.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jmiEliminarProductoMouseClicked(evt);
@@ -307,9 +299,7 @@ public class Admin_Panel extends javax.swing.JFrame {
     private javax.swing.JMenuItem jmiAnadirProducto;
     private javax.swing.JMenuItem jmiAnadirProductoMenu;
     private javax.swing.JMenuItem jmiAyuda;
-    private javax.swing.JMenuItem jmiBajaPersonal;
     private javax.swing.JMenuItem jmiCrearMesa;
-    private javax.swing.JMenuItem jmiEliminarMesa;
     private javax.swing.JMenuItem jmiEliminarProducto;
     private javax.swing.JMenuItem jmiExit;
     private javax.swing.JMenuItem jmiFacturarAno;

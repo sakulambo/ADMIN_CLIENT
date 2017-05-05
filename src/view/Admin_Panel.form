@@ -62,11 +62,6 @@
                 <Property name="text" type="java.lang.String" value="Ver personal"/>
               </Properties>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="jmiBajaPersonal">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Baja Personal"/>
-              </Properties>
-            </MenuItem>
           </SubComponents>
         </Menu>
         <Menu class="javax.swing.JMenu" name="jmMesas">
@@ -86,11 +81,6 @@
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jmiMostrarMesasActionPerformed"/>
               </Events>
-            </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="jmiEliminarMesa">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Eliminar mesa"/>
-              </Properties>
             </MenuItem>
           </SubComponents>
         </Menu>
@@ -126,7 +116,7 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jmiEliminarProducto">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Eliminar producto"/>
+                <Property name="text" type="java.lang.String" value="Mostrar productos"/>
               </Properties>
               <Events>
                 <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jmiEliminarProductoMouseClicked"/>

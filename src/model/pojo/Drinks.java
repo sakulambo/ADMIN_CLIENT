@@ -28,55 +28,52 @@ import javax.persistence.Table;
 @Table(name = "Drinks")
 @NamedQueries({
     @NamedQuery(name = "Drinks.findAll", query = "SELECT d FROM Drinks d")})
-public class Drinks implements Serializable {
+public class Drinks extends Products implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    @Id
-    @Basic(optional = false)
-    @Column(name = "Id")
-    private Integer id;
+//    @Id
+//    @Basic(optional = false)
+//    @Column(name = "Id")
+//    private Integer id;
     @Basic(optional = false)
     @Column(name = "Capacity")
-    private int capacity;
+    protected int capacity;
     @Column(name = "TypeBottle")
-    private String typeBottle;
+    protected String typeBottle;
     @Basic(optional = false)
     @Column(name = "Soda")
-    private boolean soda;
+    protected boolean soda;
     @Basic(optional = false)
     @Column(name = "Alcohol")
-    private boolean alcohol;
+    protected boolean alcohol;
     @JoinTable(name = "MenuDrinks", joinColumns = {
         @JoinColumn(name = "Drink_Id", referencedColumnName = "Id")}, inverseJoinColumns = {
         @JoinColumn(name = "Menu_Id", referencedColumnName = "Id")})
     @ManyToMany(fetch = FetchType.LAZY)
     private Collection<Menus> menusCollection;
-    @JoinColumn(name = "Id", referencedColumnName = "Id", insertable = false, updatable = false)
-    @OneToOne(optional = false, fetch = FetchType.LAZY)
-    private Products products;
+//    @JoinColumn(name = "Id", referencedColumnName = "Id", insertable = false, updatable = false)
+//    @OneToOne(optional = false, fetch = FetchType.LAZY)
+//    private Products products;
 
     public Drinks() {
     }
 
-    public Drinks(Integer id) {
-        this.id = id;
-    }
-
-    public Drinks(Integer id, int capacity, boolean soda, boolean alcohol) {
-        this.id = id;
+    public Drinks(int capacity, String typeBottle, boolean soda, boolean alcohol, String name, double price, String description) {
+        super(name, price, description);
         this.capacity = capacity;
+        this.typeBottle = typeBottle;
         this.soda = soda;
         this.alcohol = alcohol;
     }
 
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
+//
+//    public Integer getId() {
+//        return id;
+//    }
+//
+//    public void setId(Integer id) {
+//        this.id = id;
+//    }
     public int getCapacity() {
         return capacity;
     }
@@ -117,37 +114,35 @@ public class Drinks implements Serializable {
         this.menusCollection = menusCollection;
     }
 
-    public Products getProducts() {
-        return products;
-    }
-
-    public void setProducts(Products products) {
-        this.products = products;
-    }
-
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Drinks)) {
-            return false;
-        }
-        Drinks other = (Drinks) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-            return false;
-        }
-        return true;
-    }
-
+//    public Products getProducts() {
+//        return products;
+//    }
+//
+//    public void setProducts(Products products) {
+//        this.products = products;
+//    }
+//    @Override
+//    public int hashCode() {
+//        int hash = 0;
+//        hash += (id != null ? id.hashCode() : 0);
+//        return hash;
+//    }
+//
+//    @Override
+//    public boolean equals(Object object) {
+//        // TODO: Warning - this method won't work in the case the id fields are not set
+//        if (!(object instanceof Drinks)) {
+//            return false;
+//        }
+//        Drinks other = (Drinks) object;
+//        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+//            return false;
+//        }
+//        return true;
+//    }
     @Override
     public String toString() {
-        return "Drinks{" + "id=" + id + ", capacity=" + capacity + ", typeBottle=" + typeBottle + ", soda=" + soda + ", alcohol=" + alcohol + ", menusCollection=" + menusCollection + ", products=" + products + '}';
+        return "Drinks{" + "capacity=" + capacity + ", typeBottle=" + typeBottle + ", soda=" + soda + ", alcohol=" + alcohol + '}';
     }
 
 }

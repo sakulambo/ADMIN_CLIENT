@@ -9,10 +9,10 @@
     <session-factory> 
         <!-- Database connection settings -->
         <property name="connection.driver_class">com.microsoft.sqlserver.jdbc.SQLServerDriver</property>         
-        <property name="connection.url">jdbc:sqlserver://tpvparatodos.database.windows.net;databaseName=TPVParaTodos</property>     
-        <!--<property name="connection.url">jdbc:sqlserver://localhost:5744/TPVParaTodos</property>-->
-        <property name="connection.username">Eduardo</property>       
-        <property name="connection.password">Contrasenya123</property> 
+        <!--<property name="connection.url">jdbc:sqlserver://tpvparatodos.database.windows.net;databaseName=TPVParaTodos</property>-->     
+        <property name="connection.url">jdbc:sqlserver://localhost:5744;databaseName=TPVParaTodos</property>
+        <property name="connection.username">root</property>       
+        <property name="connection.password">root</property> 
     
         <!-- Configuracion del pool interno -->
         <property name="connection.pool_size">1</property>
@@ -27,7 +27,7 @@
         <property name="cache.provider_class">org.hibernate.cache.NoCacheProvider</property> 
 
         <!-- Echo all executed SQL to stdout -->
-        <!--<property name="show_sql">true</property>-->        
+        <property name="show_sql">true</property>        
        
         <!-- MAPPING CLASSES -->                 
         <mapping class="model.pojo.Drinks"/>  

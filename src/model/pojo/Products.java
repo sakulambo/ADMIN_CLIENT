@@ -6,14 +6,16 @@
 package model.pojo;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -25,24 +27,25 @@ import javax.persistence.Table;
  * @author sakulambo
  */
 @Entity
+@Inheritance(strategy=InheritanceType.JOINED)
 @Table(name = "Products")
 @NamedQueries({
     @NamedQuery(name = "Products.findAll", query = "SELECT p FROM Products p")})
-public class Products implements Serializable {
+public abstract class Products implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue
     @Basic(optional = false)
     @Column(name = "Id")
     private Integer id;
     @Column(name = "Name")
-    private String name;
-    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
+    protected String name;    
     @Basic(optional = false)
     @Column(name = "Price")
-    private BigDecimal price;
+    protected double price;
     @Column(name = "Description")
-    private String description;
+    protected String description;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "products", fetch = FetchType.LAZY)
     private Collection<Fragments> fragmentsCollection;
 //    @OneToOne(cascade = CascadeType.ALL, mappedBy = "products", fetch = FetchType.LAZY)
@@ -59,10 +62,20 @@ public class Products implements Serializable {
         this.id = id;
     }
 
-    public Products(Integer id, BigDecimal price) {
+    public Products(Integer id, double price) {
         this.id = id;
         this.price = price;
     }
+
+    public Products(String name, double price, String description) {        
+        this.name = name;
+        this.price = price;
+        this.description = description;
+    }
+
+  
+    
+    
 
     public Integer getId() {
         return id;
@@ -80,11 +93,11 @@ public class Products implements Serializable {
         this.name = name;
     }
 
-    public BigDecimal getPrice() {
+    public double getPrice() {
         return price;
     }
 
-    public void setPrice(BigDecimal price) {
+    public void setPrice(double price) {
         this.price = price;
     }
 
@@ -103,7 +116,7 @@ public class Products implements Serializable {
     public void setFragmentsCollection(Collection<Fragments> fragmentsCollection) {
         this.fragmentsCollection = fragmentsCollection;
     }
-//
+
 //    public Menus getMenus() {
 //        return menus;
 //    }
@@ -111,7 +124,7 @@ public class Products implements Serializable {
 //    public void setMenus(Menus menus) {
 //        this.menus = menus;
 //    }
-//
+////
 //    public Drinks getDrinks() {
 //        return drinks;
 //    }

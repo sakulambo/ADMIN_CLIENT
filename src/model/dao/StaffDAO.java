@@ -87,16 +87,16 @@ public class StaffDAO {
     }
 
     public List<Staff> getStaffList() throws HibernateException {
-        List<Staff> MenuList = null;
+        List<Staff> staffList = null;
 
         try {
             startOperation();
-            MenuList = sesion.createQuery("from Menus").list();
+            staffList = sesion.createQuery("from Staff").list();
         } finally {
             sesion.close();
         }
 
-        return MenuList;
+        return staffList;
     }
     
     public List<Staff> getAllStaff() {

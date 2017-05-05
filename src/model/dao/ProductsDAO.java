@@ -6,8 +6,10 @@
 package model.dao;
 
 import java.util.List;
+import model.pojo.Foods;
 import model.pojo.Products;
 import org.hibernate.HibernateException;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
@@ -16,10 +18,9 @@ import org.hibernate.Transaction;
  * @author sakulambo
  */
 public class ProductsDAO {
-    
+
     private Session sesion;
     private Transaction tx;
-    //private SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
 
     private void startOperation() throws HibernateException {
         sesion = HibernateUtil.getSessionFactory().openSession();
@@ -28,24 +29,22 @@ public class ProductsDAO {
 
     private void manejaExcepcion(HibernateException he) throws HibernateException {
         tx.rollback();
+        System.out.println(he);
         throw new HibernateException("Something's Wrong...\n", he);
     }
 
-    public long saveProduct(Products product) throws HibernateException {
-        long id = 0;
+    public void saveProduct(Object object) throws HibernateException {
 
         try {
-            startOperation();
-            id = (Long) sesion.save(product);
+            startOperation();         
+            sesion.save(object);
             tx.commit();
         } catch (HibernateException he) {
             manejaExcepcion(he);
             throw he;
         } finally {
             sesion.close();
-        }
-
-        return id;
+        }        
     }
 
     public void updateProduct(Products product) throws HibernateException {
@@ -92,7 +91,7 @@ public class ProductsDAO {
         try {
             startOperation();
             ProductList = sesion.createQuery("from Products").list();
-            System.out.println(ProductList);
+
         } finally {
             sesion.close();
         }
@@ -113,5 +112,5 @@ public class ProductsDAO {
             return null;
         }
     }
-    
+
 }

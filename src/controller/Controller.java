@@ -15,7 +15,7 @@ public class Controller {
     private ModifyProduct_Controller dpc;
     private ShowTable_Controller stc;
     private ShowMenu_Controller smc;
-
+    private ShowStaff_Controller ssc;
     private Service service;
 
     public Controller() throws NoSuchAlgorithmException {
@@ -26,7 +26,9 @@ public class Controller {
         this.dpc = new ModifyProduct_Controller();
         this.stc = new ShowTable_Controller();
         this.smc = new ShowMenu_Controller();
+        this.ssc = new ShowStaff_Controller();
 
+        this.ssc.setController(this);
         this.smc.setController(this);
         this.lc.setController(this);
         this.gapc.setController(this);
@@ -83,6 +85,16 @@ public class Controller {
     public void setSmc(ShowMenu_Controller smc) {
         this.smc = smc;
     }
+
+    public ShowStaff_Controller getSsc() {
+        return ssc;
+    }
+
+    public void setSsc(ShowStaff_Controller ssc) {
+        this.ssc = ssc;
+    }
+    
+    
     
     public Service getService() {
         return service;

@@ -47,7 +47,7 @@ public class General_APanel extends JFrame {
     private javax.swing.JMenuItem jmiAyuda;
     private javax.swing.JMenuItem jmiBajaPersonal;
     private javax.swing.JMenuItem jmiCrearMesa;
-    private javax.swing.JMenuItem jmiEliminarProducto;
+    private javax.swing.JMenuItem jmiModificarProducto;
     private javax.swing.JMenuItem jmiExit;
     private javax.swing.JMenuItem jmiFacturarAno;
     private javax.swing.JMenuItem jmiFacturarMes;
@@ -93,7 +93,7 @@ public class General_APanel extends JFrame {
         jmiAnadirProductoMenu = new javax.swing.JMenuItem();
         jmProductos = new javax.swing.JMenu();
         jmiAnadirProducto = new javax.swing.JMenuItem();
-        jmiEliminarProducto = new javax.swing.JMenuItem();
+        jmiModificarProducto = new javax.swing.JMenuItem();
         jmOpciones = new javax.swing.JMenu();
         jmiAyuda = new javax.swing.JMenuItem();
         jmiAboutUs = new javax.swing.JMenuItem();
@@ -124,6 +124,9 @@ public class General_APanel extends JFrame {
         jmPersonal.add(jmiAltaPersonal);
 
         jmiVerPersonal.setText("Ver personal");
+        jmiVerPersonal.addActionListener((ActionEvent mm) -> {
+            this.apc.getController().getSsc().getShowStaff().jframVisible();
+        });
         jmPersonal.add(jmiVerPersonal);
 
         jmiBajaPersonal.setText("Baja Personal");
@@ -169,11 +172,11 @@ public class General_APanel extends JFrame {
         });
         jmProductos.add(jmiAnadirProducto);
 
-        jmiEliminarProducto.setText("Eliminar producto");
-        jmiEliminarProducto.addActionListener((ActionEvent ep) -> {
+        jmiModificarProducto.setText("Modificar producto");
+        jmiModificarProducto.addActionListener((ActionEvent ep) -> {
             this.apc.getController().getDpc().getDeleteProduct().jframeVisible();
         });
-        jmProductos.add(jmiEliminarProducto);
+        jmProductos.add(jmiModificarProducto);
 
         jmMainBar.add(jmProductos);
 

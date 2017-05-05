@@ -28,13 +28,13 @@ import javax.persistence.Table;
 @Table(name = "Foods")
 @NamedQueries({
     @NamedQuery(name = "Foods.findAll", query = "SELECT f FROM Foods f")})
-public class Foods implements Serializable {
+public class Foods extends Products implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    @Id
-    @Basic(optional = false)
-    @Column(name = "Id")
-    private Integer id;
+//    @Id
+//    @Basic(optional = false)
+//    @Column(name = "Id")
+//    private Integer id;
     @Column(name = "FamilyDish")
     private String familyDish;
     @JoinTable(name = "MenuFoods", joinColumns = {
@@ -42,25 +42,25 @@ public class Foods implements Serializable {
         @JoinColumn(name = "Menu_Id", referencedColumnName = "Id")})
     @ManyToMany(fetch = FetchType.LAZY)
     private Collection<Menus> menusCollection;
-    @JoinColumn(name = "Id", referencedColumnName = "Id", insertable = false, updatable = false)
-    @OneToOne(optional = false, fetch = FetchType.LAZY)
-    private Products products;
+//    @JoinColumn(name = "Id", referencedColumnName = "Id", insertable = false, updatable = false)
+//    @OneToOne(optional = false, fetch = FetchType.LAZY)
+//    private Products products;
 
     public Foods() {
     }
 
-    public Foods(Integer id) {
-        this.id = id;
+    public Foods(String familyDish, String name, double price, String description) {
+        super(name, price, description);
+        this.familyDish = familyDish;
     }
 
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
+//    public Integer getId() {
+//        return id;
+//    }
+//
+//    public void setId(Integer id) {
+//        this.id = id;
+//    }
     public String getFamilyDish() {
         return familyDish;
     }
@@ -77,37 +77,35 @@ public class Foods implements Serializable {
         this.menusCollection = menusCollection;
     }
 
-    public Products getProducts() {
-        return products;
-    }
-
-    public void setProducts(Products products) {
-        this.products = products;
-    }
-
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Foods)) {
-            return false;
-        }
-        Foods other = (Foods) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-            return false;
-        }
-        return true;
-    }
-
+//    public Products getProducts() {
+//        return products;
+//    }
+//
+//    public void setProducts(Products products) {
+//        this.products = products;
+//    }
+//    @Override
+//    public int hashCode() {
+//        int hash = 0;
+//        hash += (id != null ? id.hashCode() : 0);
+//        return hash;
+//    }
+//
+//    @Override
+//    public boolean equals(Object object) {
+//        // TODO: Warning - this method won't work in the case the id fields are not set
+//        if (!(object instanceof Foods)) {
+//            return false;
+//        }
+//        Foods other = (Foods) object;
+//        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+//            return false;
+//        }
+//        return true;
+//    }
     @Override
     public String toString() {
-        return "model.pojo.Foods[ id=" + id + " ]";
+        return "Foods{" + "familyDish=" + familyDish + '}';
     }
-    
+
 }
