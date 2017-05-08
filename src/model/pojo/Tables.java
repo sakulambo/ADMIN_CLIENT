@@ -12,6 +12,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -32,6 +33,7 @@ public class Tables implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue
     @Basic(optional = false)
     @Column(name = "Id")
     private Integer id;
@@ -58,6 +60,14 @@ public class Tables implements Serializable {
         this.maxPeople = maxPeople;
         this.empty = empty;
     }
+
+    public Tables(int maxPeople, boolean empty, Zones zoneId) {
+        this.maxPeople = maxPeople;
+        this.empty = empty;
+        this.zoneId = zoneId;
+    }
+    
+    
 
     public Integer getId() {
         return id;

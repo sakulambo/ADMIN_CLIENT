@@ -6,8 +6,6 @@
 package view;
 
 import com.google.gson.Gson;
-import controller.AddProduct_Controller;
-import controller.ModifyProduct_Controller;
 import controller.GeneralAPanel_Controller;
 import controller.Login_Controller;
 import java.awt.event.ActionEvent;
@@ -45,7 +43,6 @@ public class General_APanel extends JFrame {
     private javax.swing.JMenuItem jmiAnadirProducto;
     private javax.swing.JMenuItem jmiAnadirProductoMenu;
     private javax.swing.JMenuItem jmiAyuda;
-    private javax.swing.JMenuItem jmiBajaPersonal;
     private javax.swing.JMenuItem jmiCrearMesa;
     private javax.swing.JMenuItem jmiModificarProducto;
     private javax.swing.JMenuItem jmiExit;
@@ -84,7 +81,6 @@ public class General_APanel extends JFrame {
         jmPersonal = new javax.swing.JMenu();
         jmiAltaPersonal = new javax.swing.JMenuItem();
         jmiVerPersonal = new javax.swing.JMenuItem();
-        jmiBajaPersonal = new javax.swing.JMenuItem();
         jmMesas = new javax.swing.JMenu();
         jmiCrearMesa = new javax.swing.JMenuItem();
         jmiMostrarMesas = new javax.swing.JMenuItem();
@@ -121,17 +117,18 @@ public class General_APanel extends JFrame {
         jmPersonal.setText("Personal");
 
         jmiAltaPersonal.setText("Alta personal");
+        jmiAltaPersonal.addActionListener((ActionEvent ae) -> {
+            this.apc.getController().getAsc().getAddStaff().setVisible(true);
+        });
         jmPersonal.add(jmiAltaPersonal);
 
         jmiVerPersonal.setText("Ver personal");
-        jmiVerPersonal.addActionListener((ActionEvent mm) -> {
+        jmiVerPersonal.addActionListener((ActionEvent ae) -> {
             this.apc.getController().getSsc().getShowStaff().jframVisible();
         });
         jmPersonal.add(jmiVerPersonal);
 
-        jmiBajaPersonal.setText("Baja Personal");
-        jmPersonal.add(jmiBajaPersonal);
-
+        
         jmMainBar.add(jmPersonal);
 
         jmMesas.setText("Mesas");
@@ -142,7 +139,7 @@ public class General_APanel extends JFrame {
         
         //CREAR JFRAME
         jmiMostrarMesas.setText("Mostrar mesas");
-        jmiMostrarMesas.addActionListener((ActionEvent mm) -> {
+        jmiMostrarMesas.addActionListener((ActionEvent ae) -> {
             this.apc.getController().getStc().getShowTables().jframeVisible();
         });
         
@@ -154,7 +151,7 @@ public class General_APanel extends JFrame {
         jmMenus.setText("Menu");
 
         jmiMostrarMenu.setText("Mostrar menus");
-        jmiMostrarMenu.addActionListener((ActionEvent ap) -> {
+        jmiMostrarMenu.addActionListener((ActionEvent ae) -> {
             this.apc.getController().getSmc().getShowMenus().jframVisible();
         });
         jmMenus.add(jmiMostrarMenu);

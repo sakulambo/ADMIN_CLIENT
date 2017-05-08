@@ -56,6 +56,7 @@ public class Modify_Product extends javax.swing.JFrame {
         jbCancelar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jtProductos = new javax.swing.JTable();
+        jbReport = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -106,14 +107,23 @@ public class Modify_Product extends javax.swing.JFrame {
             jtProductos.getColumnModel().getColumn(3).setResizable(false);
         }
 
+        jbReport.setText("Generar Reporte");
+        jbReport.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbReportActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(24, 24, 24)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(layout.createSequentialGroup()
+                        .addComponent(jbReport)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jbEliminar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jbCancelar))
@@ -132,7 +142,8 @@ public class Modify_Product extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jbEliminar)
-                    .addComponent(jbCancelar))
+                    .addComponent(jbCancelar)
+                    .addComponent(jbReport))
                 .addGap(25, 25, 25))
         );
 
@@ -154,6 +165,10 @@ public class Modify_Product extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jbEliminarActionPerformed
 
+    private void jbReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbReportActionPerformed
+      
+    }//GEN-LAST:event_jbReportActionPerformed
+
     private void loadTable(List<Products> productos) {
         dtm = (DefaultTableModel) this.jtProductos.getModel();
         productos.forEach((producto) -> {
@@ -172,6 +187,7 @@ public class Modify_Product extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton jbCancelar;
     private javax.swing.JButton jbEliminar;
+    private javax.swing.JButton jbReport;
     private javax.swing.JTable jtProductos;
     // End of variables declaration//GEN-END:variables
     private javax.swing.JOptionPane genericPane;

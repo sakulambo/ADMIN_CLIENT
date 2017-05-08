@@ -69,8 +69,8 @@ public class AspNetUsers implements Serializable {
     private String userName;
     @ManyToMany(mappedBy = "aspNetUsersCollection", fetch = FetchType.LAZY)
     private Collection<AspNetRoles> aspNetRolesCollection;
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "aspNetUsers", fetch = FetchType.LAZY)
-    private Staff staff;
+//    @OneToOne(cascade = CascadeType.ALL, mappedBy = "aspNetUsers", fetch = FetchType.LAZY)
+//    private Staff staff;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "aspNetUsers", fetch = FetchType.LAZY)
     private Collection<AspNetUserLogins> aspNetUserLoginsCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "userId", fetch = FetchType.LAZY)
@@ -197,13 +197,13 @@ public class AspNetUsers implements Serializable {
         this.aspNetRolesCollection = aspNetRolesCollection;
     }
 
-    public Staff getStaff() {
-        return staff;
-    }
-
-    public void setStaff(Staff staff) {
-        this.staff = staff;
-    }
+//    public Staff getStaff() {
+//        return staff;
+//    }
+//
+//    public void setStaff(Staff staff) {
+//        this.staff = staff;
+//    }
 
     public Collection<AspNetUserLogins> getAspNetUserLoginsCollection() {
         return aspNetUserLoginsCollection;

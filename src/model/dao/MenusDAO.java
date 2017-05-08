@@ -9,7 +9,6 @@ import java.util.List;
 import model.pojo.Menus;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
 /**
@@ -21,7 +20,7 @@ public class MenusDAO {
     private Session sesion;
     private Transaction tx;
 
-   // private final SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+  
 
     private void startOperation() throws HibernateException {
         sesion = HibernateUtil.getSessionFactory().openSession();

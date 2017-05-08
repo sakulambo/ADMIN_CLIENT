@@ -16,6 +16,7 @@ public class Controller {
     private ShowTable_Controller stc;
     private ShowMenu_Controller smc;
     private ShowStaff_Controller ssc;
+    private AddStaff_Controller asc;    
     private Service service;
 
     public Controller() throws NoSuchAlgorithmException {
@@ -27,7 +28,10 @@ public class Controller {
         this.stc = new ShowTable_Controller();
         this.smc = new ShowMenu_Controller();
         this.ssc = new ShowStaff_Controller();
+        this.asc = new AddStaff_Controller();
+        
 
+        this.asc.setController(this);
         this.ssc.setController(this);
         this.smc.setController(this);
         this.lc.setController(this);
@@ -93,6 +97,17 @@ public class Controller {
     public void setSsc(ShowStaff_Controller ssc) {
         this.ssc = ssc;
     }
+
+    public AddStaff_Controller getAsc() {
+        return asc;
+    }
+
+    public void setAsc(AddStaff_Controller asc) {
+        this.asc = asc;
+    }
+    
+    
+    
     
     
     
