@@ -385,11 +385,11 @@ public class Add_Product extends javax.swing.JFrame {
                 soda = jcbSoda.getSelectedItem().equals("Si");
                 alcohol = jcbAlcohol.getSelectedItem().equals("Si");
                AbstractDAO.almacenaEntidad(new Drinks(capacity, name, soda, alcohol, name, price, commentary));
-               JOptionPane.showMessageDialog(rootPane, "Comida añadida correctamente!");
+               JOptionPane.showMessageDialog(rootPane, "Bebida añadida correctamente!");
             } else if (jrbComida.isSelected()) {
                 familyDish = jcbFamilyDish.getSelectedItem().toString();
                  AbstractDAO.almacenaEntidad(new Foods(familyDish, name, price, commentary));
-                 JOptionPane.showMessageDialog(rootPane, "Bebida añadida correctamente!");
+                 JOptionPane.showMessageDialog(rootPane, "Comida añadida correctamente!");
             }
         } catch (HibernateException e) {
             JOptionPane.showMessageDialog(rootPane, e);

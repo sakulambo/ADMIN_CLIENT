@@ -216,9 +216,9 @@ public class ReportDAO {
         subTitleStyle.setHorizontalAlign(HorizontalAlign.CENTER);
         subTitleStyle.setFont(new Font(Font.MEDIUM, Font._FONT_GEORGIA, true));
 
-        report.setTitle("Menus Report");
+        report.setTitle("REPORTE DE MENUS");
         report.setTitleStyle(titleStyle.build());
-        report.setSubtitle("Commission received by Menus");
+        report.setSubtitle("Reporte que muestra todos los menus por ID i la cantidad de gente máxima.");
         report.setSubtitleStyle(subTitleStyle.build());
         report.setUseFullPageWidth(true);
         return report.build();
