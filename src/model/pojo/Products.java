@@ -5,6 +5,7 @@
  */
 package model.pojo;
 
+import com.sun.istack.internal.NotNull;
 import java.io.Serializable;
 import java.util.Collection;
 import javax.persistence.Basic;
@@ -39,8 +40,10 @@ public abstract class Products implements Serializable {
     @Basic(optional = false)
     @Column(name = "Id")
     private Integer id;
+    @NotNull
     @Column(name = "Name")
-    protected String name;    
+    protected String name;
+    @NotNull
     @Basic(optional = false)
     @Column(name = "Price")
     protected double price;

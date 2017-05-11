@@ -77,7 +77,7 @@ public class ReportDAO {
         Style headerStyle = createHeaderStyle();
         Style detailTextStyle = createDetailTextStyle();
         Style detailNumberStyle = createDetailNumberStyle();
-        DynamicReport dynaReport = getReport(headerStyle, detailTextStyle, detailNumberStyle);
+        DynamicReport dynaReport = getReportTable(headerStyle, detailTextStyle, detailNumberStyle);
         JasperPrint jp = DynamicJasperHelper.generateJasperPrint(dynaReport, new ClassicLayoutManager(), new JRBeanCollectionDataSource(tableList));
         return jp;
     }
@@ -99,6 +99,26 @@ public class ReportDAO {
         JasperPrint jp = DynamicJasperHelper.generateJasperPrint(dynaReport, new ClassicLayoutManager(), new JRBeanCollectionDataSource(menusList));
         return jp;
     }
+      
+      public JasperPrint getReportDrinks() throws ColumnBuilderException, JRException, ClassNotFoundException {
+        Style headerStyle = createHeaderStyle();
+        Style detailTextStyle = createDetailTextStyle();
+        Style detailNumberStyle = createDetailNumberStyle();
+        DynamicReport dynaReport = getReportDrink(headerStyle, detailTextStyle, detailNumberStyle);
+        JasperPrint jp = DynamicJasperHelper.generateJasperPrint(dynaReport, new ClassicLayoutManager(), new JRBeanCollectionDataSource(drinkList));
+        return jp;
+    }
+      
+      public JasperPrint getReportFoods() throws ColumnBuilderException, JRException, ClassNotFoundException {
+        Style headerStyle = createHeaderStyle();
+        Style detailTextStyle = createDetailTextStyle();
+        Style detailNumberStyle = createDetailNumberStyle();
+        DynamicReport dynaReport = getReportFood(headerStyle, detailTextStyle, detailNumberStyle);
+        JasperPrint jp = DynamicJasperHelper.generateJasperPrint(dynaReport, new ClassicLayoutManager(), new JRBeanCollectionDataSource(foodList));
+        return jp;
+    }
+      
+      
 
     private Style createHeaderStyle() {
         StyleBuilder sb = new StyleBuilder(true);
@@ -192,9 +212,9 @@ public class ReportDAO {
         subTitleStyle.setHorizontalAlign(HorizontalAlign.CENTER);
         subTitleStyle.setFont(new Font(Font.MEDIUM, Font._FONT_GEORGIA, true));
 
-        report.setTitle("Table Report");
+        report.setTitle("REPORTE DE MESAS");
         report.setTitleStyle(titleStyle.build());
-        report.setSubtitle("Commission received by Tables");
+        report.setSubtitle("Reporte donde se muestran todas las mesas i sus características");
         report.setSubtitleStyle(subTitleStyle.build());
         report.setUseFullPageWidth(true);
         return report.build();
@@ -223,5 +243,63 @@ public class ReportDAO {
         report.setUseFullPageWidth(true);
         return report.build();
     }
-    
+     
+     private DynamicReport getReportFood(Style headerStyle, Style detailTextStyle, Style detailNumStyle) {
+        DynamicReportBuilder report = new DynamicReportBuilder();
+
+         AbstractColumn columnId = createColumn("id", Integer.class, "Id", 30, headerStyle, detailTextStyle);
+        AbstractColumn columnName = createColumn("name", String.class, "Nombre", 30, headerStyle, detailTextStyle);              
+        AbstractColumn columnPrice = createColumn("price", Double.class, "Precio(€)", 30, headerStyle, detailTextStyle);              
+        AbstractColumn columnDescription = createColumn("description", String.class, "Descripción", 30, headerStyle, detailTextStyle);              
+        AbstractColumn columnFamilyDish = createColumn("familyDish", String.class, "Tipo de plato", 30, headerStyle, detailTextStyle);              
+        report.addColumn(columnId).addColumn(columnName).addColumn(columnPrice)
+                .addColumn(columnDescription).addColumn(columnFamilyDish);
+
+        StyleBuilder titleStyle = new StyleBuilder(true);
+        titleStyle.setHorizontalAlign(HorizontalAlign.CENTER);
+        titleStyle.setFont(new Font(20, Font._FONT_GEORGIA, true));
+
+        StyleBuilder subTitleStyle = new StyleBuilder(true);
+        subTitleStyle.setHorizontalAlign(HorizontalAlign.CENTER);
+        subTitleStyle.setFont(new Font(Font.MEDIUM, Font._FONT_GEORGIA, true));
+
+        report.setTitle("REPORTE DE COMIDAS");
+        report.setTitleStyle(titleStyle.build());
+        report.setSubtitle("Reporte que muestra las comidas con sus características.");
+        report.setSubtitleStyle(subTitleStyle.build());
+        report.setUseFullPageWidth(true);
+        return report.build();
+    }
+         
+    private DynamicReport getReportDrink(Style headerStyle, Style detailTextStyle, Style detailNumStyle) {
+        DynamicReportBuilder report = new DynamicReportBuilder();
+
+        AbstractColumn columnId = createColumn("id", Integer.class, "Id", 30, headerStyle, detailTextStyle);
+        AbstractColumn columnName = createColumn("name", String.class, "Nombre", 30, headerStyle, detailTextStyle);              
+        AbstractColumn columnPrice = createColumn("price", Double.class, "Precio(€)", 30, headerStyle, detailTextStyle);              
+        AbstractColumn columnDescription = createColumn("description", String.class, "Descripción", 50, headerStyle, detailTextStyle);              
+        AbstractColumn columnCapacity = createColumn("capacity", Integer.class, "Capacidad", 30, headerStyle, detailTextStyle);              
+        AbstractColumn columnTypeBottle = createColumn("typeBottle", String.class, "Tipo de envase", 30, headerStyle, detailTextStyle);  
+        AbstractColumn columnSoda = createColumn("soda", Boolean.class, "Azucarada", 30, headerStyle, detailTextStyle);              
+        AbstractColumn columnAlcohol = createColumn("alcohol", Boolean.class, "Alcoholica", 30, headerStyle, detailTextStyle);              
+        report.addColumn(columnId).addColumn(columnName).addColumn(columnPrice)
+                .addColumn(columnDescription).addColumn(columnCapacity)
+                .addColumn(columnTypeBottle).addColumn(columnSoda)
+                .addColumn(columnAlcohol);
+
+        StyleBuilder titleStyle = new StyleBuilder(true);
+        titleStyle.setHorizontalAlign(HorizontalAlign.CENTER);
+        titleStyle.setFont(new Font(20, Font._FONT_GEORGIA, true));
+
+        StyleBuilder subTitleStyle = new StyleBuilder(true);
+        subTitleStyle.setHorizontalAlign(HorizontalAlign.CENTER);
+        subTitleStyle.setFont(new Font(Font.MEDIUM, Font._FONT_GEORGIA, true));
+
+        report.setTitle("REPORTE DE BEBIDAS");
+        report.setTitleStyle(titleStyle.build());
+        report.setSubtitle("Reporte que muestra las bebidas con sus características.");
+        report.setSubtitleStyle(subTitleStyle.build());
+        report.setUseFullPageWidth(true);
+        return report.build();
+    }
 }

@@ -6,11 +6,20 @@
 package view;
 
 import controller.Controller;
-import controller.GeneralAPanel_Controller;
 import controller.Login_Controller;
 import java.awt.Button;
 import java.awt.event.ActionEvent;
 import java.awt.event.ItemEvent;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.ProtocolException;
+import java.net.URL;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Scanner;
@@ -24,6 +33,7 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.SpringLayout;
+import static view.Admin_Panel.connection;
 
 /**
  * @author TPVPARATODOS
@@ -44,18 +54,19 @@ public final class Login extends JFrame {
     protected Button bt_Cancel;
     protected String generatedPassword = null;
     private Login_Controller loginController;
-    private Controller controller;
+    private String urlParameters;
 
-    public static String user = "Eduardo";
-    public static String password = "Contrasenya123";
-
+//    public static String user = "Eduardo";
+//    public static String password = "Contrasenya123";
     public Login(JFrame parent) throws NoSuchAlgorithmException {
+        super("Login");
         this.parent = parent;
         initComponent();
         createItems2();
     }
 
     public Login() throws NoSuchAlgorithmException {
+        super("Login");
         initComponent();
         createItems();
     }
@@ -149,23 +160,20 @@ public final class Login extends JFrame {
         bt_Login.addActionListener((ActionEvent e) -> {
             boolean permit = false;
             try {
-                //PRUEBA DE HASH
-                String pass = "";
-                System.out.println("Introduce password:");
-                pass = teclat.next();
-                if (comparePass(pass)) {
-                    System.out.println("LOGIN!");
-                    this.dispose();
-                    this.loginController.getController().getGapc().getGeneralAdmin_Panel().setVisible(true);
-
-                } else {
-                    JOptionPane.showMessageDialog(errorContainer, "Usuario o contraseña erroneos!\nVuelva a intentarlo!",
-                            "Login Error", JOptionPane.ERROR_MESSAGE);
-                    System.out.println("USERNAME OR PASSWORD IS INCORRECT");
-                }
-            } catch (NoSuchAlgorithmException ex) {
+                urlParameters = "grant_type=password&username=" + URLEncoder.encode(tf_Username.getText(), "UTF-8") + "&password=" + URLEncoder.encode(pf_Password.getText(), "UTF-8");
+            } catch (UnsupportedEncodingException ex) {
                 Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
             }
+            if (connectionTest(urlParameters)) {
+                System.out.println("LOGIN!");
+                this.dispose();
+                this.loginController.getController().getGapc().getGeneralAdmin_Panel().setVisible(true);
+            } else {
+                JOptionPane.showMessageDialog(errorContainer, "Usuario o contraseña erroneos!\nVuelva a intentarlo!",
+                        "Login Error", JOptionPane.ERROR_MESSAGE);
+                System.out.println("USERNAME OR PASSWORD IS INCORRECT");
+            }
+
         });
 
         cb_HidePassword.addItemListener((ItemEvent e) -> {
@@ -173,7 +181,7 @@ public final class Login extends JFrame {
                 pf_Password.setEchoChar('\u25cf');
             } else {
                 pf_Password.setEchoChar((char) 0);
-            }
+            } 
         });
 
     }
@@ -245,8 +253,25 @@ public final class Login extends JFrame {
         bt_Login.addActionListener((ActionEvent e) -> {
             //ResultSet rs = Controller.getData(tf_Username.getText());
             boolean permit = false;
+            
+            //VERSIO x-www-form-urlencoded
+            
+             try {
+                urlParameters = "grant_type=password&username=" + URLEncoder.encode(tf_Username.getText(), "UTF-8") + "&password=" + URLEncoder.encode(pf_Password.getText(), "UTF-8");
+            } catch (UnsupportedEncodingException ex) {
+                Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            if (connectionTest(urlParameters)) {
+                System.out.println("LOGIN!");
+                this.dispose();
+                this.loginController.getController().getGapc().getGeneralAdmin_Panel().setVisible(true);
+            } else {
+                JOptionPane.showMessageDialog(errorContainer, "Usuario o contraseña erroneos!\nVuelva a intentarlo!",
+                        "Login Error", JOptionPane.ERROR_MESSAGE);
+                System.out.println("USERNAME OR PASSWORD IS INCORRECT");
+            }
 
-            try {
+            /*try {
                 if (comparePass(pf_Password.getText())) {
                     System.out.println("LOGIN!");
                 } else {
@@ -256,7 +281,8 @@ public final class Login extends JFrame {
                 }
             } catch (NoSuchAlgorithmException ex) {
                 Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            }*/
+            
         });
 
         cb_HidePassword.addItemListener((ItemEvent e) -> {
@@ -269,7 +295,7 @@ public final class Login extends JFrame {
 
     }
 
-    private boolean comparePass(String pass) throws NoSuchAlgorithmException {
+    /* private boolean comparePass(String pass) throws NoSuchAlgorithmException {
         boolean permit = false;
 
         // Create MessageDigest instance for MD5
@@ -287,7 +313,7 @@ public final class Login extends JFrame {
 
         String passHash = sb2.toString();
 
-        String usrTF = tf_Username.getText();
+        // String usrTF = tf_Username.getText();
         String pwdTF = pf_Password.getText();
 
         // Create MessageDigest instance for MD5
@@ -310,10 +336,47 @@ public final class Login extends JFrame {
 
         if (generatedPassword.equals(passHash)) {
             permit = true;
-            System.out.println(permit);            
+            System.out.println(permit);
             this.setVisible(false);
         }
         return permit;
     }
+     */
+    private boolean connectionTest(String urlParameters) {
+        boolean permit = false;
+        try {
+            byte[] postData = urlParameters.getBytes(StandardCharsets.UTF_8);
+            int postDataLength = postData.length;
+            String request = "http://172.16.10.20/TPVParaTodos";
+            URL url = new URL(request);
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setDoOutput(true);
+            conn.setInstanceFollowRedirects(false);
+            conn.setRequestMethod("POST");
+            conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+            conn.setRequestProperty("User-Agent", "Mozilla/4.0 (compatible; MSIE 5.0;Windows98;DigExt)");
+            conn.setRequestProperty("charset", "utf-8");
+            conn.setRequestProperty("Content-Length", Integer.toString(postDataLength));
+            conn.setUseCaches(false);
+            conn.setDoOutput(true);
+            conn.setDoInput(true);
+            try (DataOutputStream wr = new DataOutputStream(conn.getOutputStream())) {
+                wr.write(postData);
 
+                if (conn.getResponseCode() == 200) {
+                    permit = true;
+                    this.setVisible(false);
+                }
+
+            } catch (IOException ex) {
+                Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } catch (MalformedURLException ex) {
+            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return permit;
+    }
 }

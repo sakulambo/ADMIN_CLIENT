@@ -5,6 +5,7 @@
  */
 package view;
 
+import controller.AddTable_Controller;
 import javax.persistence.Table;
 import model.dao.AbstractDAO;
 import model.pojo.Tables;
@@ -17,9 +18,19 @@ import org.hibernate.HibernateException;
  */
 public class Add_Table extends javax.swing.JFrame {
 
-    /**
-     * Creates new form Add_Table
-     */
+    
+    private AddTable_Controller atc;
+
+    public AddTable_Controller getAtc() {
+        return atc;
+    }
+
+    public void setAtc(AddTable_Controller atc) {
+        this.atc = atc;
+    }
+    
+    
+    
     public Add_Table() {
         super("Añadir Mesa");
         initComponents();

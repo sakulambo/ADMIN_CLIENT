@@ -6,31 +6,29 @@
 package controller;
 
 import java.security.NoSuchAlgorithmException;
-import view.Modify_Product;
+import view.Modify_Food;
 
 /**
  *
  * @author sakulambo
  */
-public class ModifyProduct_Controller {
+public class ModifyFood_Controller {
 
-    private Modify_Product modifyProduct;
+    private Modify_Food mf;
     private Controller controller;
     
-    public ModifyProduct_Controller() throws NoSuchAlgorithmException{
-        this.modifyProduct = new Modify_Product();
-        this.modifyProduct.setDpc(this);
+    public ModifyFood_Controller() throws NoSuchAlgorithmException{
+        this.mf = new Modify_Food();
+        this.mf.setDpc(this);
     }
 
-    public Modify_Product getDeleteProduct() {
-        return modifyProduct;
+    public void setMf(Modify_Food mf) {
+        this.mf = mf;
     }
 
-    public void setDeleteProduct(Modify_Product deleteProduct) {
-        this.modifyProduct = deleteProduct;
+    public Modify_Food getMf() {
+        return mf;
     }
-
-    
 
     public Controller getController() {
         return controller;

@@ -172,7 +172,7 @@ public class Add_Staff extends javax.swing.JFrame {
         String date = dateFormat.format(d);        
         
         if(jrbYes.isSelected()){           
-            AbstractDAO.almacenaEntidad(new Waiters("1",name, surname, address, phone, d));
+            AbstractDAO.almacenaEntidad(new Staff(name, surname, address, phone, d));
         }
         
         

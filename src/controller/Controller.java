@@ -12,11 +12,13 @@ public class Controller {
     private Login_Controller lc;
     private GeneralAPanel_Controller gapc;
     private AddProduct_Controller apc;
-    private ModifyProduct_Controller dpc;
+    private ModifyFood_Controller mfc;
     private ShowTable_Controller stc;
     private ShowMenu_Controller smc;
     private ShowStaff_Controller ssc;
-    private AddStaff_Controller asc;    
+    private AddStaff_Controller asc;  
+    private ModifyDrink_Controller mdc;
+    private AddTable_Controller atc;
     private Service service;
 
     public Controller() throws NoSuchAlgorithmException {
@@ -24,13 +26,16 @@ public class Controller {
         this.lc = new Login_Controller();
         this.gapc = new GeneralAPanel_Controller();
         this.apc = new AddProduct_Controller();
-        this.dpc = new ModifyProduct_Controller();
+        this.mfc = new ModifyFood_Controller();
         this.stc = new ShowTable_Controller();
         this.smc = new ShowMenu_Controller();
         this.ssc = new ShowStaff_Controller();
         this.asc = new AddStaff_Controller();
+        this.mdc = new ModifyDrink_Controller();
+        this.atc = new AddTable_Controller();
         
-
+        this.atc.setController(this);
+        this.mdc.setController(this);
         this.asc.setController(this);
         this.ssc.setController(this);
         this.smc.setController(this);
@@ -38,7 +43,7 @@ public class Controller {
         this.gapc.setController(this);
         this.apc.setController(this);
         this.stc.setController(this);
-        this.dpc.setController(this);
+        this.mfc.setController(this);
 
     }
 
@@ -66,12 +71,12 @@ public class Controller {
         this.apc = apc;
     }
 
-    public ModifyProduct_Controller getDpc() {
-        return dpc;
+    public ModifyFood_Controller getDpc() {
+        return mfc;
     }
 
-    public void setDpc(ModifyProduct_Controller dpc) {
-        this.dpc = dpc;
+    public void setDpc(ModifyFood_Controller dpc) {
+        this.mfc = dpc;
     }
 
     public ShowTable_Controller getStc() {
@@ -105,10 +110,30 @@ public class Controller {
     public void setAsc(AddStaff_Controller asc) {
         this.asc = asc;
     }
-    
-    
-    
-    
+
+    public ModifyFood_Controller getMfc() {
+        return mfc;
+    }
+
+    public void setMfc(ModifyFood_Controller mfc) {
+        this.mfc = mfc;
+    }
+
+    public ModifyDrink_Controller getMdc() {
+        return mdc;
+    }
+
+    public void setMdc(ModifyDrink_Controller mdc) {
+        this.mdc = mdc;
+    }
+
+    public AddTable_Controller getAtc() {
+        return atc;
+    }
+
+    public void setAtc(AddTable_Controller atc) {
+        this.atc = atc;
+    }
     
     
     public Service getService() {

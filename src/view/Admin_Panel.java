@@ -7,7 +7,7 @@ package view;
 
 import com.google.gson.Gson;
 import controller.AddProduct_Controller;
-import controller.ModifyProduct_Controller;
+import controller.ModifyFood_Controller;
 import controller.Login_Controller;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
@@ -35,7 +35,7 @@ public class Admin_Panel extends javax.swing.JFrame {
     public Admin_Panel() throws NoSuchAlgorithmException {
         initComponents();
         aprc = new AddProduct_Controller();
-        dpc = new ModifyProduct_Controller();
+        dpc = new ModifyFood_Controller();
         lc = new Login_Controller();
 
     }
@@ -205,7 +205,7 @@ public class Admin_Panel extends javax.swing.JFrame {
     }//GEN-LAST:event_jmiExitMouseClicked
 
     private void jmiEliminarProductoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jmiEliminarProductoMouseClicked
-        dpc.getDeleteProduct();
+        dpc.getMf();
     }//GEN-LAST:event_jmiEliminarProductoMouseClicked
 
     private void jmiAboutUsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiAboutUsActionPerformed
@@ -310,6 +310,6 @@ public class Admin_Panel extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
     private javax.swing.JOptionPane genericpane;
     private Login_Controller lc;
-    private ModifyProduct_Controller dpc;
+    private ModifyFood_Controller dpc;
     private AddProduct_Controller aprc;
 }

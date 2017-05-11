@@ -31,10 +31,6 @@ import javax.persistence.Table;
 public class Drinks extends Products implements Serializable {
 
     private static final long serialVersionUID = 1L;
-//    @Id
-//    @Basic(optional = false)
-//    @Column(name = "Id")
-//    private Integer id;
     @Basic(optional = false)
     @Column(name = "Capacity")
     protected int capacity;
@@ -51,9 +47,7 @@ public class Drinks extends Products implements Serializable {
         @JoinColumn(name = "Menu_Id", referencedColumnName = "Id")})
     @ManyToMany(fetch = FetchType.LAZY)
     private Collection<Menus> menusCollection;
-//    @JoinColumn(name = "Id", referencedColumnName = "Id", insertable = false, updatable = false)
-//    @OneToOne(optional = false, fetch = FetchType.LAZY)
-//    private Products products;
+
 
     public Drinks() {
     }

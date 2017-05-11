@@ -29,14 +29,14 @@ import javax.persistence.Table;
 @Table(name = "Waiters")
 @NamedQueries({
     @NamedQuery(name = "Waiters.findAll", query = "SELECT w FROM Waiters w")})
-public class Waiters extends Staff implements Serializable {
+public class Waiters implements Serializable {
 
     private static final long serialVersionUID = 1L;
-//    @Id
-//    @GeneratedValue
-//    @Basic(optional = false)
-//    @Column(name = "Id")
-//    private String id;
+    @Id
+    @GeneratedValue
+    @Basic(optional = false)
+    @Column(name = "Id")
+    private String id;
     @OneToMany(mappedBy = "waiterId", fetch = FetchType.LAZY)
     private Collection<Zones> zonesCollection;
 //    @JoinColumn(name = "Id", referencedColumnName = "Id", insertable = false, updatable = false)
@@ -46,9 +46,7 @@ public class Waiters extends Staff implements Serializable {
     public Waiters() {
     }
 
-    public Waiters(String id,String firstName, String lastName, String address, String phone, Date lastConnection) {
-        super(id,firstName, lastName, address, phone, lastConnection);
-    }
+    
 
     
     
