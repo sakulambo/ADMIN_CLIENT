@@ -20,11 +20,15 @@ import ar.com.fdvs.dj.domain.constants.Transparency;
 import ar.com.fdvs.dj.domain.constants.VerticalAlign;
 import ar.com.fdvs.dj.domain.entities.columns.AbstractColumn;
 import java.awt.Color;
+import java.math.BigDecimal;
 import java.util.Collection;
+import java.util.Date;
 import model.pojo.Drinks;
 import model.pojo.Foods;
 import model.pojo.Menus;
+import model.pojo.Orders;
 import model.pojo.Tables;
+import model.pojo.Zones;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
@@ -39,6 +43,8 @@ public class ReportDAO {
     private Collection<Foods> foodList;
     private Collection<Tables> tableList;
     private Collection<Menus> menusList;
+    private Collection<Orders> ordersList;
+    private Collection<Zones> zonesList;
 
     public Collection<Drinks> getDrinkList() {
         return drinkList;
@@ -71,8 +77,24 @@ public class ReportDAO {
     public void setMenusList(Collection<Menus> menusList) {
         this.menusList = menusList;
     }
+
+    public Collection<Orders> getOrdersList() {
+        return ordersList;
+    }
+
+    public void setOrdersList(Collection<Orders> ordersList) {
+        this.ordersList = ordersList;
+    }
+
+    public Collection<Zones> getZonesList() {
+        return zonesList;
+    }
+
+    public void setZonesList(Collection<Zones> zonesList) {
+        this.zonesList = zonesList;
+    }
     
-    
+
     public JasperPrint getReport() throws ColumnBuilderException, JRException, ClassNotFoundException {
         Style headerStyle = createHeaderStyle();
         Style detailTextStyle = createDetailTextStyle();
@@ -90,8 +112,8 @@ public class ReportDAO {
         JasperPrint jp = DynamicJasperHelper.generateJasperPrint(dynaReport, new ClassicLayoutManager(), new JRBeanCollectionDataSource(tableList));
         return jp;
     }
-    
-      public JasperPrint getReportMenus() throws ColumnBuilderException, JRException, ClassNotFoundException {
+
+    public JasperPrint getReportMenus() throws ColumnBuilderException, JRException, ClassNotFoundException {
         Style headerStyle = createHeaderStyle();
         Style detailTextStyle = createDetailTextStyle();
         Style detailNumberStyle = createDetailNumberStyle();
@@ -99,8 +121,8 @@ public class ReportDAO {
         JasperPrint jp = DynamicJasperHelper.generateJasperPrint(dynaReport, new ClassicLayoutManager(), new JRBeanCollectionDataSource(menusList));
         return jp;
     }
-      
-      public JasperPrint getReportDrinks() throws ColumnBuilderException, JRException, ClassNotFoundException {
+
+    public JasperPrint getReportDrinks() throws ColumnBuilderException, JRException, ClassNotFoundException {
         Style headerStyle = createHeaderStyle();
         Style detailTextStyle = createDetailTextStyle();
         Style detailNumberStyle = createDetailNumberStyle();
@@ -108,8 +130,8 @@ public class ReportDAO {
         JasperPrint jp = DynamicJasperHelper.generateJasperPrint(dynaReport, new ClassicLayoutManager(), new JRBeanCollectionDataSource(drinkList));
         return jp;
     }
-      
-      public JasperPrint getReportFoods() throws ColumnBuilderException, JRException, ClassNotFoundException {
+
+    public JasperPrint getReportFoods() throws ColumnBuilderException, JRException, ClassNotFoundException {
         Style headerStyle = createHeaderStyle();
         Style detailTextStyle = createDetailTextStyle();
         Style detailNumberStyle = createDetailNumberStyle();
@@ -117,8 +139,24 @@ public class ReportDAO {
         JasperPrint jp = DynamicJasperHelper.generateJasperPrint(dynaReport, new ClassicLayoutManager(), new JRBeanCollectionDataSource(foodList));
         return jp;
     }
-      
-      
+
+    public JasperPrint getReportOrders() throws ColumnBuilderException, JRException, ClassNotFoundException {
+        Style headerStyle = createHeaderStyle();
+        Style detailTextStyle = createDetailTextStyle();
+        Style detailNumberStyle = createDetailNumberStyle();
+        DynamicReport dynaReport = getReportOrder(headerStyle, detailTextStyle, detailNumberStyle);
+        JasperPrint jp = DynamicJasperHelper.generateJasperPrint(dynaReport, new ClassicLayoutManager(), new JRBeanCollectionDataSource(ordersList));
+        return jp;
+    }
+    
+      public JasperPrint getReportZones() throws ColumnBuilderException, JRException, ClassNotFoundException {
+        Style headerStyle = createHeaderStyle();
+        Style detailTextStyle = createDetailTextStyle();
+        Style detailNumberStyle = createDetailNumberStyle();
+        DynamicReport dynaReport = getReportZone(headerStyle, detailTextStyle, detailNumberStyle);
+        JasperPrint jp = DynamicJasperHelper.generateJasperPrint(dynaReport, new ClassicLayoutManager(), new JRBeanCollectionDataSource(zonesList));
+        return jp;
+    }
 
     private Style createHeaderStyle() {
         StyleBuilder sb = new StyleBuilder(true);
@@ -168,16 +206,16 @@ public class ReportDAO {
         return columnState;
     }
 
-    private DynamicReport getReport(Style headerStyle, Style detailTextStyle, Style detailNumStyle) throws ColumnBuilderException, ClassNotFoundException {
+    private DynamicReport getReportOrder(Style headerStyle, Style detailTextStyle, Style detailNumStyle){
 
         DynamicReportBuilder report = new DynamicReportBuilder();
 
-        AbstractColumn columnEmpNo = createColumn("empNo", Integer.class, "Employee Number", 30, headerStyle, detailTextStyle);
-        AbstractColumn columnName = createColumn("name", String.class, "Name", 30, headerStyle, detailTextStyle);
-        AbstractColumn columnSalary = createColumn("salary", Integer.class, "Salary", 30, headerStyle, detailNumStyle);
-        AbstractColumn columnCommission = createColumn("commission", Float.class, "Commission", 30, headerStyle, detailNumStyle);
-        report.addColumn(columnEmpNo)
-                .addColumn(columnName).addColumn(columnSalary).addColumn(columnCommission);
+        AbstractColumn columnId = createColumn("id", Integer.class, "Id Number", 30, headerStyle, detailTextStyle);
+        AbstractColumn columnCommentary = createColumn("commentary", String.class, "Comentario", 30, headerStyle, detailTextStyle);
+        AbstractColumn columnTotal = createColumn("total", BigDecimal.class, "Total", 30, headerStyle, detailNumStyle);
+        AbstractColumn columnDate = createColumn("date", Date.class, "", 30, headerStyle, detailNumStyle);
+        report.addColumn(columnId).addColumn(columnCommentary)
+                .addColumn(columnTotal).addColumn(columnDate);
 
         StyleBuilder titleStyle = new StyleBuilder(true);
         titleStyle.setHorizontalAlign(HorizontalAlign.CENTER);
@@ -187,9 +225,9 @@ public class ReportDAO {
         subTitleStyle.setHorizontalAlign(HorizontalAlign.CENTER);
         subTitleStyle.setFont(new Font(Font.MEDIUM, Font._FONT_GEORGIA, true));
 
-        report.setTitle("Employee Report");
+        report.setTitle("REPORTE DE COMANDAS");
         report.setTitleStyle(titleStyle.build());
-        report.setSubtitle("Commission received by Employee");
+        report.setSubtitle("Reporte donde se muestran todas las mesas i sus características");
         report.setSubtitleStyle(subTitleStyle.build());
         report.setUseFullPageWidth(true);
         return report.build();
@@ -200,9 +238,8 @@ public class ReportDAO {
 
         AbstractColumn columnTableId = createColumn("id", Integer.class, "Id", 30, headerStyle, detailTextStyle);
         AbstractColumn columnMaxPeople = createColumn("maxPeople", Integer.class, "Cantidad Maxima Gente", 30, headerStyle, detailTextStyle);
-        //AbstractColumn columnEmpty = createColumn("empty", Boolean.class, "Vacio", 30, headerStyle, detailNumStyle);        
         report.addColumn(columnTableId)
-                .addColumn(columnMaxPeople);//.addColumn(columnEmpty);
+                .addColumn(columnMaxPeople);
 
         StyleBuilder titleStyle = new StyleBuilder(true);
         titleStyle.setHorizontalAlign(HorizontalAlign.CENTER);
@@ -219,13 +256,13 @@ public class ReportDAO {
         report.setUseFullPageWidth(true);
         return report.build();
     }
-    
-     private DynamicReport getReportMenu(Style headerStyle, Style detailTextStyle, Style detailNumStyle) {
+
+    private DynamicReport getReportMenu(Style headerStyle, Style detailTextStyle, Style detailNumStyle) {
         DynamicReportBuilder report = new DynamicReportBuilder();
 
         AbstractColumn columnMenuId = createColumn("id", Integer.class, "Id", 30, headerStyle, detailTextStyle);
-        AbstractColumn columnMenuPeople = createColumn("peopleNumber", Short.class, "Maximo Personas", 30, headerStyle, detailTextStyle);              
-        report.addColumn(columnMenuId) 
+        AbstractColumn columnMenuPeople = createColumn("peopleNumber", Short.class, "Maximo Personas", 30, headerStyle, detailTextStyle);
+        report.addColumn(columnMenuId)
                 .addColumn(columnMenuPeople);
 
         StyleBuilder titleStyle = new StyleBuilder(true);
@@ -243,15 +280,15 @@ public class ReportDAO {
         report.setUseFullPageWidth(true);
         return report.build();
     }
-     
-     private DynamicReport getReportFood(Style headerStyle, Style detailTextStyle, Style detailNumStyle) {
+
+    private DynamicReport getReportFood(Style headerStyle, Style detailTextStyle, Style detailNumStyle) {
         DynamicReportBuilder report = new DynamicReportBuilder();
 
-         AbstractColumn columnId = createColumn("id", Integer.class, "Id", 30, headerStyle, detailTextStyle);
-        AbstractColumn columnName = createColumn("name", String.class, "Nombre", 30, headerStyle, detailTextStyle);              
-        AbstractColumn columnPrice = createColumn("price", Double.class, "Precio(€)", 30, headerStyle, detailTextStyle);              
-        AbstractColumn columnDescription = createColumn("description", String.class, "Descripción", 30, headerStyle, detailTextStyle);              
-        AbstractColumn columnFamilyDish = createColumn("familyDish", String.class, "Tipo de plato", 30, headerStyle, detailTextStyle);              
+        AbstractColumn columnId = createColumn("id", Integer.class, "Id", 30, headerStyle, detailTextStyle);
+        AbstractColumn columnName = createColumn("name", String.class, "Nombre", 30, headerStyle, detailTextStyle);
+        AbstractColumn columnPrice = createColumn("price", Double.class, "Precio(€)", 30, headerStyle, detailTextStyle);
+        AbstractColumn columnDescription = createColumn("description", String.class, "Descripción", 30, headerStyle, detailTextStyle);
+        AbstractColumn columnFamilyDish = createColumn("familyDish", String.class, "Tipo de plato", 30, headerStyle, detailTextStyle);
         report.addColumn(columnId).addColumn(columnName).addColumn(columnPrice)
                 .addColumn(columnDescription).addColumn(columnFamilyDish);
 
@@ -270,18 +307,18 @@ public class ReportDAO {
         report.setUseFullPageWidth(true);
         return report.build();
     }
-         
+
     private DynamicReport getReportDrink(Style headerStyle, Style detailTextStyle, Style detailNumStyle) {
         DynamicReportBuilder report = new DynamicReportBuilder();
 
         AbstractColumn columnId = createColumn("id", Integer.class, "Id", 30, headerStyle, detailTextStyle);
-        AbstractColumn columnName = createColumn("name", String.class, "Nombre", 30, headerStyle, detailTextStyle);              
-        AbstractColumn columnPrice = createColumn("price", Double.class, "Precio(€)", 30, headerStyle, detailTextStyle);              
-        AbstractColumn columnDescription = createColumn("description", String.class, "Descripción", 50, headerStyle, detailTextStyle);              
-        AbstractColumn columnCapacity = createColumn("capacity", Integer.class, "Capacidad", 30, headerStyle, detailTextStyle);              
-        AbstractColumn columnTypeBottle = createColumn("typeBottle", String.class, "Tipo de envase", 30, headerStyle, detailTextStyle);  
-        AbstractColumn columnSoda = createColumn("soda", Boolean.class, "Azucarada", 30, headerStyle, detailTextStyle);              
-        AbstractColumn columnAlcohol = createColumn("alcohol", Boolean.class, "Alcoholica", 30, headerStyle, detailTextStyle);              
+        AbstractColumn columnName = createColumn("name", String.class, "Nombre", 30, headerStyle, detailTextStyle);
+        AbstractColumn columnPrice = createColumn("price", Double.class, "Precio(€)", 30, headerStyle, detailTextStyle);
+        AbstractColumn columnDescription = createColumn("description", String.class, "Descripción", 50, headerStyle, detailTextStyle);
+        AbstractColumn columnCapacity = createColumn("capacity", Integer.class, "Capacidad", 30, headerStyle, detailTextStyle);
+        AbstractColumn columnTypeBottle = createColumn("typeBottle", String.class, "Tipo de envase", 30, headerStyle, detailTextStyle);
+        AbstractColumn columnSoda = createColumn("soda", Boolean.class, "Azucarada", 30, headerStyle, detailTextStyle);
+        AbstractColumn columnAlcohol = createColumn("alcohol", Boolean.class, "Alcoholica", 30, headerStyle, detailTextStyle);
         report.addColumn(columnId).addColumn(columnName).addColumn(columnPrice)
                 .addColumn(columnDescription).addColumn(columnCapacity)
                 .addColumn(columnTypeBottle).addColumn(columnSoda)
@@ -298,6 +335,29 @@ public class ReportDAO {
         report.setTitle("REPORTE DE BEBIDAS");
         report.setTitleStyle(titleStyle.build());
         report.setSubtitle("Reporte que muestra las bebidas con sus características.");
+        report.setSubtitleStyle(subTitleStyle.build());
+        report.setUseFullPageWidth(true);
+        return report.build();
+    }
+    
+    private DynamicReport getReportZone(Style headerStyle, Style detailTextStyle, Style detailNumStyle) {
+        DynamicReportBuilder report = new DynamicReportBuilder();
+
+        AbstractColumn columnId = createColumn("id", Integer.class, "Id", 30, headerStyle, detailTextStyle);
+        AbstractColumn columnName = createColumn("location", String.class, "Localización", 30, headerStyle, detailTextStyle);        
+        report.addColumn(columnId).addColumn(columnName);
+
+        StyleBuilder titleStyle = new StyleBuilder(true);
+        titleStyle.setHorizontalAlign(HorizontalAlign.CENTER);
+        titleStyle.setFont(new Font(20, Font._FONT_GEORGIA, true));
+
+        StyleBuilder subTitleStyle = new StyleBuilder(true);
+        subTitleStyle.setHorizontalAlign(HorizontalAlign.CENTER);
+        subTitleStyle.setFont(new Font(Font.MEDIUM, Font._FONT_GEORGIA, true));
+
+        report.setTitle("REPORTE DE ZONAS");
+        report.setTitleStyle(titleStyle.build());
+        report.setSubtitle("Reporte que muestra las zonas con sus características.");
         report.setSubtitleStyle(subTitleStyle.build());
         report.setUseFullPageWidth(true);
         return report.build();

@@ -16,9 +16,12 @@ public class Controller {
     private ShowTable_Controller stc;
     private ShowMenu_Controller smc;
     private ShowStaff_Controller ssc;
-    private AddStaff_Controller asc;  
+    private AddStaff_Controller asc;
     private ModifyDrink_Controller mdc;
     private AddTable_Controller atc;
+    private ShowOrder_Controller soc;
+    private ShowZone_Controller szc;
+    private AddZone_Controller azc;
     private Service service;
 
     public Controller() throws NoSuchAlgorithmException {
@@ -33,7 +36,13 @@ public class Controller {
         this.asc = new AddStaff_Controller();
         this.mdc = new ModifyDrink_Controller();
         this.atc = new AddTable_Controller();
-        
+        this.soc = new ShowOrder_Controller();
+        this.szc = new ShowZone_Controller();
+        this.azc = new AddZone_Controller();
+
+        this.azc.setController(this);
+        this.szc.setController(this);
+        this.soc.setController(this);
         this.atc.setController(this);
         this.mdc.setController(this);
         this.asc.setController(this);
@@ -134,6 +143,32 @@ public class Controller {
     public void setAtc(AddTable_Controller atc) {
         this.atc = atc;
     }
+
+    public ShowOrder_Controller getSoc() {
+        return soc;
+    }
+
+    public void setSoc(ShowOrder_Controller soc) {
+        this.soc = soc;
+    }
+
+    public ShowZone_Controller getSzc() {
+        return szc;
+    }
+
+    public void setSzc(ShowZone_Controller szc) {
+        this.szc = szc;
+    }
+
+    public AddZone_Controller getAzc() {
+        return azc;
+    }
+
+    public void setAzc(AddZone_Controller azc) {
+        this.azc = azc;
+    }
+    
+
     
     
     public Service getService() {

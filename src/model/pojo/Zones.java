@@ -45,8 +45,17 @@ public class Zones implements Serializable {
     public Zones() {
     }
 
+    public Zones(String location) {
+        this.location = location;
+    }
+
     public Zones(Integer id) {
         this.id = id;
+    }
+
+    public Zones(Integer id, String location) {
+        this.id = id;
+        this.location = location;
     }
 
     public Integer getId() {
@@ -105,5 +114,5 @@ public class Zones implements Serializable {
     public String toString() {
         return "model.pojo.Zones[ id=" + id + " ]";
     }
-    
+
 }

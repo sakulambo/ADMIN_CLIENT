@@ -51,9 +51,10 @@ public class Show_Table extends javax.swing.JFrame {
 
     private void loadTable(List<Tables> tables) {
         dtm = (DefaultTableModel) this.jtMesas.getModel();
+        
         tables.forEach((table) -> {
             dtm.addRow(new Object[]{table.getId(), table.getMaxPeople(), table.getEmpty()});
-            System.out.println(table.getId() + "-" + table.getMaxPeople() + "-" + table.getEmpty());
+            
         });
     }
 

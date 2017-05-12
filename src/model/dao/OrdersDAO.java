@@ -92,7 +92,7 @@ public class OrdersDAO {
 
         try {
             startOperation();
-            OrderList = sesion.createQuery("from Drink").list();
+            OrderList = sesion.createQuery("from Orders").list();
         } finally {
             sesion.close();
         }

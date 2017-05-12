@@ -5,22 +5,18 @@
  */
 package view;
 
-import controller.Controller;
 import controller.Login_Controller;
 import java.awt.Button;
 import java.awt.event.ActionEvent;
 import java.awt.event.ItemEvent;
-import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
-import java.net.ProtocolException;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
-import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Scanner;
 import java.util.logging.Level;
@@ -33,7 +29,6 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.SpringLayout;
-import static view.Admin_Panel.connection;
 
 /**
  * @author TPVPARATODOS
@@ -159,20 +154,20 @@ public final class Login extends JFrame {
 
         bt_Login.addActionListener((ActionEvent e) -> {
             boolean permit = false;
-            try {
-                urlParameters = "grant_type=password&username=" + URLEncoder.encode(tf_Username.getText(), "UTF-8") + "&password=" + URLEncoder.encode(pf_Password.getText(), "UTF-8");
-            } catch (UnsupportedEncodingException ex) {
-                Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            if (connectionTest(urlParameters)) {
-                System.out.println("LOGIN!");
-                this.dispose();
-                this.loginController.getController().getGapc().getGeneralAdmin_Panel().setVisible(true);
-            } else {
-                JOptionPane.showMessageDialog(errorContainer, "Usuario o contraseña erroneos!\nVuelva a intentarlo!",
-                        "Login Error", JOptionPane.ERROR_MESSAGE);
-                System.out.println("USERNAME OR PASSWORD IS INCORRECT");
-            }
+//            try {
+//                urlParameters = "grant_type=password&username=" + URLEncoder.encode(tf_Username.getText(), "UTF-8") + "&password=" + URLEncoder.encode(pf_Password.getText(), "UTF-8");
+//            } catch (UnsupportedEncodingException ex) {
+//                Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+//            }
+//            if (connectionTest(urlParameters)) {
+//                System.out.println("LOGIN!");
+            this.dispose();
+            this.loginController.getController().getGapc().getGeneralAdmin_Panel().setVisible(true);
+//            } else {
+//                JOptionPane.showMessageDialog(errorContainer, "Usuario o contraseña erroneos!\nVuelva a intentarlo!",
+//                        "Login Error", JOptionPane.ERROR_MESSAGE);
+//                System.out.println("USERNAME OR PASSWORD IS INCORRECT");
+//            }
 
         });
 
@@ -181,7 +176,7 @@ public final class Login extends JFrame {
                 pf_Password.setEchoChar('\u25cf');
             } else {
                 pf_Password.setEchoChar((char) 0);
-            } 
+            }
         });
 
     }
@@ -253,10 +248,9 @@ public final class Login extends JFrame {
         bt_Login.addActionListener((ActionEvent e) -> {
             //ResultSet rs = Controller.getData(tf_Username.getText());
             boolean permit = false;
-            
+
             //VERSIO x-www-form-urlencoded
-            
-             try {
+            try {
                 urlParameters = "grant_type=password&username=" + URLEncoder.encode(tf_Username.getText(), "UTF-8") + "&password=" + URLEncoder.encode(pf_Password.getText(), "UTF-8");
             } catch (UnsupportedEncodingException ex) {
                 Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
@@ -282,7 +276,6 @@ public final class Login extends JFrame {
             } catch (NoSuchAlgorithmException ex) {
                 Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
             }*/
-            
         });
 
         cb_HidePassword.addItemListener((ItemEvent e) -> {
@@ -347,7 +340,7 @@ public final class Login extends JFrame {
         try {
             byte[] postData = urlParameters.getBytes(StandardCharsets.UTF_8);
             int postDataLength = postData.length;
-            String request = "http://172.16.10.20/TPVParaTodos";
+            String request = "http://172.16.100.19/TPVParaTodos";
             URL url = new URL(request);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setDoOutput(true);

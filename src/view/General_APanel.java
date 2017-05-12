@@ -34,10 +34,12 @@ public class General_APanel extends JFrame {
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenu jmFacturacion;
     private javax.swing.JMenu jmMenus;
+    private javax.swing.JMenu jmComandas;
     private javax.swing.JMenu jmMesas;
     private javax.swing.JMenu jmOpciones;
     private javax.swing.JMenu jmPersonal;
     private javax.swing.JMenu jmProductos;
+    private javax.swing.JMenu jmZones;
     private javax.swing.JMenuItem jmiAboutUs;
     private javax.swing.JMenuItem jmiAnadirProducto;
     private javax.swing.JMenuItem jmiAnadirProductoMenu;
@@ -51,6 +53,9 @@ public class General_APanel extends JFrame {
     private javax.swing.JMenuItem jmiMostrarMenu;
     private javax.swing.JMenuItem jmiMostrarMesas;
     private javax.swing.JMenuItem jmiVerPersonal;
+    private javax.swing.JMenuItem jmiSeeOrders;
+    private javax.swing.JMenuItem jmiSeeZones;
+    private javax.swing.JMenuItem jmiAddZones;
     private javax.swing.JOptionPane genericpane;
     private Login_Controller lc;
     private GeneralAPanel_Controller apc;
@@ -86,10 +91,15 @@ public class General_APanel extends JFrame {
         jmMenus = new javax.swing.JMenu();
         jmiMostrarMenu = new javax.swing.JMenuItem();
         jmiAnadirProductoMenu = new javax.swing.JMenuItem();
+        jmComandas = new javax.swing.JMenu();
+        jmiSeeOrders = new javax.swing.JMenuItem();
         jmProductos = new javax.swing.JMenu();
         jmiAnadirProducto = new javax.swing.JMenuItem();
         jmiModificarComida = new javax.swing.JMenuItem();
         jmiModificarBebida = new javax.swing.JMenuItem();
+        jmZones = new javax.swing.JMenu();
+        jmiSeeZones = new javax.swing.JMenuItem();
+        jmiAddZones = new javax.swing.JMenuItem();
         jmOpciones = new javax.swing.JMenu();
         jmiAyuda = new javax.swing.JMenuItem();
         jmiAboutUs = new javax.swing.JMenuItem();
@@ -142,17 +152,23 @@ public class General_APanel extends JFrame {
         jmMainBar.add(jmMesas);
 
         jmMenus.setText("Menu");
-
         jmiMostrarMenu.setText("Mostrar menus");
         jmiMostrarMenu.addActionListener((ActionEvent ae) -> {
             this.apc.getController().getSmc().getShowMenus().jframVisible();
         });
         jmMenus.add(jmiMostrarMenu);
-
         jmiAnadirProductoMenu.setText("Añadir producto a menu");
         jmMenus.add(jmiAnadirProductoMenu);
-
         jmMainBar.add(jmMenus);
+
+        //Orders
+        jmComandas.setText("Comandas");
+        jmiSeeOrders.setText("Ver Comandas");
+        jmiSeeOrders.addActionListener((ActionEvent ae) -> {
+            this.apc.getController().getSoc().getShowOrders().jframeVisible();
+        });
+        jmComandas.add(jmiSeeOrders);
+        jmMainBar.add(jmComandas);
 
         jmProductos.setText("Productos");
 
@@ -173,8 +189,22 @@ public class General_APanel extends JFrame {
             this.apc.getController().getMdc().getMd().jframeVisible();
         });
         jmProductos.add(jmiModificarBebida);
-
         jmMainBar.add(jmProductos);
+
+        jmZones.setText("Zonas");
+        jmiSeeZones.setText("Mostrar Zonas");
+        jmiSeeZones.addActionListener((ActionEvent ep) -> {
+            this.apc.getController().getSzc().getShowZone().jframeVisible();
+        });
+
+        jmZones.add(jmiSeeZones);
+        jmiAddZones.setText("Añadir nueva zona");
+        jmiAddZones.addActionListener((ActionEvent ep) -> {
+            this.apc.getController().getAzc().getAddZone().setVisible(true);
+        });
+        jmZones.add(jmiAddZones);
+        
+        jmMainBar.add(jmZones);
 
         jmOpciones.setText("Opciones");
         jmOpciones.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -187,13 +217,11 @@ public class General_APanel extends JFrame {
                     + "su administrador o pague la tarifa Premium!",
                     "Ayuda", JOptionPane.INFORMATION_MESSAGE);
         });
-                
-                
-               
+
         jmOpciones.add(jmiAyuda);
 
         jmiAboutUs.setText("Sobre TPV...");
-        jmiAboutUs. addActionListener((ActionEvent e) -> {
+        jmiAboutUs.addActionListener((ActionEvent e) -> {
             JOptionPane.showMessageDialog(genericpane, "Un producto de TPVParaTodos ®\n"
                     + "Creado por: \n"
                     + "Joshua Orellana, Gerson Ramirez,\n"
@@ -227,10 +255,6 @@ public class General_APanel extends JFrame {
     }// </editor-fold>                       
 
     private void jmiFacturarMesActionPerformed(java.awt.event.ActionEvent evt) {
-        // TODO add your handling code here:
-    }
-
-    private void jmiMostrarMesasActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
     }
 

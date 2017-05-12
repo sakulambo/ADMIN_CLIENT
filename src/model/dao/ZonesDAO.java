@@ -93,7 +93,7 @@ public class ZonesDAO {
 
         try {
             startOperation();
-            ZoneList = sesion.createQuery("from Drink").list();
+            ZoneList = sesion.createQuery("from Zones").list();
         } finally {
             sesion.close();
         }
