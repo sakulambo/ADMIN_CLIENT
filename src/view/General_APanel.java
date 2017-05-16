@@ -47,6 +47,7 @@ public class General_APanel extends JFrame {
     private javax.swing.JMenuItem jmiCrearMesa;
     private javax.swing.JMenuItem jmiModificarComida;
     private javax.swing.JMenuItem jmiModificarBebida;
+    private javax.swing.JMenuItem jmiEliminarProducto;
     private javax.swing.JMenuItem jmiExit;
     private javax.swing.JMenuItem jmiFacturarAno;
     private javax.swing.JMenuItem jmiFacturarMes;
@@ -97,6 +98,7 @@ public class General_APanel extends JFrame {
         jmiAnadirProducto = new javax.swing.JMenuItem();
         jmiModificarComida = new javax.swing.JMenuItem();
         jmiModificarBebida = new javax.swing.JMenuItem();
+        jmiEliminarProducto = new javax.swing.JMenuItem();
         jmZones = new javax.swing.JMenu();
         jmiSeeZones = new javax.swing.JMenuItem();
         jmiAddZones = new javax.swing.JMenuItem();
@@ -189,6 +191,13 @@ public class General_APanel extends JFrame {
             this.apc.getController().getMdc().getMd().jframeVisible();
         });
         jmProductos.add(jmiModificarBebida);
+        
+         jmiEliminarProducto.setText("Eliminar producto");
+        jmiEliminarProducto.addActionListener((ActionEvent ep) -> {
+            this.apc.getController().getMdc().getMd().jframeVisible();
+        });
+        jmProductos.add(jmiModificarBebida);
+        
         jmMainBar.add(jmProductos);
 
         jmZones.setText("Zonas");
