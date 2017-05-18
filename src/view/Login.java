@@ -270,28 +270,15 @@ public final class Login extends JFrame {
                         .getName()).log(Level.SEVERE, null, ex);
             }
             try {
-                if (connectionTest(tf_Username.getText(), pf_Password.getText())) {
-                    System.out.println("LOGIN!");
+                if (connectionTest(tf_Username.getText(), pf_Password.getText())) {                    
                     this.dispose();
                     this.loginController.getController().getGapc().getGeneralAdmin_Panel().setVisible(true);
                 } else {
                     JOptionPane.showMessageDialog(errorContainer, "Usuario o contraseña erroneos!\nVuelva a intentarlo!",
                             "Login Error", JOptionPane.ERROR_MESSAGE);
-                    System.out.println("USERNAME OR PASSWORD IS INCORRECT");
+                   
 
-                }
-
-                /*try {
-                if (comparePass(pf_Password.getText())) {
-                System.out.println("LOGIN!");
-                } else {
-                JOptionPane.showMessageDialog(errorContainer, "Usuario o contraseña erroneos!\nVuelva a intentarlo!",
-                "Login Error", JOptionPane.ERROR_MESSAGE);
-                System.out.println("USERNAME OR PASSWORD IS INCORRECT");
-                }
-                } catch (NoSuchAlgorithmException ex) {
-                Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
-                }*/
+                }                
             } catch (IOException ex) {
                 Logger.getLogger(Login.class
                         .getName()).log(Level.SEVERE, null, ex);
@@ -308,92 +295,11 @@ public final class Login extends JFrame {
 
     }
 
-    /* private boolean comparePass(String pass) throws NoSuchAlgorithmException {
-        boolean permit = false;
-
-        // Create MessageDigest instance for MD5
-        MessageDigest md2 = MessageDigest.getInstance("MD5");
-        //Add password bytes to digest
-        md2.update(pass.getBytes());
-        //Get the hash's bytes 
-        byte[] bytes2 = md2.digest();
-        //This bytes[] has bytes in decimal format;
-        //Convert it to hexadecimal format
-        StringBuilder sb2 = new StringBuilder();
-        for (int i = 0; i < bytes2.length; i++) {
-            sb2.append(Integer.toString((bytes2[i] & 0xff) + 0x100, 16).substring(1));
-        }
-
-        String passHash = sb2.toString();
-
-        // String usrTF = tf_Username.getText();
-        String pwdTF = pf_Password.getText();
-
-        // Create MessageDigest instance for MD5
-        MessageDigest md = MessageDigest.getInstance("MD5");
-        //Add password bytes to digest
-        md.update(pwdTF.getBytes());
-        //Get the hash's bytes 
-        byte[] bytes = md.digest();
-        //This bytes[] has bytes in decimal format;
-        //Convert it to hexadecimal format
-        StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < bytes.length; i++) {
-            sb.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));
-        }
-        //Get complete hashed password in hex format
-        generatedPassword = sb.toString();
-
-        System.out.println(generatedPassword);
-        System.out.println(passHash);
-
-        if (generatedPassword.equals(passHash)) {
-            permit = true;
-            System.out.println(permit);
-            this.setVisible(false);
-        }
-        return permit;
-    }
-     */
-    private boolean Authenticate(String user, String pass) throws IOException {
-        boolean permit = false;
-//
-//        client = new OkHttpClient.Builder().authenticator(new Authenticator() {
-//            @Override
-//            public Request authenticate(Route route, Response response) throws IOException {
-//                if (response.request().header("Authorization") != null) {
-//                    return null;
-//                }
-//
-//                System.out.println("Authenticating for response: " + response);
-//                System.out.println("Challenges: " + response.challenges());
-//                String credential = Credentials.basic(user, pass);
-//                return response.request().newBuilder().header("Authorization", credential).build();
-//            }
-//        })
-//                .build();
-//
-//        request = new Request.Builder()
-//                .url("http://172.16.100.19/TPVParaTodos/token")
-//                .build();
-//
-//        try (Response res = client.newCall(request).execute()) {
-//            if (!res.isSuccessful()) {
-//                throw new IOException("Unexpected code " + res);
-//            } else {
-//                permit = true;
-//            }
-//
-//            System.out.println(res.body().string());
-//        }
-
-        return permit;
-    }
-
-    
     //ACTUALMENTE TESTEANDO PARA CONNEXIÓN!
     private boolean connectionTest(String user, String pass) throws IOException {
         boolean permit = false;
+        
+        client = new OkHttpClient();
         String bodyOptions = "grant_type=password&username=" + user + "&password=" + pass;
 
         body = RequestBody.create(mediaType, bodyOptions);
@@ -402,18 +308,16 @@ public final class Login extends JFrame {
                 .post(body)
                 .url("http://172.16.100.19/TPVParaTodos/token")
                 .addHeader("content-type", "application/x-www-form-urlencoded")
-                //                .addHeader("cache-control", "no-cache")
-                //                .addHeader("postman-token", "733d03e2-0094-a975-a3f6-b1c4668229bd")
                 .build());
-        try (Response res = call.execute()) {
-            if (!res.isSuccessful()) {
-                JOptionPane.showMessageDialog(errorContainer, "Usuario o contraseña erroneos!\nVuelva a intentarlo!",
-                        "Login Error", JOptionPane.ERROR_MESSAGE);
-                permit = false;
-            } else {
-                permit = true;
-            }
-
+        Response res = call.execute();
+        if (!res.isSuccessful()) {
+            JOptionPane.showMessageDialog(errorContainer, "Usuario o contraseña erroneos!\nVuelva a intentarlo!",
+                    "Login Error", JOptionPane.ERROR_MESSAGE);
+            permit = false;
+        } else {
+            JOptionPane.showMessageDialog(errorContainer, "Bienvenido "+tf_Username.getText(),
+                            "Succesfull", JOptionPane.INFORMATION_MESSAGE);
+            permit = true;
         }
 
         return permit;

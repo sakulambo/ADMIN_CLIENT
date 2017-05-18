@@ -7,8 +7,9 @@ package view;
 
 import com.google.gson.Gson;
 import controller.GeneralAPanel_Controller;
-import controller.Login_Controller;
 import java.awt.event.ActionEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
@@ -20,6 +21,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import static org.hsqldb.HsqlDateTime.e;
 
 /**
  *
@@ -27,7 +29,7 @@ import javax.swing.JOptionPane;
  */
 public class General_APanel extends JFrame {
 
-    // Variables declaration - do not modify                     
+    // Variables declaration - do not modify  
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu6;
     private javax.swing.JMenuBar jmMainBar;
@@ -58,7 +60,6 @@ public class General_APanel extends JFrame {
     private javax.swing.JMenuItem jmiSeeZones;
     private javax.swing.JMenuItem jmiAddZones;
     private javax.swing.JOptionPane genericpane;
-    private Login_Controller lc;
     private GeneralAPanel_Controller apc;
 
     public General_APanel() throws NoSuchAlgorithmException {
@@ -76,6 +77,18 @@ public class General_APanel extends JFrame {
 
     @SuppressWarnings("unchecked")
     private void initComponents() {
+
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                int reply = JOptionPane.showConfirmDialog(null, "Seguro que quieres salir? ", "Salir", JOptionPane.YES_NO_OPTION);
+                if(reply == genericpane.YES_OPTION){
+                    System.exit(0);
+                }
+               
+            }
+
+        });
 
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
@@ -180,24 +193,24 @@ public class General_APanel extends JFrame {
         });
         jmProductos.add(jmiAnadirProducto);
 
-        jmiModificarComida.setText("Modificar comida");
+        jmiModificarComida.setText("Ver comida");
         jmiModificarComida.addActionListener((ActionEvent ep) -> {
             this.apc.getController().getDpc().getMf().jframeVisible();
         });
         jmProductos.add(jmiModificarComida);
 
-        jmiModificarBebida.setText("Modificar bebida");
+        jmiModificarBebida.setText("Ver bebida");
         jmiModificarBebida.addActionListener((ActionEvent ep) -> {
             this.apc.getController().getMdc().getMd().jframeVisible();
         });
         jmProductos.add(jmiModificarBebida);
-        
-         jmiEliminarProducto.setText("Eliminar producto");
+
+        jmiEliminarProducto.setText("Eliminar producto");
         jmiEliminarProducto.addActionListener((ActionEvent ep) -> {
             this.apc.getController().getMdc().getMd().jframeVisible();
         });
         jmProductos.add(jmiModificarBebida);
-        
+
         jmMainBar.add(jmProductos);
 
         jmZones.setText("Zonas");
@@ -212,7 +225,7 @@ public class General_APanel extends JFrame {
             this.apc.getController().getAzc().getAddZone().setVisible(true);
         });
         jmZones.add(jmiAddZones);
-        
+
         jmMainBar.add(jmZones);
 
         jmOpciones.setText("Opciones");
@@ -282,31 +295,6 @@ public class General_APanel extends JFrame {
         stmt = con.createStatement();
         rs = stmt.executeQuery(query);
 
-//
-//        String aux = " ";
-//        String output;
-//        System.out.println("Output from Server .... \n");
-//        while ((output = rs.readLine()) != null) {
-//            aux += output;
-//
-//        }
-//        ArrayList<Table> tables = TableDAO2.getTableList();
-//
-//        tables = gson.fromJson(" ", new TypeToken<ArrayList<Contacte>>() {
-//        }.getType());
-//        DefaultTableModel model = (DefaultTableModel) jtContacte.getModel();
-//        Object[] row = new Object[4];
-//        for (int i = 0; i < tables.size(); i++) {
-//            row[0] = tables.get(i).getId();
-//            row[1] = tables.get(i).getMaxPeople();
-//            row[2] = tables.get(i).getZone_Id();
-//            if (tables.isEmpty()) {
-//                row[3] = "1";
-//            } else {
-//                row[3] = "0";
-//            }
-//            model.addRow(row);
-//        }
         con.close();
 
     }

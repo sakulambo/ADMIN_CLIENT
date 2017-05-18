@@ -5,6 +5,7 @@
  */
 package model.pojo;
 
+import com.sun.istack.internal.NotNull;
 import java.io.Serializable;
 import java.util.Collection;
 import javax.persistence.Basic;
@@ -32,8 +33,10 @@ public class Drinks extends Products implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Basic(optional = false)
+    @NotNull
     @Column(name = "Capacity")
     protected int capacity;
+    @NotNull
     @Column(name = "TypeBottle")
     protected String typeBottle;
     @Basic(optional = false)

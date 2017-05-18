@@ -5,6 +5,7 @@
  */
 package model.pojo;
 
+import com.sun.istack.internal.NotNull;
 import java.io.Serializable;
 import java.util.Collection;
 import javax.persistence.Basic;
@@ -35,6 +36,7 @@ public class Foods extends Products implements Serializable {
 //    @Basic(optional = false)
 //    @Column(name = "Id")
 //    private Integer id;
+    @NotNull
     @Column(name = "FamilyDish")
     private String familyDish;
     @JoinTable(name = "MenuFoods", joinColumns = {

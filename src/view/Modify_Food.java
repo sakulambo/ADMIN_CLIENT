@@ -58,7 +58,6 @@ public class Modify_Food extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jbModify = new javax.swing.JButton();
         jbCancelar = new javax.swing.JButton();
         jbReportFood = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
@@ -66,13 +65,6 @@ public class Modify_Food extends javax.swing.JFrame {
         jtFoods = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-
-        jbModify.setText("Modificar");
-        jbModify.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbModifyActionPerformed(evt);
-            }
-        });
 
         jbCancelar.setText("Cancelar");
         jbCancelar.addActionListener(new java.awt.event.ActionListener() {
@@ -99,7 +91,7 @@ public class Modify_Food extends javax.swing.JFrame {
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, true, true, true, true
+                false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -123,8 +115,6 @@ public class Modify_Food extends javax.swing.JFrame {
                 .addGap(24, 24, 24)
                 .addComponent(jbReportFood)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jbModify)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jbCancelar)
                 .addGap(31, 31, 31))
             .addGroup(layout.createSequentialGroup()
@@ -145,7 +135,6 @@ public class Modify_Food extends javax.swing.JFrame {
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jbModify)
                     .addComponent(jbCancelar)
                     .addComponent(jbReportFood))
                 .addGap(25, 25, 25))
@@ -158,16 +147,6 @@ public class Modify_Food extends javax.swing.JFrame {
         this.dispose();
         reset();
     }//GEN-LAST:event_jbCancelarActionPerformed
-
-    private void jbModifyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbModifyActionPerformed
-        int reply = JOptionPane.showConfirmDialog(null, "Seguro que quieres modificar este producto? ", "Modificar Producto", JOptionPane.YES_NO_OPTION);
-        if (reply == genericPane.YES_OPTION) {
-            JOptionPane.showMessageDialog(null, "Producto modificada correctamente!");
-
-        } else {
-            JOptionPane.showMessageDialog(null, "Operación cancelada!");
-        }
-    }//GEN-LAST:event_jbModifyActionPerformed
 
     private void jbReportFoodActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbReportFoodActionPerformed
           int result = JOptionPane.showConfirmDialog(genericPane, "Quieres generar un reporte?", "Generar reporte", JOptionPane.YES_NO_OPTION);
@@ -205,7 +184,6 @@ public class Modify_Food extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JButton jbCancelar;
-    private javax.swing.JButton jbModify;
     private javax.swing.JButton jbReportFood;
     private javax.swing.JTable jtFoods;
     // End of variables declaration//GEN-END:variables

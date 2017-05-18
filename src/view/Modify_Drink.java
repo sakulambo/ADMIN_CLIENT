@@ -58,7 +58,6 @@ public class Modify_Drink extends javax.swing.JFrame {
         jtDrinks = new javax.swing.JTable();
         jbReportDrinks = new javax.swing.JButton();
         jbCancelar = new javax.swing.JButton();
-        jbEliminar = new javax.swing.JButton();
 
         jbReport.setText("Generar Reporte");
         jbReport.addActionListener(new java.awt.event.ActionListener() {
@@ -80,7 +79,7 @@ public class Modify_Drink extends javax.swing.JFrame {
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, true, true, true, true, true, false, true
+                false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -113,13 +112,6 @@ public class Modify_Drink extends javax.swing.JFrame {
             }
         });
 
-        jbEliminar.setText("Modificar");
-        jbEliminar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jbEliminarActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -127,9 +119,7 @@ public class Modify_Drink extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(22, 22, 22)
                 .addComponent(jbReportDrinks)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 449, Short.MAX_VALUE)
-                .addComponent(jbEliminar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jbCancelar)
                 .addGap(25, 25, 25))
             .addGroup(layout.createSequentialGroup()
@@ -138,7 +128,7 @@ public class Modify_Drink extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jScrollPane1))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 749, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -151,7 +141,6 @@ public class Modify_Drink extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jbReportDrinks)
-                    .addComponent(jbEliminar)
                     .addComponent(jbCancelar))
                 .addGap(22, 22, 22))
         );
@@ -186,16 +175,6 @@ public class Modify_Drink extends javax.swing.JFrame {
         reset();
     }//GEN-LAST:event_jbCancelarActionPerformed
 
-    private void jbEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbEliminarActionPerformed
-        int reply = JOptionPane.showConfirmDialog(null, "Seguro que quieres modificar este producto? ", "Modificar Producto", JOptionPane.YES_NO_OPTION);
-        if (reply == genericPane.YES_OPTION) {
-            JOptionPane.showMessageDialog(null, "Producto modificada correctamente!");
-
-        } else {
-            JOptionPane.showMessageDialog(null, "Operación cancelada!");
-        }
-    }//GEN-LAST:event_jbEliminarActionPerformed
-
     private void reset() {
         dtm.setRowCount(0);
     }
@@ -214,7 +193,6 @@ public class Modify_Drink extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton jbCancelar;
-    private javax.swing.JButton jbEliminar;
     private javax.swing.JButton jbReport;
     private javax.swing.JButton jbReportDrinks;
     private javax.swing.JTable jtDrinks;

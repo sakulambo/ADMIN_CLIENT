@@ -33,8 +33,8 @@ public class Menus implements Serializable {
     @Id
     @Basic(optional = false)
     @Column(name = "Id")
-    private Integer id;
-    @Basic(optional = false)
+    private Integer id;    
+    @Basic(optional = false)    
     @Column(name = "PeopleNumber")
     private short peopleNumber;
     @ManyToMany(mappedBy = "menusCollection", fetch = FetchType.LAZY)
