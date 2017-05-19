@@ -168,10 +168,6 @@ public final class Login extends JFrame {
                     if (connectionTest(tf_Username.getText(), pf_Password.getText())) {
                         this.dispose();
                         this.loginController.getController().getGapc().getGeneralAdmin_Panel().setVisible(true);
-                    } else {
-                        JOptionPane.showMessageDialog(errorContainer, "Usuario o contraseña erroneos!\nVuelva a intentarlo!",
-                                "Login Error", JOptionPane.ERROR_MESSAGE);
-                        System.out.println("USERNAME OR PASSWORD IS INCORRECT");
                     }
                 }
             } catch (IOException ex) {
@@ -270,15 +266,10 @@ public final class Login extends JFrame {
                         .getName()).log(Level.SEVERE, null, ex);
             }
             try {
-                if (connectionTest(tf_Username.getText(), pf_Password.getText())) {                    
+                if (connectionTest(tf_Username.getText(), pf_Password.getText())) {
                     this.dispose();
                     this.loginController.getController().getGapc().getGeneralAdmin_Panel().setVisible(true);
-                } else {
-                    JOptionPane.showMessageDialog(errorContainer, "Usuario o contraseña erroneos!\nVuelva a intentarlo!",
-                            "Login Error", JOptionPane.ERROR_MESSAGE);
-                   
-
-                }                
+                }
             } catch (IOException ex) {
                 Logger.getLogger(Login.class
                         .getName()).log(Level.SEVERE, null, ex);
@@ -298,7 +289,7 @@ public final class Login extends JFrame {
     //ACTUALMENTE TESTEANDO PARA CONNEXIÓN!
     private boolean connectionTest(String user, String pass) throws IOException {
         boolean permit = false;
-        
+
         client = new OkHttpClient();
         String bodyOptions = "grant_type=password&username=" + user + "&password=" + pass;
 
@@ -315,8 +306,8 @@ public final class Login extends JFrame {
                     "Login Error", JOptionPane.ERROR_MESSAGE);
             permit = false;
         } else {
-            JOptionPane.showMessageDialog(errorContainer, "Bienvenido "+tf_Username.getText(),
-                            "Succesfull", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(errorContainer, "Bienvenido " + tf_Username.getText(),
+                    "Succesfull", JOptionPane.INFORMATION_MESSAGE);
             permit = true;
         }
 

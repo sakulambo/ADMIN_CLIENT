@@ -5,6 +5,7 @@
  */
 package model.pojo;
 
+import model.pojo.*;
 import com.sun.istack.internal.NotNull;
 import java.io.Serializable;
 import java.util.Collection;
@@ -20,6 +21,7 @@ import javax.persistence.InheritanceType;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 /**
  *
@@ -32,6 +34,24 @@ import javax.persistence.Table;
     @NamedQuery(name = "Products.findAll", query = "SELECT p FROM Products p")})
 public abstract class Products implements Serializable {
 
+    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
+    @Basic(optional = false)
+    @Column(name = "Price")
+    private double price;
+    @Basic(optional = false)
+    @Column(name = "Available")
+    private boolean available;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "productId")
+    private Collection<LogsProducts> logsProductsCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "products")
+    private Collection<Fragments> fragmentsCollection;
+//    @OneToOne(cascade = CascadeType.ALL, mappedBy = "products")
+//    private Menus menus;
+//    @OneToOne(cascade = CascadeType.ALL, mappedBy = "products")
+//    private Drinks drinks;
+//    @OneToOne(cascade = CascadeType.ALL, mappedBy = "products")
+//    private Foods foods;
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue
@@ -41,14 +61,8 @@ public abstract class Products implements Serializable {
     @NotNull
     @Column(name = "Name")
     protected String name;
-    @NotNull
-    @Basic(optional = false)
-    @Column(name = "Price")
-    protected double price;
     @Column(name = "Description")
-    protected String description;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "products", fetch = FetchType.LAZY)
-    private Collection<Fragments> fragmentsCollection;
+    protected String description;   
 //    @OneToOne(cascade = CascadeType.ALL, mappedBy = "products", fetch = FetchType.LAZY)
 //    private Menus menus;
 //    @OneToOne(cascade = CascadeType.ALL, mappedBy = "products", fetch = FetchType.LAZY)
@@ -73,11 +87,7 @@ public abstract class Products implements Serializable {
         this.price = price;
         this.description = description;
     }
-
   
-    
-    
-
     public Integer getId() {
         return id;
     }
@@ -94,13 +104,6 @@ public abstract class Products implements Serializable {
         this.name = name;
     }
 
-    public double getPrice() {
-        return price;
-    }
-
-    public void setPrice(double price) {
-        this.price = price;
-    }
 
     public String getDescription() {
         return description;
@@ -166,5 +169,54 @@ public abstract class Products implements Serializable {
     public String toString() {
         return "model.pojo.Products[ id=" + id + " ]";
     }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
+    public boolean getAvailable() {
+        return available;
+    }
+
+    public void setAvailable(boolean available) {
+        this.available = available;
+    }
+
+    public Collection<LogsProducts> getLogsProductsCollection() {
+        return logsProductsCollection;
+    }
+
+    public void setLogsProductsCollection(Collection<LogsProducts> logsProductsCollection) {
+        this.logsProductsCollection = logsProductsCollection;
+    }
+   
+
+//    public Menus getMenus() {
+//        return menus;
+//    }
+//
+//    public void setMenus(Menus menus) {
+//        this.menus = menus;
+//    }
+//
+//    public Drinks getDrinks() {
+//        return drinks;
+//    }
+//
+//    public void setDrinks(Drinks drinks) {
+//        this.drinks = drinks;
+//    }
+//
+//    public Foods getFoods() {
+//        return foods;
+//    }
+//
+//    public void setFoods(Foods foods) {
+//        this.foods = foods;
+//    }
     
 }

@@ -12,6 +12,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import model.dao.AbstractDAO;
 import model.pojo.Foods;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperPrint;
@@ -47,7 +48,7 @@ public class Modify_Food extends javax.swing.JFrame {
 
     public void jframeVisible() {
         if (this.mfc.getController().getGapc().getGeneralAdmin_Panel().isVisible()) {
-            foods = this.mfc.getController().getService().getFoodsDAO().getFoodList();            
+           foods = this.mfc.getController().getService().getFoodsDAO().getFoodList();            
             loadTableFoods(foods);
             this.setVisible(true);
         }

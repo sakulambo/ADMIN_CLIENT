@@ -5,6 +5,7 @@
  */
 package model.pojo;
 
+import model.pojo.*;
 import java.io.Serializable;
 import java.util.Collection;
 import javax.persistence.Basic;

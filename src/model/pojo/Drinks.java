@@ -5,6 +5,7 @@
  */
 package model.pojo;
 
+import model.pojo.*;
 import com.sun.istack.internal.NotNull;
 import java.io.Serializable;
 import java.util.Collection;
@@ -50,7 +51,9 @@ public class Drinks extends Products implements Serializable {
         @JoinColumn(name = "Menu_Id", referencedColumnName = "Id")})
     @ManyToMany(fetch = FetchType.LAZY)
     private Collection<Menus> menusCollection;
-
+    @JoinColumn(name = "Id", referencedColumnName = "Id", insertable = false, updatable = false)
+    @OneToOne(optional = false)
+    private Products products;
 
     public Drinks() {
     }
@@ -63,14 +66,6 @@ public class Drinks extends Products implements Serializable {
         this.alcohol = alcohol;
     }
 
-//
-//    public Integer getId() {
-//        return id;
-//    }
-//
-//    public void setId(Integer id) {
-//        this.id = id;
-//    }
     public int getCapacity() {
         return capacity;
     }
@@ -111,17 +106,12 @@ public class Drinks extends Products implements Serializable {
         this.menusCollection = menusCollection;
     }
 
-//    public Products getProducts() {
-//        return products;
-//    }
-//
-//    public void setProducts(Products products) {
-//        this.products = products;
-//    }
+    public Products getProducts() {
+        return products;
+    }
 
-    @Override
-    public String toString() {
-        return "Drinks{" + "capacity=" + capacity + ", typeBottle=" + typeBottle + ", soda=" + soda + ", alcohol=" + alcohol + '}';
+    public void setProducts(Products products) {
+        this.products = products;
     }
 
 }

@@ -47,7 +47,8 @@
         <mapping class="model.pojo.AspNetUserLoginsPK"/>
         <mapping class="model.pojo.AspNetUsers"/>
         <mapping class="model.pojo.MigrationHistory"/>
-        <mapping class="model.pojo.MigrationHistoryPK"/>                       
+        <mapping class="model.pojo.MigrationHistoryPK"/>   
+        <mapping class="model.pojo.LogsProducts"/>                    
                  
     </session-factory> 
 </hibernate-configuration>

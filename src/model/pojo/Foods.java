@@ -5,6 +5,7 @@
  */
 package model.pojo;
 
+import model.pojo.*;
 import com.sun.istack.internal.NotNull;
 import java.io.Serializable;
 import java.util.Collection;
@@ -32,10 +33,7 @@ import javax.persistence.Table;
 public class Foods extends Products implements Serializable {
 
     private static final long serialVersionUID = 1L;
-//    @Id
-//    @Basic(optional = false)
-//    @Column(name = "Id")
-//    private Integer id;
+
     @NotNull
     @Column(name = "FamilyDish")
     private String familyDish;
@@ -44,9 +42,9 @@ public class Foods extends Products implements Serializable {
         @JoinColumn(name = "Menu_Id", referencedColumnName = "Id")})
     @ManyToMany(fetch = FetchType.LAZY)
     private Collection<Menus> menusCollection;
-//    @JoinColumn(name = "Id", referencedColumnName = "Id", insertable = false, updatable = false)
-//    @OneToOne(optional = false, fetch = FetchType.LAZY)
-//    private Products products;
+    @JoinColumn(name = "Id", referencedColumnName = "Id", insertable = false, updatable = false)
+    @OneToOne(optional = false, fetch = FetchType.LAZY)
+    private Products products;
 
     public Foods() {
     }
@@ -79,13 +77,13 @@ public class Foods extends Products implements Serializable {
         this.menusCollection = menusCollection;
     }
 
-//    public Products getProducts() {
-//        return products;
-//    }
-//
-//    public void setProducts(Products products) {
-//        this.products = products;
-//    }
+    public Products getProducts() {
+        return products;
+    }
+
+    public void setProducts(Products products) {
+        this.products = products;
+    }
 //    @Override
 //    public int hashCode() {
 //        int hash = 0;

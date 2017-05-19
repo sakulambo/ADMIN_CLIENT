@@ -17,6 +17,7 @@
     <class>model.pojo.Orders</class>
     <class>model.pojo.AspNetRoles</class>
     <class>model.pojo.Menus</class>
+    <class>model.pojo2.LogsProducts</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:sqlserver://tpvparatodos.database.windows.net;databaseName=TPVParaTodos"/>
       <property name="javax.persistence.jdbc.user" value="Eduardo"/>

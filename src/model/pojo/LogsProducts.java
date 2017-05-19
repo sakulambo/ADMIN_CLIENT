@@ -5,12 +5,10 @@
  */
 package model.pojo;
 
-import model.pojo.*;
 import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -23,28 +21,28 @@ import javax.persistence.Table;
  * @author sakulambo
  */
 @Entity
-@Table(name = "AspNetUserClaims")
+@Table(name = "LogsProducts")
 @NamedQueries({
-    @NamedQuery(name = "AspNetUserClaims.findAll", query = "SELECT a FROM AspNetUserClaims a")})
-public class AspNetUserClaims implements Serializable {
+    @NamedQuery(name = "LogsProducts.findAll", query = "SELECT l FROM LogsProducts l")
+    , @NamedQuery(name = "LogsProducts.findById", query = "SELECT l FROM LogsProducts l WHERE l.id = :id")
+    , @NamedQuery(name = "LogsProducts.findByAction", query = "SELECT l FROM LogsProducts l WHERE l.action = :action")})
+public class LogsProducts implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
     @Column(name = "Id")
     private Integer id;
-    @Column(name = "ClaimType")
-    private String claimType;
-    @Column(name = "ClaimValue")
-    private String claimValue;
-    @JoinColumn(name = "UserId", referencedColumnName = "Id")
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private AspNetUsers userId;
+    @Column(name = "Action")
+    private String action;
+    @JoinColumn(name = "Product_Id", referencedColumnName = "Id")
+    @ManyToOne(optional = false)
+    private Products productId;
 
-    public AspNetUserClaims() {
+    public LogsProducts() {
     }
 
-    public AspNetUserClaims(Integer id) {
+    public LogsProducts(Integer id) {
         this.id = id;
     }
 
@@ -56,28 +54,20 @@ public class AspNetUserClaims implements Serializable {
         this.id = id;
     }
 
-    public String getClaimType() {
-        return claimType;
+    public String getAction() {
+        return action;
     }
 
-    public void setClaimType(String claimType) {
-        this.claimType = claimType;
+    public void setAction(String action) {
+        this.action = action;
     }
 
-    public String getClaimValue() {
-        return claimValue;
+    public Products getProductId() {
+        return productId;
     }
 
-    public void setClaimValue(String claimValue) {
-        this.claimValue = claimValue;
-    }
-
-    public AspNetUsers getUserId() {
-        return userId;
-    }
-
-    public void setUserId(AspNetUsers userId) {
-        this.userId = userId;
+    public void setProductId(Products productId) {
+        this.productId = productId;
     }
 
     @Override
@@ -90,10 +80,10 @@ public class AspNetUserClaims implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof AspNetUserClaims)) {
+        if (!(object instanceof LogsProducts)) {
             return false;
         }
-        AspNetUserClaims other = (AspNetUserClaims) object;
+        LogsProducts other = (LogsProducts) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -102,7 +92,7 @@ public class AspNetUserClaims implements Serializable {
 
     @Override
     public String toString() {
-        return "model.pojo.AspNetUserClaims[ id=" + id + " ]";
+        return "model.pojo2.LogsProducts[ id=" + id + " ]";
     }
     
 }

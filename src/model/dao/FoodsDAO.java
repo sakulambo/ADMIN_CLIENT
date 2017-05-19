@@ -91,7 +91,7 @@ public class FoodsDAO {
 
         try {
             startOperation();
-            FoodList = sesion.createQuery("from Foods").list();
+            FoodList = sesion.createQuery("FROM Foods").list();
         } finally {
             sesion.close();
         }

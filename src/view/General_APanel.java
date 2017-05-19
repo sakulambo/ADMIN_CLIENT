@@ -34,7 +34,6 @@ public class General_APanel extends JFrame {
     private javax.swing.JMenu jMenu6;
     private javax.swing.JMenuBar jmMainBar;
     private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenu jmFacturacion;
     private javax.swing.JMenu jmMenus;
     private javax.swing.JMenu jmComandas;
     private javax.swing.JMenu jmMesas;
@@ -51,11 +50,10 @@ public class General_APanel extends JFrame {
     private javax.swing.JMenuItem jmiModificarBebida;
     private javax.swing.JMenuItem jmiEliminarProducto;
     private javax.swing.JMenuItem jmiExit;
-    private javax.swing.JMenuItem jmiFacturarAno;
-    private javax.swing.JMenuItem jmiFacturarMes;
     private javax.swing.JMenuItem jmiMostrarMenu;
     private javax.swing.JMenuItem jmiMostrarMesas;
     private javax.swing.JMenuItem jmiVerPersonal;
+    private javax.swing.JMenuItem jmiAltaPersonal;
     private javax.swing.JMenuItem jmiSeeOrders;
     private javax.swing.JMenuItem jmiSeeZones;
     private javax.swing.JMenuItem jmiAddZones;
@@ -63,6 +61,7 @@ public class General_APanel extends JFrame {
     private GeneralAPanel_Controller apc;
 
     public General_APanel() throws NoSuchAlgorithmException {
+        super("Menú principal");
         initComponents();
 
     }
@@ -82,10 +81,10 @@ public class General_APanel extends JFrame {
             @Override
             public void windowClosing(WindowEvent e) {
                 int reply = JOptionPane.showConfirmDialog(null, "Seguro que quieres salir? ", "Salir", JOptionPane.YES_NO_OPTION);
-                if(reply == genericpane.YES_OPTION){
+                if (reply == genericpane.YES_OPTION) {
                     System.exit(0);
                 }
-               
+
             }
 
         });
@@ -94,11 +93,9 @@ public class General_APanel extends JFrame {
         jMenu3 = new javax.swing.JMenu();
         jMenu6 = new javax.swing.JMenu();
         jmMainBar = new javax.swing.JMenuBar();
-        jmFacturacion = new javax.swing.JMenu();
-        jmiFacturarMes = new javax.swing.JMenuItem();
-        jmiFacturarAno = new javax.swing.JMenuItem();
         jmPersonal = new javax.swing.JMenu();
         jmiVerPersonal = new javax.swing.JMenuItem();
+        jmiAltaPersonal = new javax.swing.JMenuItem();
         jmMesas = new javax.swing.JMenu();
         jmiCrearMesa = new javax.swing.JMenuItem();
         jmiMostrarMesas = new javax.swing.JMenuItem();
@@ -128,17 +125,7 @@ public class General_APanel extends JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jmFacturacion.setText("Facturación");
-
-        jmiFacturarMes.setText("Facturar mes");
-        jmiFacturarMes.addActionListener(this::jmiFacturarMesActionPerformed);
-        jmFacturacion.add(jmiFacturarMes);
-
-        jmiFacturarAno.setText("Facturar año");
-        jmFacturacion.add(jmiFacturarAno);
-
-        jmMainBar.add(jmFacturacion);
-
+        
         jmPersonal.setText("Personal");
 
         jmiVerPersonal.setText("Ver personal");
@@ -146,6 +133,12 @@ public class General_APanel extends JFrame {
             this.apc.getController().getSsc().getShowStaff().jframVisible();
         });
         jmPersonal.add(jmiVerPersonal);
+
+        jmiAltaPersonal.setText("Alta personal");
+        jmiAltaPersonal.addActionListener((ActionEvent ae) -> {
+            this.apc.getController().getAsc().getAddStaff().setVisible(true);
+        });
+        jmPersonal.add(jmiAltaPersonal);
 
         jmMainBar.add(jmPersonal);
 

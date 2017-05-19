@@ -5,6 +5,7 @@
  */
 package model.pojo;
 
+import model.pojo.*;
 import java.io.Serializable;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;

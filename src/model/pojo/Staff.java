@@ -5,6 +5,7 @@
  */
 package model.pojo;
 
+import model.pojo.*;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Basic;
@@ -16,6 +17,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.JoinColumn;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
@@ -33,6 +35,12 @@ import javax.persistence.TemporalType;
 @NamedQueries({
     @NamedQuery(name = "Staff.findAll", query = "SELECT s FROM Staff s")})
 public class Staff implements Serializable {
+
+    @JoinColumn(name = "Id", referencedColumnName = "Id")
+    @OneToOne(optional = false)
+    private AspNetUsers aspNetUsers;
+//    @OneToOne(cascade = CascadeType.ALL, mappedBy = "staff")
+//    private Waiters waiters;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -180,5 +188,21 @@ public class Staff implements Serializable {
     public String toString() {
         return "model.pojo.Staff[ id=" + id + " ]";
     }
+
+    public AspNetUsers getAspNetUsers() {
+        return aspNetUsers;
+    }
+
+    public void setAspNetUsers(AspNetUsers aspNetUsers) {
+        this.aspNetUsers = aspNetUsers;
+    }
+
+//    public Waiters getWaiters() {
+//        return waiters;
+//    }
+//
+//    public void setWaiters(Waiters waiters) {
+//        this.waiters = waiters;
+//    }
 
 }

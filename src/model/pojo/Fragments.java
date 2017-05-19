@@ -5,6 +5,7 @@
  */
 package model.pojo;
 
+import model.pojo.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import javax.persistence.Basic;
