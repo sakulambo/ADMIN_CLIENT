@@ -5,7 +5,6 @@
  */
 package model.pojo;
 
-import model.pojo2.*;
 import model.pojo.*;
 import java.io.Serializable;
 import javax.persistence.Basic;
@@ -74,9 +73,6 @@ public class FragmentsPK implements Serializable {
         return true;
     }
 
-    @Override
-    public String toString() {
-        return "model.pojo.FragmentsPK[ productId=" + productId + ", orderId=" + orderId + " ]";
-    }
+   
     
 }
